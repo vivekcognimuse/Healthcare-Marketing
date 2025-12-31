@@ -26,13 +26,7 @@ const testimonials = [
     quote: "From content to engagement, they handled everything smoothly. It allowed me to focus more on my patients.",
     rating: 5,
   },
-  {
-    name: "Mr. Rahul",
-    role: "Pedriatric OT",
-    image: "/testimonials/mr-rahul.png",
-    quote: "Muse Marketing helped us get more patient leads and made us stand out locally. Their support and creativity have been outstanding.",
-    rating: 5,
-  },
+
 ];
 
 export default function TestimonialsSection() {
@@ -249,7 +243,7 @@ export default function TestimonialsSection() {
 
             {/* Enhanced: Carousel when JS is enabled */}
             {isJsEnabled && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch">
                 <AnimatePresence mode="wait">
                   {getVisibleTestimonials().map((testimonial, index) => (
                   <motion.div
@@ -263,13 +257,13 @@ export default function TestimonialsSection() {
                       ease: [0.4, 0, 0.2, 1]
                     }}
                     whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                    className="bg-white rounded-xl p-6 lg:p-8 border border-gray-200"
+                    className="bg-white rounded-xl p-6 lg:p-8 border border-gray-200 flex flex-col h-full min-h-[320px] md:min-h-[280px]"
                   >
                     {/* Mobile Layout: Quote at top, then author info, then image and rating */}
-                    <div className="md:hidden">
+                    <div className="md:hidden flex flex-col flex-1">
                       {/* Quote Section */}
                       <motion.p 
-                        className="typography-p2 text-black/70 italic mb-4"
+                        className="typography-p2 text-black/70 italic mb-4 flex-1"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.2 + index * 0.1 }}
@@ -334,9 +328,9 @@ export default function TestimonialsSection() {
                     </div>
 
                     {/* Desktop Layout: Image Left, Quote Right */}
-                    <div className="hidden md:block">
+                    <div className="hidden md:block flex flex-col flex-1">
                       <motion.div 
-                        className="flex gap-4 mb-4 pb-4 border-b border-gray-200"
+                        className="flex gap-4 mb-4 pb-4 border-b border-gray-200 flex-1"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.2 + index * 0.1 }}

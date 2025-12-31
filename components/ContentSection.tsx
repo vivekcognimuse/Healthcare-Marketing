@@ -650,9 +650,8 @@ const StackedCard = memo(({
                         {service.samples[0].before.type === "video" ? (
                           <video
                             src={service.samples[0].before.src}
-                            className="w-full h-auto sm:rounded-lg sm:border-2 sm:border-[#E5E7EB]"
+                            className="w-full h-auto max-h-[600px] sm:max-h-[500px] sm:rounded-lg sm:border-2 sm:border-[#E5E7EB]"
                             style={{ 
-                              maxHeight: window.innerWidth < 640 ? '600px' : '500px',
                               objectFit: 'contain'
                             }}
                             autoPlay
@@ -669,9 +668,8 @@ const StackedCard = memo(({
                             alt={`${service.name} - Before`}
                             width={600}
                             height={400}
-                            className="w-full h-auto sm:rounded-lg sm:border-2 sm:border-[#E5E7EB] sm:bg-white"
+                            className="w-full h-auto max-h-[600px] sm:max-h-[500px] sm:rounded-lg sm:border-2 sm:border-[#E5E7EB] sm:bg-white"
                             style={{ 
-                              maxHeight: window.innerWidth < 640 ? '600px' : '500px',
                               objectFit: 'contain'
                             }}
                             loading="lazy"
@@ -718,9 +716,8 @@ const StackedCard = memo(({
                         {service.samples[0].after.type === "video" ? (
                           <video
                             src={service.samples[0].after.src}
-                            className="w-full h-auto sm:rounded-lg sm:border-2 sm:border-[#E5E7EB]"
+                            className="w-full h-auto max-h-[600px] sm:max-h-[500px] sm:rounded-lg sm:border-2 sm:border-[#E5E7EB]"
                             style={{ 
-                              maxHeight: window.innerWidth < 640 ? '600px' : '500px',
                               objectFit: 'contain'
                             }}
                             autoPlay
@@ -737,9 +734,8 @@ const StackedCard = memo(({
                             alt={`${service.name} - After`}
                             width={600}
                             height={400}
-                            className="w-full h-auto sm:rounded-lg sm:border-2 sm:border-[#E5E7EB] sm:bg-white"
+                            className="w-full h-auto max-h-[600px] sm:max-h-[500px] sm:rounded-lg sm:border-2 sm:border-[#E5E7EB] sm:bg-white"
                             style={{ 
-                              maxHeight: window.innerWidth < 640 ? '600px' : '500px',
                               objectFit: 'contain'
                             }}
                             loading="lazy"
