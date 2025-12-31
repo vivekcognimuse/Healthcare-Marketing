@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 
 const essentialFeatures = [
   {
@@ -68,7 +69,12 @@ export default function PackagesSection() {
   const [activeTab, setActiveTab] = useState(0); // 0 for Essential, 1 for Pro
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [isJsEnabled, setIsJsEnabled] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsJsEnabled(true);
+  }, []);
 
   // Minimum swipe distance
   const minSwipeDistance = 50;
@@ -96,56 +102,162 @@ export default function PackagesSection() {
     }
   };
 
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
+  const isCardsInView = useInView(cardsRef, { once: true, margin: "-50px" });
+
   return (
     <section id="packages" className="bg-white py-12 sm:py-16 lg:py-24">
       <div className="container">
         {/* Header */}
-        <div className="text-center mb-12 lg:mb-16">
+        <motion.div 
+          ref={headerRef}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center mb-12 lg:mb-16"
+        >
           <h2 className="typography-h2 text-black mb-4">
             Our Social Media Package for Occupational Therapists
           </h2>
           <p className="typography-p1 text-black/80  mx-auto">
             We offer two tailored packages to help you strengthen your online presence and engage with patients effectively, consistently.
           </p>
-        </div>
+        </motion.div>
 
         {/* Package Cards */}
-        <div className="max-w-7xl mx-auto">
-          {/* Mobile: Tab Interface */}
-          <div className="md:hidden mb-6 flex justify-center">
-            <div className="bg-primary/10 rounded-full p-1 inline-flex w-full max-w-xs">
-              <button
-                onClick={() => setActiveTab(0)}
-                className={`flex-1 px-6 py-2 rounded-full typography-p2 font-bold transition-all ${
-                  activeTab === 0
-                    ? "bg-white text-black shadow-sm"
-                    : "text-black/70"
-                }`}
-              >
-                Essential
-              </button>
-              <button
-                onClick={() => setActiveTab(1)}
-                className={`flex-1 px-6 py-2 rounded-full typography-p2 font-bold transition-all ${
-                  activeTab === 1
-                    ? "bg-white text-black shadow-sm"
-                    : "text-black/70"
-                }`}
-              >
-                Pro
-              </button>
+        <div className="max-w-3xl md:max-w-xl lg:max-w-5xl mx-auto">
+          {/* Mobile: Fallback - Show both packages when JS is disabled */}
+          {!isJsEnabled && (
+            <div className="md:hidden space-y-6">
+              {/* Essential Package */}
+              <div className="px-4">
+                <div className="flex flex-col bg-white border-2 border-black/50 rounded-xl overflow-hidden">
+                  <div className="p-6 pb-0">
+                    <h3 className="typography-h3 text-black mb-4 text-center">Essential</h3>
+                    <div className="w-full h-[2px] bg-black mb-6"></div>
+                    <h4 className="typography-h3 text-black mb-4">Package Includes:</h4>
+                    <ul className="space-y-4">
+                      {essentialFeatures.map((feature, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <svg
+                            className="w-5 h-5 text-primary flex-shrink-0 mt-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                          <div>
+                            <p className="typography-p2 text-black" style={{ fontWeight: 'bold' }}>{feature.title}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="border-t-2 border-black/50">
+                    <a 
+                      href="https://wa.me/8861078009"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-white text-black border-none typography-btn1 py-4 rounded-b-xl hover:opacity-90 transition-opacity font-bold block text-center"
+                    >
+                      CONNECT WITH AN EXPERT
+                    </a>
+                  </div>
+                </div>
+              </div>
+              {/* Pro Package */}
+              <div className="px-4">
+                <div className="relative flex flex-col">
+                  <div className="flex flex-col bg-primary/10 border-2 border-primary rounded-xl overflow-hidden">
+                    <div className="p-6 pb-0">
+                      <h3 className="typography-h3 text-primary mb-4 text-center">Pro</h3>
+                      <div className="w-full h-[2px] bg-primary mb-6"></div>
+                      <h4 className="typography-h3 text-primary mb-4">Package Includes:</h4>
+                      <ul className="space-y-4">
+                        {proFeatures.map((feature, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <svg
+                              className="w-5 h-5 text-primary flex-shrink-0 mt-1"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                            <div>
+                              <p className="typography-p2 text-black" style={{ fontWeight: 'bold' }}>{feature.title}</p>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="border-t border-primary/70">
+                      <a 
+                        href="https://wa.me/8861078009"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-primary text-white border-none typography-btn1 py-4 rounded-b hover:opacity-90 transition-opacity font-bold block text-center"
+                      >
+                        CONNECT WITH AN EXPERT
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Mobile: Carousel Cards */}
-          <div 
-            className="md:hidden relative overflow-hidden"
-            ref={containerRef}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
-            <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${activeTab * 100}%)` }}>
+          {/* Mobile: Tab Interface - Only show when JS is enabled */}
+          {isJsEnabled && (
+            <div className="md:hidden mb-6 flex justify-center">
+              <div className="bg-primary/10 rounded-full p-1 inline-flex w-full max-w-xs">
+                <button
+                  onClick={() => setActiveTab(0)}
+                  className={`flex-1 px-6 py-2 rounded-full typography-p2 font-bold transition-all ${
+                    activeTab === 0
+                      ? "bg-white text-black shadow-sm"
+                      : "text-black/70"
+                  }`}
+                >
+                  Essential
+                </button>
+                <button
+                  onClick={() => setActiveTab(1)}
+                  className={`flex-1 px-6 py-2 rounded-full typography-p2 font-bold transition-all ${
+                    activeTab === 1
+                      ? "bg-white text-black shadow-sm"
+                      : "text-black/70"
+                  }`}
+                >
+                  Pro
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Mobile: Carousel Cards - Only show when JS is enabled */}
+          {isJsEnabled && (
+            <div 
+              className="md:hidden relative overflow-hidden"
+              ref={containerRef}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
+              <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${activeTab * 100}%)` }}>
               {/* Essential Package - Mobile */}
               <div className="min-w-full flex-shrink-0 px-4">
                 <div className="flex flex-col bg-white border-2 border-black/50 rounded-xl overflow-hidden">
@@ -234,30 +346,52 @@ export default function PackagesSection() {
                 </div>
               </div>
             </div>
-          </div>
+            </div>
+          )}
 
-          {/* Mobile: Carousel Dots */}
-          <div className="md:hidden flex justify-center gap-2 mt-6">
-            <button
-              onClick={() => setActiveTab(0)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                activeTab === 0 ? "bg-primary w-6" : "bg-gray-300"
-              }`}
-              aria-label="Essential package"
-            />
-            <button
-              onClick={() => setActiveTab(1)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                activeTab === 1 ? "bg-primary w-6" : "bg-gray-300"
-              }`}
-              aria-label="Pro package"
-            />
-          </div>
+          {/* Mobile: Carousel Dots - Only show when JS is enabled */}
+          {isJsEnabled && (
+            <div className="md:hidden flex justify-center gap-2 mt-6">
+              <button
+                onClick={() => setActiveTab(0)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  activeTab === 0 ? "bg-primary w-6" : "bg-gray-300"
+                }`}
+                aria-label="Essential package"
+              />
+              <button
+                onClick={() => setActiveTab(1)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  activeTab === 1 ? "bg-primary w-6" : "bg-gray-300"
+                }`}
+                aria-label="Pro package"
+              />
+            </div>
+          )}
 
           {/* Desktop: Original Layout */}
-          <div className="hidden md:flex flex-col gap-8 lg:flex-row lg:gap-12 lg:items-start">
+          <motion.div 
+            ref={cardsRef}
+            initial="hidden"
+            animate={isCardsInView ? "visible" : "hidden"}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.15,
+                },
+              },
+            }}
+            className="hidden md:flex flex-col gap-8 lg:flex-row lg:gap-12 lg:items-start"
+          >
             {/* Essential Package */}
-            <div className="flex flex-col bg-white border-2 border-black/50 rounded-xl hover:shadow-lg transition-shadow overflow-hidden">
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col bg-white border-2 border-black/50 rounded-xl hover:shadow-lg transition-shadow overflow-hidden"
+            >
               <div className="p-8 lg:p-10 pb-0">
                 <h3 className="typography-h3 text-black mb-2 text-center">Essential</h3>
                 <p className="typography-p2 text-black/70 mb-6 text-center">
@@ -299,10 +433,17 @@ export default function PackagesSection() {
                   CONNECT WITH AN EXPERT
                 </a>
               </div>
-            </div>
+            </motion.div>
 
             {/* Pro Package */}
-            <div className="relative flex flex-col">
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0, y: 40 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="relative flex flex-col"
+            >
               <div 
                 className="absolute bg-primary text-white typography-footnote px-6 py-2 font-bold whitespace-nowrap z-10"
                 style={{ 
@@ -357,8 +498,8 @@ export default function PackagesSection() {
                   </a>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

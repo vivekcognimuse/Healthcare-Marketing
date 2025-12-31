@@ -3,26 +3,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import Button from "./Button";
-import { useState, useEffect } from "react";
+import ScrollToTop from "./ScrollToTop";
 
 export default function Footer() {
-  const [isWhatsAppVisible, setIsWhatsAppVisible] = useState(false);
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsWhatsAppVisible(true);
-      } else {
-        setIsWhatsAppVisible(false);
-      }
-    };
-
-    window.addEventListener("scroll", toggleVisibility);
-
-    return () => {
-      window.removeEventListener("scroll", toggleVisibility);
-    };
-  }, []);
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
   return (
     <footer className="relative text-white bg-black min-h-screen h-screen flex flex-col">
       {/* Eclipse Background Section - Covers from top until logo bottom */}
@@ -48,17 +44,17 @@ export default function Footer() {
                 </h2>
               </div>
               <div className="text-center md:text-right w-full md:w-auto">
-                <Button variant="primary" className="w-full md:w-auto px-4 sm:px-6 py-3 inline-flex items-center justify-center gap-2 sm:gap-3 mb-2">
+                <Button variant="primary" className="w-full md:w-auto px-4 py-2 inline-flex items-center justify-center gap-2 sm:gap-3 mb-2">
                   BOOK YOUR DISCOVERY CALL
                   <Image
                     src="/icons/musemarketinglogo.svg"
                     alt="Muse Marketing Logo"
                     width={24}
                     height={24}
-                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex-shrink-0"
+                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 flex-shrink-0"
                   />
                 </Button>
-                <p className="typography-footnote text-white/80 text-center md:text-right">
+                <p className="typography-footnote text-white/80 text-xs sm:text-sm md:text-base lg:text-[22px] text-center md:text-right">
                   Your healthcare growth starts here.<br />Let&apos;s make it happen.
                 </p>
               </div>
@@ -72,50 +68,68 @@ export default function Footer() {
             <div className="relative w-full flex justify-center items-center h-full">
               {/* Navigation Links - Positioned on top of eclipse */}
               <div className="absolute top-[15%] sm:top-[20%] md:top-1/4 left-1/2 transform -translate-x-1/2 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8 z-20 px-4">
-                <Link href="#home" className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px]">
+                <a 
+                  href="#home" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("home");
+                  }}
+                  className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px] cursor-pointer"
+                >
                   Home
-                </Link>
+                </a>
                 <div className="w-8 h-px border-t border-dotted border-white/30 md:hidden"></div>
-                <Link href="#services" className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px]">
+                <a 
+                  href="#services" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("services");
+                  }}
+                  className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px] cursor-pointer"
+                >
                   Services
-                </Link>
+                </a>
                 <div className="w-8 h-px border-t border-dotted border-white/30 md:hidden"></div>
-                <Link href="#expertise" className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px]">
+                <a 
+                  href="#work" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("work");
+                  }}
+                  className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px] cursor-pointer"
+                >
                   Works
-                </Link>
+                </a>
                 <div className="w-8 h-px border-t border-dotted border-white/30 md:hidden"></div>
-                <Link href="#packages" className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px]">
+                <a 
+                  href="#packages" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("packages");
+                  }}
+                  className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px] cursor-pointer"
+                >
                   Plans
-                </Link>
+                </a>
                 <div className="w-8 h-px border-t border-dotted border-white/30 md:hidden"></div>
-                <Link href="#testimonials" className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px]">
+                <a 
+                  href="#testimonials" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToSection("testimonials");
+                  }}
+                  className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px] cursor-pointer"
+                >
                   Testimonials
-                </Link>
+                </a>
               </div>
             </div>
           </div>
         </div>
-        {/* Floating WhatsApp Icon */}
-      <div className={`fixed bottom-56 sm:bottom-44 md:bottom-48 lg:bottom-52 right-8 z-40 transition-all duration-300 ${
-        isWhatsAppVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-      }`}>
-        <a
-          href="https://wa.me/8861078009"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:opacity-80 transition-opacity block hover:scale-110 transition-transform"
-          aria-label="WhatsApp"
-        >
-          <Image
-            src="/icons/whatsapp-icon.svg"
-            alt="WhatsApp"
-            width={48}
-            height={48}
-            className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 drop-shadow-lg"
-          />
-        </a>
-      </div>
-
+        {/* Scroll to Top Button - Above Logo Container */}
+        <div className="relative z-10">
+          <ScrollToTop />
+        </div>
         {/* Logo Image - Positioned at end of eclipse, just above footer bar */}
         <div className="relative z-10 flex-shrink-0">
           <div className="container px-4 sm:px-6">
@@ -136,16 +150,36 @@ export default function Footer() {
       {/* Bottom Footer Bar */}
       <div className="bg-black flex-shrink-0 pb-16 pt-10 sm:pt-0 sm:pb-8">
         <div className="container py-3 sm:py-6 px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
-            <p className="typography-footnote text-white/80 text-center sm:text-left text-xs sm:text-lg">
-              Copyright © Muse Marketing Services
+          {/* Mobile Layout - Keep as is (below 768px) */}
+          <div className="flex flex-col md:hidden justify-between items-center gap-2">
+            <p className="typography-footnote text-white/80 text-center text-xs">
+              Copyright © CogniMuse Marketing Services
             </p>
-            <div className="flex gap-3 sm:gap-4 items-center">
-              <Link href="/terms-of-service" className="typography-footnote text-white/80 hover:text-white transition-colors text-xs sm:text-sm">
+            <div className="flex gap-3 items-center">
+              <Link href="/terms-of-service" className="typography-footnote text-white/80 hover:text-white transition-colors text-xs">
                 Terms of Service
               </Link>
-              <span className="text-white/80 hidden sm:inline">|</span>
-              <Link href="/privacy-policy" className="typography-footnote text-white/80 hover:text-white transition-colors text-xs sm:text-sm">
+              <span className="text-white/80">|</span>
+              <Link href="/privacy-policy" className="typography-footnote text-white/80 hover:text-white transition-colors text-xs">
+                Privacy Policy
+              </Link>
+            </div>
+          </div>
+          
+          {/* Desktop/Tablet Layout - Updated design (768px and above) */}
+          <div className="hidden md:flex justify-between items-center relative">
+            {/* Copyright - Left */}
+            <p className="typography-footnote text-white/80 text-left text-sm md:text-base lg:text-base">
+              Copyright © CogniMuse Marketing Services
+            </p>
+            
+            {/* Terms & Privacy - Right */}
+            <div className="flex gap-3 md:gap-4 lg:gap-4 items-center">
+              <Link href="/terms-of-service" className="typography-footnote text-white/80 hover:text-white transition-colors text-sm md:text-base lg:text-base">
+                Terms of Service
+              </Link>
+              <span className="text-white/80">|</span>
+              <Link href="/privacy-policy" className="typography-footnote text-white/80 hover:text-white transition-colors text-sm md:text-base lg:text-base">
                 Privacy Policy
               </Link>
             </div>

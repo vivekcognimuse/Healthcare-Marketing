@@ -11,10 +11,10 @@ const redHatDisplay = Red_Hat_Display({
 export const metadata: Metadata = {
   metadataBase: new URL("https://musemarketing.web.app"),
   title: {
-    default: "Muse Marketing - Expert Marketing for Healthcare Professionals",
-    template: "%s | Muse Marketing",
+    default: "Healthcare Marketing for Professionals | SEO, Branding & Patient Engagement | Cognimuse",
+    template: "%s | CogniMuse",
   },
-  description: "Connect with the Right Patients through Trusted Marketing Techniques. Expert healthcare marketing services including branding, website design, SEO, and video content creation.",
+  description: "CogniMuse Marketing helps healthcare professionals grow through SEO, social media, branding, website design, and video content. Elevate patient engagement today.",
   keywords: [
     "healthcare marketing",
     "medical marketing",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     "healthcare video marketing",
     "medical practice marketing",
   ],
-  authors: [{ name: "Muse Marketing" }],
-  creator: "Muse Marketing",
-  publisher: "Muse Marketing",
+  authors: [{ name: "CogniMuse" }],
+  creator: "CogniMuse",
+  publisher: "CogniMuse",
   robots: {
     index: true,
     follow: true,
@@ -43,23 +43,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://musemarketing.web.app",
-    siteName: "Muse Marketing",
-    title: "Muse Marketing - Expert Marketing for Healthcare Professionals",
-    description: "Connect with the Right Patients through Trusted Marketing Techniques. Expert healthcare marketing services including branding, website design, SEO, and video content creation.",
+    siteName: "CogniMuse",
+    title: "Healthcare Marketing for Professionals | SEO, Branding & Patient Engagement | Cognimuse",
+    description: "CogniMuse Marketing helps healthcare professionals grow through SEO, social media, branding, website design, and video content. Elevate patient engagement today.",
     images: [
       {
-        url: "/Images webp/Logo.webp",
+        url: "/Images webp/Social-Image.webp",
         width: 1200,
         height: 630,
-        alt: "Muse Marketing Logo",
+        alt: "CogniMuse Marketing",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Muse Marketing - Expert Marketing for Healthcare Professionals",
-    description: "Connect with the Right Patients through Trusted Marketing Techniques",
-    images: ["/Images webp/Logo.webp"],
+    title: "Healthcare Marketing for Professionals | SEO, Branding & Patient Engagement | Cognimuse",
+    description: "CogniMuse Marketing helps healthcare professionals grow through SEO, social media, branding, website design, and video content. Elevate patient engagement today.",
+    images: ["/Images webp/Social-Image.webp"],
   },
   alternates: {
     canonical: "https://musemarketing.web.app",

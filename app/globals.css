@@ -7,6 +7,10 @@
     --font-red-hat-display: var(--font-red-hat-display);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-white text-black;
   }
@@ -76,7 +80,7 @@
   }
 
   .btn-outline {
-    border-radius: 4px;
+    border-radius: 16px;
     border: 1px solid #FFFFFF;
     background: transparent;
     color: #FFFFFF;

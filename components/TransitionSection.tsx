@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
+import { motion, useInView } from "framer-motion";
 
 export default function TransitionSection() {
   const words = [
@@ -15,6 +16,8 @@ export default function TransitionSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipping, setIsFlipping] = useState(false);
   const [displayWord, setDisplayWord] = useState(words[0]);
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,11 +36,16 @@ export default function TransitionSection() {
   }, [words.length]);
 
   return (
-    <section className="bg-white py-8 sm:py-12">
+    <section ref={sectionRef} className="bg-white py-8 sm:py-12">
       <div className="container">
         <div className="grid md:grid-cols-2 gap-6 items-center">
           {/* Abstract Graphic */}
-          <div className="relative h-32 sm:h-40 md:h-74 lg:h-96 flex items-center justify-center">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="relative h-32 sm:h-40 md:h-74 lg:h-96 flex items-center justify-center"
+          >
             <Image
               src="/Images webp/Circles.webp"
               alt="Eclipse graphic"
@@ -46,10 +54,15 @@ export default function TransitionSection() {
               className="h-full w-auto max-w-full object-contain"
               unoptimized
             />
-          </div>
+          </motion.div>
 
           {/* Text - Centered container, left-aligned text */}
-          <div className="flex items-center justify-center h-full">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            className="flex items-center justify-center h-full"
+          >
             <div className="flex flex-col gap-4 items-start">
               <p className="typography-h2 text-primary" style={{ fontWeight: 400 }}>
                 We transform your brand
@@ -75,7 +88,7 @@ export default function TransitionSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

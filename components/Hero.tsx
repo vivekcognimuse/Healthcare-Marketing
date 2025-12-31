@@ -38,12 +38,30 @@ export default function Hero() {
               <span className="lg:whitespace-nowrap">Connect with the Right Patients through Trusted Marketing Techniques</span>
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button variant="primary" onClick={() => scrollToSection("services")}>
-                Explore Our Services
-              </Button>
-              <Button variant="outline" onClick={() => scrollToSection("work")}>
-                View Our Work
-              </Button>
+              <a 
+                href="#services" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("services");
+                }}
+                className="inline-block"
+              >
+                <Button variant="primary">
+                  Explore Our Services
+                </Button>
+              </a>
+              <a 
+                href="#work" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("work");
+                }}
+                className="inline-block"
+              >
+                <Button variant="outline">
+                  View Our Work
+                </Button>
+              </a>
             </div>
           </div>
 

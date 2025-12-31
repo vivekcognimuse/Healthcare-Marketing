@@ -7,13 +7,14 @@ import PackagesSection from "@/components/PackagesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Muse Marketing",
-    "description": "Expert Marketing for Healthcare Professionals. Connect with the Right Patients through Trusted Marketing Techniques.",
+    "name": "CogniMuse",
+    "description": "CogniMuse Marketing helps healthcare professionals grow through SEO, social media, branding, website design, and video content. Elevate patient engagement today.",
     "url": "https://musemarketing.web.app",
     "logo": "https://musemarketing.web.app/Images webp/Logo.webp",
     "contactPoint": {
@@ -81,9 +82,9 @@ export default function Home() {
   const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Muse Marketing",
+    "name": "CogniMuse",
     "url": "https://musemarketing.web.app",
-    "description": "Expert Marketing for Healthcare Professionals"
+    "description": "CogniMuse Marketing helps healthcare professionals grow through SEO, social media, branding, website design, and video content. Elevate patient engagement today."
   };
 
   return (
@@ -105,7 +106,7 @@ export default function Home() {
         <PackagesSection />
         <TestimonialsSection />
         <Footer />
-        <ScrollToTop />
+        <WhatsAppIcon />
       </main>
     </>
   );
