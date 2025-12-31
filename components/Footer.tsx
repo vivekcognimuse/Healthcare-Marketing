@@ -20,7 +20,7 @@ export default function Footer() {
     }
   };
   return (
-    <footer className="relative text-white bg-black min-h-screen h-screen flex flex-col">
+    <footer className="relative text-white bg-black min-h-screen h-screen flex flex-col md:h-[50vh] md:min-h-[50vh] lg:min-h-screen lg:h-screen lg:flex lg:flex-col">
       {/* Eclipse Background Section - Covers from top until logo bottom */}
       <div className="relative flex-1 overflow-hidden flex flex-col">
         {/* Eclipse Background Image - Covers entire section */}
@@ -37,7 +37,7 @@ export default function Footer() {
         <div className="relative z-10 py-6 sm:py-8 lg:pt-20 flex-shrink-0">
           <div className="container relative px-4 sm:px-6">
             {/* Main CTA Section */}
-            <div className="flex flex-col md:grid md:grid-cols-2 gap-6 lg:gap-8 items-center md:items-center">
+            <div className="flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-6 lg:gap-8 items-center md:items-center">
               <div className="text-center md:text-left w-full md:w-auto">
                 <h2 className="typography-h2 text-white/50">
                   LET&apos;S GET YOUR BRAND TO THE NEXT LEVEL
@@ -63,11 +63,11 @@ export default function Footer() {
         </div>
 
         {/* Mid Section - Navigation */}
-        <div className="relative z-10 flex-1 flex items-center justify-center min-h-0">
+        <div className="relative z-10 flex-1 flex items-center justify-center min-h-0 md:py-8 lg:py-0">
           <div className="container relative h-full flex items-center justify-center px-4 sm:px-6">
             <div className="relative w-full flex justify-center items-center h-full">
               {/* Navigation Links - Positioned on top of eclipse */}
-              <div className="absolute top-[15%] sm:top-[20%] md:top-1/4 left-1/2 transform -translate-x-1/2 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8 z-20 px-4">
+              <div className="absolute top-[15%] sm:top-[20%] md:top-[15%] lg:top-1/4 left-1/2 transform -translate-x-1/2 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8 z-20 px-4">
                 <a 
                   href="#home" 
                   onClick={(e) => {
@@ -131,7 +131,7 @@ export default function Footer() {
           <ScrollToTop />
         </div>
         {/* Logo Image - Positioned at end of eclipse, just above footer bar */}
-        <div className="relative z-10 flex-shrink-0">
+        <div className="relative z-10 flex-shrink-0 md:pt-4 lg:pt-0">
           <div className="container px-4 sm:px-6">
             <Image
               src="/Images webp/Logo.webp"

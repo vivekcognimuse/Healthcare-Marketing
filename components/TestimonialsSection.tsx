@@ -98,7 +98,7 @@ export default function TestimonialsSection() {
             <>
               <motion.button
                 onClick={prevTestimonial}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 md:-translate-x-16 lg:-translate-x-20 bg-black text-white rounded-full w-8 h-8 md:w-12 md:h-12 flex items-center justify-center z-10"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 sm:-translate-x-12 md:-translate-x-16 lg:-translate-x-20 bg-black text-white rounded-full w-8 h-8 md:w-12 md:h-12 flex items-center justify-center z-10"
                 aria-label="Previous testimonial"
                 whileHover={{ scale: 1.1, backgroundColor: "#155DFC" }}
                 whileTap={{ scale: 0.95 }}
@@ -123,7 +123,7 @@ export default function TestimonialsSection() {
               </motion.button>
               <motion.button
                 onClick={nextTestimonial}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 md:translate-x-16 lg:translate-x-20 bg-black text-white rounded-full w-8 h-8 md:w-12 md:h-12 flex items-center justify-center z-10"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-8 sm:translate-x-12 md:translate-x-16 lg:translate-x-20 bg-black text-white rounded-full w-8 h-8 md:w-12 md:h-12 flex items-center justify-center z-10"
                 aria-label="Next testimonial"
                 whileHover={{ scale: 1.1, backgroundColor: "#155DFC" }}
                 whileTap={{ scale: 0.95 }}
@@ -150,7 +150,7 @@ export default function TestimonialsSection() {
           )}
 
           {/* Cards Container */}
-          <div className="max-w-xs md:max-w-6xl mx-auto px-12 md:px-0">
+          <div className="max-w-xs md:max-w-6xl mx-auto px-6 sm:px-8 md:px-12 lg:px-0">
             {/* Fallback: Show all testimonials when JS is disabled */}
             {!isJsEnabled && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">

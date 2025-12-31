@@ -154,8 +154,8 @@ export default function PackagesSection() {
                               d="M5 13l4 4L19 7"
                             />
                           </svg>
-                          <div>
-                            <p className="typography-p2 text-black" style={{ fontWeight: 'bold' }}>{feature.title}</p>
+                          <div className="flex-1 min-w-0">
+                            <p className="typography-p2 text-black break-words" style={{ fontWeight: 'bold' }}>{feature.title}</p>
                           </div>
                         </li>
                       ))}
@@ -222,11 +222,11 @@ export default function PackagesSection() {
 
           {/* Mobile: Tab Interface - Only show when JS is enabled */}
           {isJsEnabled && (
-            <div className="md:hidden mb-6 flex justify-center">
-              <div className="bg-primary/10 rounded-full p-1 inline-flex w-full max-w-xs">
+            <div className="md:hidden mb-6 flex justify-center px-4">
+              <div className="bg-primary/10 rounded-full p-1 inline-flex w-full max-w-sm">
                 <button
                   onClick={() => setActiveTab(0)}
-                  className={`flex-1 px-6 py-2 rounded-full typography-p2 font-bold transition-all ${
+                  className={`flex-1 px-4 sm:px-6 py-2.5 rounded-full typography-p2 font-bold transition-all text-sm sm:text-base ${
                     activeTab === 0
                       ? "bg-white text-black shadow-sm"
                       : "text-black/70"
@@ -236,7 +236,7 @@ export default function PackagesSection() {
                 </button>
                 <button
                   onClick={() => setActiveTab(1)}
-                  className={`flex-1 px-6 py-2 rounded-full typography-p2 font-bold transition-all ${
+                  className={`flex-1 px-4 sm:px-6 py-2.5 rounded-full typography-p2 font-bold transition-all text-sm sm:text-base ${
                     activeTab === 1
                       ? "bg-white text-black shadow-sm"
                       : "text-black/70"
@@ -281,8 +281,8 @@ export default function PackagesSection() {
                               d="M5 13l4 4L19 7"
                             />
                           </svg>
-                          <div>
-                            <p className="typography-p2 text-black" style={{ fontWeight: 'bold' }}>{feature.title}</p>
+                          <div className="flex-1 min-w-0">
+                            <p className="typography-p2 text-black break-words" style={{ fontWeight: 'bold' }}>{feature.title}</p>
                           </div>
                         </li>
                       ))}

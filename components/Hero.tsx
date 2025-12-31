@@ -21,7 +21,7 @@ export default function Hero() {
   return (
     <section 
       id="home"
-      className="text-white min-h-screen flex items-center py-12 sm:py-16 lg:py-24"
+      className="relative text-white min-h-screen flex items-center py-12 sm:py-16 lg:py-24 z-0"
       style={{
         background: 'linear-gradient(180deg, #001B57 0%, #155DFC 71.32%, #FFFFFF 96.6%)'
       }}
@@ -31,8 +31,8 @@ export default function Hero() {
           {/* Content */}
           <div className="text-center lg:text-left">
             <h1 className="typography-h1 mb-6">
-              <span className="block lg:block">Expert Marketing for</span>
-              <span className="block lg:block lg:whitespace-nowrap">Healthcare Professionals.</span>
+              <span className="block">Expert Marketing for</span>
+              <span className="block lg:whitespace-nowrap">Healthcare Professionals.</span>
             </h1>
             <p className="typography-p1 mb-8 opacity-90">
               <span className="lg:whitespace-nowrap">Connect with the Right Patients through Trusted Marketing Techniques</span>

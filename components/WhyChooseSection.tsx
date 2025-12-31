@@ -84,7 +84,7 @@ export default function WhyChooseSection() {
           className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16"
         >
           <h2 className="typography-h2 text-black mb-3 sm:mb-4 md:mb-5 px-4 md:px-0">
-            Why Choose Muse Marketing
+            Why Choose CogniMuse
           </h2>
           <p className="typography-p1 text-black/80 mx-auto max-w-2xl md:max-w-3xl px-4 md:px-6 lg:px-0">
             We understand occupational therapy marketing challenges and communicate your expertise compliantly to patients.

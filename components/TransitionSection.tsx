@@ -61,21 +61,21 @@ export default function TransitionSection() {
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            className="flex items-center justify-center h-full"
+            className="flex items-center justify-center h-full px-4"
           >
-            <div className="flex flex-col gap-4 items-start">
-              <p className="typography-h2 text-primary" style={{ fontWeight: 400 }}>
+            <div className="flex flex-col gap-4 items-center md:items-start w-full max-w-md">
+              <p className="typography-h2 text-primary text-center md:text-left" style={{ fontWeight: 400 }}>
                 We transform your brand
               </p>
               <div 
-                className="relative h-[1.2em] min-w-[200px] flex items-center justify-center md:justify-start w-full"
+                className="relative h-[1.2em] w-full flex items-center justify-center md:justify-start"
                 style={{ 
                   perspective: '1000px',
                   transformStyle: 'preserve-3d'
                 }}
               >
                 <div
-                  className="typography-h2 text-primary"
+                  className="typography-h2 text-primary text-center md:text-left"
                   style={{
                     fontWeight: 700,
                     transform: isFlipping ? 'rotateX(90deg) scale(0.8)' : 'rotateX(0deg) scale(1)',
