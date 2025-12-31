@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-red-hat-display: var(--font-red-hat-display);
+  }
+
+  body {
+    @apply bg-white text-black;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  /* Custom Scrollbar Styling */
+  /* Webkit browsers (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #155DFC;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0D3796;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #155DFC #f1f1f1;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1728px;
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(28.1px);
+    background: #FFFFFF;
+    color: #155DFC;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(180deg, #FFFFFF 39.14%, #155DFC 182.14%);
+    color: #155DFC;
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-secondary {
+    border-radius: 16px;
+    background: #155DFC;
+    backdrop-filter: blur(28.1px);
+    color: #FFFFFF;
+    border: none;
+  }
+
+  .btn-secondary:hover {
+    background: linear-gradient(90.03deg, #00277E -30.86%, #0D3796 18.56%, #155DFC 98.38%);
+  }
+
+  .btn-outline {
+    border-radius: 4px;
+    border: 1px solid #FFFFFF;
+    background: transparent;
+    color: #FFFFFF;
+  }
+
+  .btn-outline:hover {
+    background: #FFFFFF;
+    color: #155DFC;
+    border-color: #FFFFFF;
+  }
+
+  /* Scroll to Top Button */
+  .scroll-to-top-btn {
+    background: #155DFC;
+  }
+
+  .scroll-to-top-btn:hover {
+    background: linear-gradient(90.03deg, #00277E -30.86%, #0D3796 18.56%, #155DFC 98.38%);
+  }
+}
+
+@layer utilities {
+  /* Typography utilities for responsive design */
+  
+  /* Mobile First - Default (375px) */
+  .typography-h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .typography-h2 {
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .typography-h3 {
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .typography-btn1 {
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .typography-btn2 {
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .typography-p1 {
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .typography-p2 {
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .typography-footnote {
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  /* Tablet 744px */
+  @media (min-width: 744px) {
+    .typography-h1 {
+      font-size: 48px;
+    }
+    .typography-h2 {
+      font-size: 32px;
+    }
+    .typography-h3 {
+      font-size: 20px;
+    }
+    .typography-btn1 {
+      font-size: 18px;
+    }
+    .typography-btn2 {
+      font-size: 18px;
+    }
+    .typography-p1 {
+      font-size: 20px;
+    }
+    .typography-p2 {
+      font-size: 16px;
+    }
+    .typography-footnote {
+      font-size: 14px;
+    }
+  }
+
+  /* Desktop 1440px */
+  @media (min-width: 1440px) {
+    .typography-h1 {
+      font-size: 64px;
+    }
+    .typography-h2 {
+      font-size: 44px;
+    }
+    .typography-h3 {
+      font-size: 26px;
+    }
+    .typography-btn1 {
+      font-size: 24px;
+    }
+    .typography-btn2 {
+      font-size: 24px;
+    }
+    .typography-p1 {
+      font-size: 24px;
+    }
+    .typography-p2 {
+      font-size: 20px;
+    }
+    .typography-footnote {
+      font-size: 18px;
+    }
+  }
+
+  /* Desktop 1728px */
+  @media (min-width: 1728px) {
+    .typography-h1 {
+      font-size: 80px;
+    }
+    .typography-h2 {
+      font-size: 48px;
+    }
+    .typography-h3 {
+      font-size: 32px;
+    }
+    .typography-btn1 {
+      font-size: 28px;
+    }
+    .typography-btn2 {
+      font-size: 28px;
+    }
+    .typography-p1 {
+      font-size: 28px;
+    }
+    .typography-p2 {
+      font-size: 22px;
+    }
+    .typography-footnote {
+      font-size: 20px;
+    }
+  }
+}
+

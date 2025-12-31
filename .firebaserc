@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "cognimuse-main"
+  },
+  "targets": {
+    "cognimuse-main": {
+      "hosting": {
+        "marketing": [
+          "musemarketing"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
