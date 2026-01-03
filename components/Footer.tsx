@@ -44,16 +44,23 @@ export default function Footer() {
                 </h2>
               </div>
               <div className="text-center md:text-right w-full md:w-auto">
-                <Button variant="primary" className="w-full md:w-auto px-4 !py-2 inline-flex items-center justify-center gap-2 sm:gap-3 mb-2">
-                  BOOK YOUR DISCOVERY CALL
-                  <Image
-                    src="/icons/musemarketinglogo.svg"
-                    alt="Muse Marketing Logo"
-                    width={24}
-                    height={24}
-                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 flex-shrink-0"
-                  />
-                </Button>
+                <a 
+                  href="https://wa.me/8861078009" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <Button variant="primary" className="w-full md:w-auto px-4 !py-2 inline-flex items-center justify-center gap-2 sm:gap-3 mb-2">
+                    BOOK YOUR DISCOVERY CALL
+                    <Image
+                      src="/icons/musemarketinglogo.svg"
+                      alt="Muse Marketing Logo"
+                      width={24}
+                      height={24}
+                      className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 flex-shrink-0"
+                    />
+                  </Button>
+                </a>
                 <p className="typography-footnote text-white/80 text-xs sm:text-sm md:text-base lg:text-[22px] text-center md:text-right">
                   Your healthcare growth starts here.<br />Let&apos;s make it happen.
                 </p>
