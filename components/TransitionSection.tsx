@@ -63,8 +63,8 @@ export default function TransitionSection() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
             className="flex items-center justify-center h-full px-4"
           >
-            <div className="flex flex-col gap-4 items-center md:items-start w-full max-w-md">
-              <p className="typography-h2 text-primary text-center md:text-left" style={{ fontWeight: 400 }}>
+            <div className="flex flex-col gap-4 items-center md:items-start w-full max-w-md md:max-w-lg lg:max-w-xl">
+              <p className="typography-h2 text-primary text-center md:text-left md:whitespace-nowrap" style={{ fontWeight: 400 }}>
                 We transform your brand
               </p>
               <div 

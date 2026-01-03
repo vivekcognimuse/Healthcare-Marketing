@@ -346,7 +346,7 @@ export default function TestimonialsSection() {
                               alt={testimonial.name}
                               width={120}
                               height={120}
-                              className="w-24 h-24 rounded-lg object-cover"
+                              className="w-26 h-26 rounded-lg object-cover obnject-bottom"
                             />
                           </motion.div>
                         </div>

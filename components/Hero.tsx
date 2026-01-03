@@ -35,7 +35,7 @@ export default function Hero() {
               <span className="block lg:whitespace-nowrap">Healthcare Professionals.</span>
             </h1>
             <p className="typography-p1 mb-8 opacity-90">
-              <span className="lg:whitespace-nowrap">Connect with the Right Patients through Trusted Marketing Techniques</span>
+              <span className="lg:whitespace-nowrap">Connect with the Right Patients through Trusted Marketing Techniques.</span>
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <a 

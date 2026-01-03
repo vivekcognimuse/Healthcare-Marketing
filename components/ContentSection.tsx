@@ -255,7 +255,6 @@ const StackedCard = memo(({
       }}
     >
       <motion.div
-        className="shadow-2xl"
         style={{
           background: 'linear-gradient(180deg, rgba(21, 93, 252, 0.3) 0%, rgba(102, 102, 102, 0) 28.85%)',
           borderRadius: '16px',
@@ -263,6 +262,7 @@ const StackedCard = memo(({
           transform: `scale(${scaleValue})`,
           transformOrigin: 'top center',
           minHeight: '100vh',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
         }}
         whileHover={{
           y: -5,
@@ -337,7 +337,7 @@ const StackedCard = memo(({
                     <video
                       src={service.samples[0].before.src}
                       className="w-full h-auto max-h-[650px] object-contain rounded"
-                      style={{ border: '1px solid #0000004D' }}
+                      style={service.name === "Branding & Visual Identity" ? {} : { border: '1px solid #0000004D' }}
                       autoPlay
                       muted
                       loop
@@ -354,7 +354,7 @@ const StackedCard = memo(({
                         width={600}
                         height={400}
                         className="w-full h-auto max-h-[650px] object-contain rounded"
-                        style={{ border: '1px solid #0000004D' }}
+                        style={service.name === "Branding & Visual Identity" ? {} : { border: '1px solid #0000004D' }}
                         loading="lazy"
                         quality={100}
                         unoptimized
@@ -366,7 +366,7 @@ const StackedCard = memo(({
                     <video
                       src={service.samples[0].after.src}
                       className="w-full h-auto max-h-[650px] object-contain rounded"
-                      style={{ border: '1px solid #0000004D' }}
+                      style={service.name === "Branding & Visual Identity" ? {} : { border: '1px solid #0000004D' }}
                       autoPlay
                       muted
                       loop
@@ -383,7 +383,7 @@ const StackedCard = memo(({
                         width={600}
                         height={400}
                         className="w-full h-auto max-h-[650px] object-contain rounded"
-                        style={{ border: '1px solid #0000004D' }}
+                        style={service.name === "Branding & Visual Identity" ? {} : { border: '1px solid #0000004D' }}
                         loading="lazy"
                         quality={100}
                         unoptimized
@@ -561,7 +561,7 @@ const StackedCard = memo(({
                         <video
                           src={sample.before.src}
                           className="w-full h-auto max-h-[650px] object-cover rounded"
-                          style={{ border: '1px solid #0000004D' }}
+                          style={service.name === "Branding & Visual Identity" ? {} : { border: '1px solid #0000004D' }}
                           autoPlay
                           muted
                           loop
@@ -578,7 +578,7 @@ const StackedCard = memo(({
                             width={600}
                             height={400}
                             className="w-full h-auto max-h-[650px] object-cover rounded"
-                            style={{ border: '1px solid #0000004D' }}
+                            style={service.name === "Branding & Visual Identity" ? {} : { border: '1px solid #0000004D' }}
                             loading="lazy"
                             quality={100}
                             unoptimized
@@ -590,7 +590,7 @@ const StackedCard = memo(({
                         <video
                           src={sample.after.src}
                           className="w-full h-auto max-h-[650px] object-cover rounded"
-                          style={{ border: '1px solid #0000004D' }}
+                          style={service.name === "Branding & Visual Identity" ? {} : { border: '1px solid #0000004D' }}
                           autoPlay
                           muted
                           loop
@@ -607,7 +607,7 @@ const StackedCard = memo(({
                             width={600}
                             height={400}
                             className="w-full h-auto max-h-[650px] object-center object-cover rounded"
-                            style={{ border: '1px solid #0000004D' }}
+                            style={service.name === "Branding & Visual Identity" ? {} : { border: '1px solid #0000004D' }}
                             loading="lazy"
                             quality={100}
                             unoptimized

@@ -67,21 +67,39 @@
 
   /* Button Styles */
   .btn-primary {
-    border-radius: 16px;
+    position: relative;
+    border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(28.1px);
     background: #FFFFFF;
     color: #155DFC;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #FFFFFF 39.14%, #155DFC 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .btn-primary:hover::before {
+    opacity: 1;
   }
 
   .btn-primary:hover {
-    background: linear-gradient(180deg, #FFFFFF 39.14%, #155DFC 182.14%);
     color: #155DFC;
-    border-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.3) !important;
   }
 
   .btn-secondary {
-    border-radius: 16px;
+    border-radius: 4px;
     background: #155DFC;
     backdrop-filter: blur(28.1px);
     color: #FFFFFF;
@@ -93,7 +111,7 @@
   }
 
   .btn-outline {
-    border-radius: 16px;
+    border-radius: 4px;
     border: 1px solid #FFFFFF;
     background: transparent;
     color: #FFFFFF;

@@ -6,7 +6,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export default function Button({ variant = "primary", children, className = "", ...props }: ButtonProps) {
-  const baseStyles = "typography-btn1 px-8 py-4 transition-all duration-300";
+  // Check if className contains custom padding (py-*)
+  const hasCustomPadding = /py-[\d.]+|!py-[\d.]+/.test(className);
+  const baseStyles = hasCustomPadding 
+    ? "typography-btn1 px-8 transition-all duration-300"
+    : "typography-btn1 px-8 py-4 transition-all duration-300";
   
   if (variant === "primary") {
     return (

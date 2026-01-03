@@ -133,10 +133,10 @@ export default function PackagesSection() {
             <div className="md:hidden space-y-6">
               {/* Essential Package */}
               <div className="px-4">
-                <div className="flex flex-col bg-white border-2 border-black/50 rounded-xl overflow-hidden">
+                <div className="flex flex-col bg-white border-[1px] border-black/50 rounded-xl overflow-hidden">
                   <div className="p-6 pb-0">
                     <h3 className="typography-h3 text-black mb-4 text-center">Essential</h3>
-                    <div className="w-full h-[2px] bg-black mb-6"></div>
+                    <div className="w-full h-[1px] bg-black mb-6"></div>
                     <h4 className="typography-h3 text-black mb-4">Package Includes:</h4>
                     <ul className="space-y-4">
                       {essentialFeatures.map((feature, index) => (
@@ -161,7 +161,7 @@ export default function PackagesSection() {
                       ))}
                     </ul>
                   </div>
-                  <div className="border-t-2 border-black/50">
+                  <div className="border-t-[1px] border-black/50">
                     <a 
                       href="https://wa.me/8861078009"
                       target="_blank"
@@ -260,10 +260,10 @@ export default function PackagesSection() {
               <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${activeTab * 100}%)` }}>
               {/* Essential Package - Mobile */}
               <div className="min-w-full flex-shrink-0 px-4">
-                <div className="flex flex-col bg-white border-2 border-black/50 rounded-xl overflow-hidden">
+                <div className="flex flex-col bg-white border-[1px] border-black/50 rounded-xl overflow-hidden">
                   <div className="p-6 pb-0">
                     <h3 className="typography-h3 text-black mb-4 text-center">Essential</h3>
-                    <div className="w-full h-[2px] bg-black mb-6"></div>
+                    <div className="w-full h-[1px] bg-black mb-6"></div>
                     <h4 className="typography-h3 text-black mb-4">Package Includes:</h4>
                     <ul className="space-y-4">
                       {essentialFeatures.map((feature, index) => (
@@ -288,7 +288,7 @@ export default function PackagesSection() {
                       ))}
                     </ul>
                   </div>
-                  <div className="border-t-2 border-black/50">
+                  <div className="border-t-[1px] border-black/50">
                     <a 
                       href="https://wa.me/8861078009"
                       target="_blank"
@@ -304,10 +304,10 @@ export default function PackagesSection() {
               {/* Pro Package - Mobile */}
               <div className="min-w-full flex-shrink-0 px-4">
                 <div className="relative flex flex-col">
-                  <div className="flex flex-col bg-primary/10 border-2 border-primary rounded-xl overflow-hidden">
+                  <div className="flex flex-col bg-primary/10 border-[1px] border-primary rounded-xl overflow-hidden">
                     <div className="p-6 pb-0">
                       <h3 className="typography-h3 text-primary mb-4 text-center">Pro</h3>
-                      <div className="w-full h-[2px] bg-primary mb-6"></div>
+                      <div className="w-full h-[1px] bg-primary mb-6"></div>
                       <h4 className="typography-h3 text-primary mb-4">Package Includes:</h4>
                       <ul className="space-y-4">
                         {proFeatures.map((feature, index) => (
@@ -332,7 +332,7 @@ export default function PackagesSection() {
                         ))}
                       </ul>
                     </div>
-                    <div className="border-t border-primary/70">
+                    <div className="border-t-[1px] border-primary/70">
                       <a 
                         href="https://wa.me/8861078009"
                         target="_blank"
@@ -390,14 +390,14 @@ export default function PackagesSection() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col bg-white border-2 border-black/50 rounded-xl hover:shadow-lg transition-shadow overflow-hidden"
+              className="flex flex-col bg-white border-[1px] border-black/50 rounded-xl hover:shadow-lg transition-shadow overflow-hidden"
             >
               <div className="p-8 lg:p-10 pb-0">
                 <h3 className="typography-h3 text-black mb-2 text-center">Essential</h3>
                 <p className="typography-p2 text-black/70 mb-6 text-center">
                   For therapists starting or maintaining an online presence.
                 </p>
-                <div className="w-full h-[2px] bg-black mb-6"></div>
+                <div className="w-full h-[1px] bg-black mb-6"></div>
                 <h4 className="typography-h3 text-black mb-6">Package Includes:</h4>
                 <ul className="space-y-6">
                   {essentialFeatures.map((feature, index) => (
@@ -423,7 +423,7 @@ export default function PackagesSection() {
                   ))}
                 </ul>
               </div>
-              <div className="border-t-2 border-black/50">
+              <div className="border-t-[1px] border-black/50">
                 <a 
                   href="https://wa.me/8861078009"
                   target="_blank"
@@ -455,13 +455,13 @@ export default function PackagesSection() {
               >
                 Most Popular
               </div>
-              <div className="flex flex-col bg-primary/10 border-2 border-primary rounded-xl hover:shadow-lg transition-shadow overflow-hidden">
+              <div className="flex flex-col bg-primary/10 border-[1px] border-primary rounded-xl hover:shadow-lg transition-shadow overflow-hidden">
                 <div className="p-8 lg:p-10 pb-0">
                   <h3 className="typography-h3 text-primary mb-2 text-center">Pro</h3>
                   <p className="typography-p2 text-black/70 mb-6 text-center">
                     For therapists ready to grow visibility and patient enquiries.
                   </p>
-                  <div className="w-full h-[2px] bg-primary mb-6"></div>
+                  <div className="w-full h-[1px] bg-primary mb-6"></div>
                   <h4 className="typography-h3 text-primary mb-6">Package Includes:</h4>
                   <ul className="space-y-6">
                     {proFeatures.map((feature, index) => (
@@ -487,7 +487,7 @@ export default function PackagesSection() {
                     ))}
                   </ul>
                 </div>
-                <div className="border-t border-primary/70">
+                <div className="border-t-[1px] border-primary/70">
                   <a 
                     href="https://wa.me/8861078009"
                     target="_blank"

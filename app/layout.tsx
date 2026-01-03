@@ -64,6 +64,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://musemarketing.web.app",
   },
+  icons: {
+    icon: "/icons/musemarketinglogo.svg",
+    shortcut: "/icons/musemarketinglogo.svg",
+    apple: "/icons/musemarketinglogo.svg",
+  },
   verification: {
     // Add Google Search Console verification code here when available
     // google: "your-verification-code",
