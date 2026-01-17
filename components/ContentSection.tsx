@@ -222,8 +222,8 @@ const StackedCard = memo(({
   });
 
   const zIndex = index + 1;
-  const headerGap = 24; // Small gap to show just a sliver of previous cards (stacked effect)
-  const stickyTop = 50 + (index * headerGap);
+  const headerGap = 16; // Small gap to show just a sliver of previous cards (stacked effect)
+  const stickyTop = 10 + (index * headerGap);
   
   // Calculate scale: each card is slightly smaller than the one on top
   // Latest card (highest index) = scale 1.0, previous cards scale down progressively
@@ -259,13 +259,16 @@ const StackedCard = memo(({
           background: 'linear-gradient(180deg, rgba(21, 93, 252, 0.3) 0%, rgba(102, 102, 102, 0) 28.85%)',
           borderRadius: '16px',
           padding: '3px',
-          transform: `scale(${scaleValue})`,
           transformOrigin: 'top center',
           minHeight: '100vh',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
         }}
+        animate={{
+          scale: scaleValue,
+        }}
         whileHover={{
           y: -5,
+          scale: scaleValue,
           transition: { duration: 0.3, ease: "easeOut" }
         }}
       >
