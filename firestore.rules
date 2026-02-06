@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Events - read only for public, write temporarily allowed (development)
+    // ⚠️ WARNING: This allows anyone to write events. For production, implement API routes with server-side auth.
+    match /events/{eventId} {
+      allow read: if true; // Public read
+      allow write: if true; // ⚠️ TEMPORARY: Allows writes (development only - not secure for production!)
+    }
+    
+    // Bookings - read/write for admins, create for public
+    match /bookings/{bookingId} {
+      allow read: if true; // Allow reads (admin dashboard needs this)
+      allow create: if true; // Public can create bookings
+      allow update: if true; // ⚠️ TEMPORARY: Allow updates (payment verification needs this)
+      allow delete: if false; // Admin only
+    }
+    
+    // Error logs - allow writes for error logging
+    match /errorLogs/{logId} {
+      allow read: if false; // Admin only
+      allow write: if true; // Allow error logging from client
+    }
+  }
+}

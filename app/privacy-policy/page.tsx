@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
   return (
     <main className="min-h-screen">
       <Header />
-      <section className="bg-white py-12 sm:py-16 lg:py-24">
+      <section className="bg-white pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-24">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             {/* Back Button */}
@@ -66,10 +66,12 @@ export default function PrivacyPolicy() {
                   We may collect the following types of information:
                 </p>
                 <ul className="list-disc list-inside typography-p2 text-black/70 mb-4 space-y-2">
-                  <li><strong>Personal Information:</strong> Name, email address, phone number, and business information</li>
+                  <li><strong>Personal Information:</strong> Name, email address, phone number, place of residence, profession, age, and business information</li>
                   <li><strong>Professional Information:</strong> Healthcare credentials, practice details, and service requirements</li>
                   <li><strong>Communication Data:</strong> Messages, inquiries, and correspondence through WhatsApp or other channels</li>
                   <li><strong>Usage Data:</strong> Website usage patterns, IP address, browser type, and device information</li>
+                  <li><strong>Payment Information:</strong> Transaction details, payment method, billing information, and transaction history. Note: We do not store your complete payment card details on our servers. Payment card information is securely processed by our payment gateway partner, Razorpay Software Private Limited.</li>
+                  <li><strong>Event Booking Data:</strong> Event registration details, booking confirmations, attendance records, and related transaction information</li>
                 </ul>
               </section>
 
@@ -80,11 +82,15 @@ export default function PrivacyPolicy() {
                 </p>
                 <ul className="list-disc list-inside typography-p2 text-black/70 mb-4 space-y-2">
                   <li>To provide and deliver our marketing services</li>
-                  <li>To communicate with you about your account and services</li>
+                  <li>To process event bookings and registrations</li>
+                  <li>To process payments and manage transactions</li>
+                  <li>To communicate with you about your account, bookings, and services</li>
+                  <li>To send booking confirmations, event details, and meeting links</li>
                   <li>To respond to your inquiries and provide customer support</li>
                   <li>To improve our services and website functionality</li>
                   <li>To send you marketing communications (with your consent)</li>
-                  <li>To comply with legal obligations</li>
+                  <li>To comply with legal obligations and financial regulations</li>
+                  <li>To prevent fraud and ensure transaction security</li>
                 </ul>
               </section>
 
@@ -94,10 +100,12 @@ export default function PrivacyPolicy() {
                   We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:
                 </p>
                 <ul className="list-disc list-inside typography-p2 text-black/70 mb-4 space-y-2">
+                  <li><strong>Payment Processors:</strong> We share payment information with Razorpay Software Private Limited ("Razorpay"), our payment gateway provider, to process payments securely. Razorpay is PCI-DSS compliant and handles payment card information in accordance with industry standards. For more information about Razorpay's privacy practices, please visit: <a href="https://razorpay.com/privacy/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://razorpay.com/privacy/</a></li>
                   <li>With service providers who assist us in operating our business (under strict confidentiality agreements)</li>
                   <li>When required by law or to protect our legal rights</li>
                   <li>With your explicit consent</li>
                   <li>In connection with a business transfer or merger</li>
+                  <li>With financial institutions and payment networks for transaction processing and fraud prevention</li>
                 </ul>
               </section>
 
@@ -105,8 +113,20 @@ export default function PrivacyPolicy() {
                 <h2 className="typography-h2 text-black mb-4">5. Data Security</h2>
                 <p className="typography-p2 text-black/70 mb-4">
                   We implement appropriate technical and organizational measures to protect your personal information against 
-                  unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the 
-                  internet is 100% secure, and we cannot guarantee absolute security.
+                  unauthorized access, alteration, disclosure, or destruction. Our security measures include:
+                </p>
+                <ul className="list-disc list-inside typography-p2 text-black/70 mb-4 space-y-2">
+                  <li>SSL/TLS encryption for data transmission</li>
+                  <li>Secure payment processing through PCI-DSS compliant payment gateway (Razorpay)</li>
+                  <li>Server-side payment verification to prevent fraud</li>
+                  <li>Regular security audits and updates</li>
+                  <li>Access controls and authentication mechanisms</li>
+                  <li>Secure storage of personal information</li>
+                </ul>
+                <p className="typography-p2 text-black/70 mb-4">
+                  <strong>Important:</strong> We do not store your complete payment card details (card number, CVV, expiry date) on our servers. 
+                  All payment card information is securely processed by Razorpay, which is PCI-DSS Level 1 certified. However, 
+                  no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.
                 </p>
               </section>
 
@@ -142,10 +162,21 @@ export default function PrivacyPolicy() {
               </section>
 
               <section className="mb-8">
-                <h2 className="typography-h2 text-black mb-4">9. Third-Party Links</h2>
+                <h2 className="typography-h2 text-black mb-4">9. Payment Processing and Third-Party Services</h2>
                 <p className="typography-p2 text-black/70 mb-4">
-                  Our website may contain links to third-party websites. We are not responsible for the privacy practices of 
-                  these external sites. We encourage you to review their privacy policies.
+                  We use Razorpay Software Private Limited ("Razorpay") as our payment gateway provider to process payments. 
+                  When you make a payment, you will be redirected to Razorpay's secure payment page. Razorpay collects and 
+                  processes your payment information in accordance with their privacy policy and PCI-DSS standards.
+                </p>
+                <p className="typography-p2 text-black/70 mb-4">
+                  <strong>Razorpay Privacy Policy:</strong> <a href="https://razorpay.com/privacy/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://razorpay.com/privacy/</a>
+                </p>
+                <p className="typography-p2 text-black/70 mb-4">
+                  <strong>Razorpay Terms of Service:</strong> <a href="https://razorpay.com/terms/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">https://razorpay.com/terms/</a>
+                </p>
+                <p className="typography-p2 text-black/70 mb-4">
+                  Our website may also contain links to other third-party websites. We are not responsible for the privacy 
+                  practices of these external sites. We encourage you to review their privacy policies.
                 </p>
               </section>
 
@@ -153,8 +184,13 @@ export default function PrivacyPolicy() {
                 <h2 className="typography-h2 text-black mb-4">10. Data Retention</h2>
                 <p className="typography-p2 text-black/70 mb-4">
                   We retain your personal information for as long as necessary to fulfill the purposes outlined in this 
-                  Privacy Policy, unless a longer retention period is required by law.
+                  Privacy Policy, unless a longer retention period is required by law. Specifically:
                 </p>
+                <ul className="list-disc list-inside typography-p2 text-black/70 mb-4 space-y-2">
+                  <li><strong>Booking and Transaction Data:</strong> We retain booking and payment transaction records for a minimum of 7 years as required by Indian financial regulations and tax laws.</li>
+                  <li><strong>Personal Information:</strong> We retain your personal information for as long as your account is active or as needed to provide services to you.</li>
+                  <li><strong>Payment Information:</strong> Payment card details are not stored by us. Transaction records (without full card details) are retained as per financial regulations.</li>
+                </ul>
               </section>
 
               <section className="mb-8">
@@ -174,7 +210,15 @@ export default function PrivacyPolicy() {
               </section>
 
               <section className="mb-8">
-                <h2 className="typography-h2 text-black mb-4">13. Contact Us</h2>
+                <h2 className="typography-h2 text-black mb-4">13. Payment-Related Inquiries</h2>
+                <p className="typography-p2 text-black/70 mb-4">
+                  For payment-related inquiries, refund requests, or transaction disputes, please contact us. We will work 
+                  with our payment gateway provider to resolve any issues promptly.
+                </p>
+              </section>
+
+              <section className="mb-8">
+                <h2 className="typography-h2 text-black mb-4">14. Contact Us</h2>
                 <p className="typography-p2 text-black/70 mb-4">
                   If you have any questions or concerns about this Privacy Policy or our data practices, please contact us:
                 </p>
@@ -188,6 +232,14 @@ export default function PrivacyPolicy() {
                   >
                     +91 8861078009
                   </a>
+                </p>
+                <p className="typography-p2 text-black/70 mb-4">
+                  <strong>Email:</strong> For privacy-related inquiries, please contact us via WhatsApp or email.
+                </p>
+                <p className="typography-p2 text-black/70 mb-4">
+                  <strong>Grievance Officer:</strong> In accordance with the Information Technology Act, 2000 and rules 
+                  made thereunder, if you have any grievances regarding the processing of your personal information, you may 
+                  contact our Grievance Officer at the contact details provided above.
                 </p>
               </section>
             </div>

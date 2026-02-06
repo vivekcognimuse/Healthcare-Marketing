@@ -81,8 +81,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${redHatDisplay.variable} font-sans antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${redHatDisplay.variable} font-sans antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>
