@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
 import "./globals.css";
+import Header from "../components/Header";
 
 const redHatDisplay = Red_Hat_Display({
   subsets: ["latin"],
@@ -83,6 +84,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${redHatDisplay.variable} font-sans antialiased`} suppressHydrationWarning>
+        <Header />
         {children}
       </body>
     </html>

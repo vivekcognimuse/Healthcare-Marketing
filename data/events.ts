@@ -1,0 +1,72 @@
+export interface Event {
+  id: string;
+  title: string;
+  tagline?: string;
+  description?: string;
+  cta?: { title?: string; description?: string; buttonText?: string };
+  date: string;
+  time: string;
+  location: string;
+  meetLink?: string;
+  capacity: number;
+  attendees: number;
+  tags: string[];
+  imageUrl?: string;
+  cardImageUrl?: string;
+  speaker: { name: string; role?: string; affiliation?: string; bio?: string; photoSrc?: string };
+  takeaways?: string[];
+  agenda?: { time: string; title: string; desc?: string }[];
+  ticketPrice?: number;
+  currency?: string;
+}
+
+export const events: Event[] = [
+  {
+    id: "evt_001",
+    title: "Sundays with Dr. Shovan Saha",
+    tagline: "How to Explain OT to Anyone",
+    
+    date: "Sunday, March 15, 2026",
+    time: "11:00 AM to 12:30 PM IST",
+    location: "Online via Google-Meet (Link provided upon registration)",
+    capacity: 500,
+    attendees: 42,
+    tags: ["Occupational Therapy", "Webinar", "Communication"],
+    imageUrl: "/assets/CogniMuse.png",
+    cardImageUrl: "/assets/dr saha-event-card.PNG",
+    ticketPrice: 249,
+    meetLink: "https://meet.google.com/zdf-dxqs-uwd",
+    currency: "INR",
+    speaker: {
+      name: "Dr. Shovan Saha",
+      role: "Associate Professor, Occupational Therapy.",
+      affiliation: "Manipal College of Health Professions.",
+      bio:
+        "Dr. Shovan Saha is a highly respected leader in the world of Occupational Therapy with over 25 years of experience. As an Associate Professor at Manipal Academy of Higher Education, he has spent his career balancing teaching with hands-on patient care. Dr. Saha is known for his 'healing touch' and his ability to create simple, low cost tools that help people return to their daily roles.",
+      photoSrc: "/assets/image-1.JPG",
+    },
+    takeaways: [
+      "Clear Communication Skills: Learn how to describe Occupational Therapy in simple terms that anyone can understand.",
+      "A Supportive Network: Connect with professionals and students who share your passion for helping others.",
+      "Official Recognition: Receive a participation certificate to add to your professional portfolio.",
+    ],
+    agenda: [
+      { time: "11:00 AM", title: "Welcome and Introductions (5 mins)" },
+      { time: "11:05 AM", title: "Keynote Talk by Dr. Shovan Saha (60 mins)" },
+      { time: "12:05 PM", title: "Break (5 mins)" },
+      { time: "12:10 PM", title: "Interactive Q&A (15 mins)" },
+      { time: "12:25 PM", title: "Conclusion (5 mins)" },
+    ],
+    cta: {
+      title: "Ready to Restore Lives Differently?",
+      description:
+        "Join a community of professionals for a morning of insight, connection, and growth in the field of Occupational Therapy.",
+      buttonText: "Book Now",
+    },
+   
+  },
+  
+];
+
+export default events;
+

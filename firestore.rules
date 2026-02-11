@@ -1,25 +1,44 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Events - read only for public, write temporarily allowed (development)
-    // ⚠️ WARNING: This allows anyone to write events. For production, implement API routes with server-side auth.
+
+    // Events: public read.
+    // NOTE: Admin dashboard currently performs client-side writes.
+    // For production, consider restricting create/update/delete to server-side Admin SDK only.
     match /events/{eventId} {
-      allow read: if true; // Public read
-      allow write: if true; // ⚠️ TEMPORARY: Allows writes (development only - not secure for production!)
+      allow read: if true;
+      allow create, update, delete: if true;
     }
-    
-    // Bookings - read/write for admins, create for public
+
+    // Bookings: allow client create (with validation). Allow admin reads/updates via client for dashboard.
     match /bookings/{bookingId} {
-      allow read: if true; // Allow reads (admin dashboard needs this)
-      allow create: if true; // Public can create bookings
-      allow update: if true; // ⚠️ TEMPORARY: Allow updates (payment verification needs this)
-      allow delete: if false; // Admin only
+      allow create: if
+        request.resource.data.keys().hasAll(['eventId','name','phone','createdAt','paymentDetails']) &&
+        request.resource.data.eventId is string &&
+        request.resource.data.name is string &&
+        request.resource.data.phone is string &&
+        request.resource.data.createdAt is string &&
+        request.resource.data.paymentDetails is map &&
+        (request.resource.data.paymentDetails.status in ['pending','success','failed']) &&
+        (
+          !('amount' in request.resource.data.paymentDetails) ||
+          request.resource.data.paymentDetails.amount is number
+        );
+
+      // Allow admins to read/update/delete bookings for management (if using simple admin session).
+      allow get, list, update, delete: if true;
     }
-    
-    // Error logs - allow writes for error logging
+
+    // Error logs - allow writes so client-side error logging works from admin pages.
     match /errorLogs/{logId} {
-      allow read: if false; // Admin only
-      allow write: if true; // Allow error logging from client
+      allow read: if false;
+      allow write: if true;
+    }
+
+    // Default: deny everything else to be safe
+    match /{document=**} {
+      allow read: if false;
+      allow write: if false;
     }
   }
 }

@@ -16,6 +16,18 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-red-hat-display)", "sans-serif"],
       },
+      letterSpacing: {
+        /*
+         Custom letter-spacing (tracking) tokens for Red Hat Display.
+         Naming: rhd-3 is the tightest (used for large headings per guideline),
+         rhd-2 / rhd-1 are intermediate, rhd-0 is neutral, rhd+1 is slight expansion.
+        */
+        "rhd-3": "-0.03em",
+        "rhd-2": "-0.02em",
+        "rhd-1": "-0.01em",
+        "rhd-0": "0em",
+        "rhd+1": "0.01em",
+      },
       fontSize: {
         // Desktop 1728
         "h1-1728": ["80px", { lineHeight: "1.2", fontWeight: "700" }],

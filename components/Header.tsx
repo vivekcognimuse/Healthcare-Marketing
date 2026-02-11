@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
 
@@ -11,6 +12,16 @@ export default function Header() {
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
+  const headerRef = useRef<HTMLElement | null>(null);
+
+  const resolveHref = (href: string) => {
+    if (href.startsWith("#")) {
+      return pathname === "/" ? href : `/${href}`;
+    }
+    return href;
+  };
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -39,6 +50,7 @@ export default function Header() {
       const footer = document.querySelector("footer");
       
       let shouldHide = false;
+      let footerVisible = false;
       
       // Always show header at the very top of the page
       if (window.scrollY < 50) {
@@ -54,8 +66,9 @@ export default function Header() {
       
       if (footer) {
         const footerTop = footer.getBoundingClientRect().top;
-        // Hide header when Footer is in view
+        // Mark footer visible when it enters the viewport
         if (footerTop < window.innerHeight) {
+          footerVisible = true;
           shouldHide = true;
         }
       }
@@ -63,8 +76,16 @@ export default function Header() {
       // If menu is open, always show header
       if (isMenuOpen) {
         setIsHeaderVisible(true);
+      } else if (footerVisible && !isSpecial) {
+        // Hide header when footer is visible, but keep it visible on special pages (events/outreach)
+        setIsHeaderVisible(false);
       } else {
-        setIsHeaderVisible(!shouldHide);
+        // Keep header visible on special pages (events/outreach) to avoid disappearing over hero-like content
+        if (isSpecial) {
+          setIsHeaderVisible(true);
+        } else {
+          setIsHeaderVisible(!shouldHide);
+        }
       }
       
       handleHashChange();
@@ -73,6 +94,48 @@ export default function Header() {
     // Set initial active section and scroll state
     handleHashChange();
     handleScroll();
+    // If the current route is an outreach page, prefer the "over-hero" (light) header initially
+    if (pathname && pathname.startsWith("/outreach")) {
+      setIsScrolled(false);
+    }
+    // Use IntersectionObserver to detect whether a "hero" section is visible.
+    // If a hero is visible, we keep the header in the "over-hero" style (light text).
+    // When the hero is not visible (or there is no hero), we switch to the "scrolled" style (dark text).
+    // Special-case: on the Voices page we want the header to be white while the
+    // "Meet Dr. Shovan Saha" block (id="meet-dr-shovan") is visible, then switch to black.
+    let heroObserver: IntersectionObserver | null = null;
+    const voicesHero = document.getElementById("meet-dr-shovan");
+    if (pathname && pathname.startsWith("/outreach/voices") && voicesHero) {
+      heroObserver = new IntersectionObserver(
+        (entries) => {
+          const e = entries[0];
+          if (!e) return;
+          // When the hero is visible -> light header (isScrolled = false).
+          setIsScrolled(!e.isIntersecting);
+        },
+        { root: null, threshold: 0, rootMargin: "-80px 0px 0px 0px" }
+      );
+      heroObserver.observe(voicesHero);
+    } else {
+      const hero =
+        document.getElementById("home") ||
+        (document.querySelector("section[data-hero]") as HTMLElement | null) ||
+        (Array.from(document.querySelectorAll("section")).find((s) => !!s.querySelector("img")) as HTMLElement | null);
+
+      if (!hero) {
+        setIsScrolled(true);
+      } else {
+        heroObserver = new IntersectionObserver(
+          (entries) => {
+            const e = entries[0];
+            if (!e) return;
+            setIsScrolled(!e.isIntersecting);
+          },
+          { root: null, threshold: 0, rootMargin: "-80px 0px 0px 0px" }
+        );
+        heroObserver.observe(hero);
+      }
+    }
 
     // Listen for hash changes and scroll
     window.addEventListener("hashchange", handleHashChange);
@@ -82,6 +145,25 @@ export default function Header() {
       window.removeEventListener("hashchange", handleHashChange);
       window.removeEventListener("scroll", handleScroll);
     };
+  }, [isMenuOpen]);
+
+  // Measure header height and expose as CSS variable for layout spacing
+  useEffect(() => {
+    function setHeaderHeight() {
+      try {
+        const el = headerRef.current;
+        if (el && typeof document !== "undefined") {
+          const h = el.offsetHeight;
+          document.documentElement.style.setProperty("--header-height", `${h}px`);
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    setHeaderHeight();
+    window.addEventListener("resize", setHeaderHeight);
+    return () => window.removeEventListener("resize", setHeaderHeight);
   }, [isMenuOpen]);
 
   // Prevent body scroll when menu is open and ensure header is visible
@@ -104,30 +186,49 @@ export default function Header() {
     { href: "#expertise", label: "Expertise", id: "expertise" },
     { href: "#packages", label: "Packages", id: "packages" },
     { href: "#testimonials", label: "Testimonials", id: "testimonials" },
+    {
+      href: "/outreach",
+      label: "Knowledge Hub",
+      id: "outreach",
+      children: [
+        { href: "/outreach", label: "Episodes", id: "outreach-episodes" },
+        { href: "/outreach/articles", label: "Articles", id: "outreach-articles" },
+        { href: "/outreach/voices", label: "Voices", id: "outreach-voices" },
+        { href: "/events", label: "Events", id: "events" },
+        // { href: "/outreach/upcoming", label: "Upcoming", id: "outreach-upcoming" },
+      ],
+    },
   ];
 
-  const textColorClass = isScrolled ? "text-black" : "text-white";
-  const hamburgerColorClass = isScrolled ? "bg-black" : "bg-white";
+  const isSpecial = !!(pathname && (pathname.startsWith("/outreach") || pathname.startsWith("/events")));
+  const isVoices = !!(pathname && pathname.startsWith("/outreach/voices"));
+  // For the Voices page we want the header text to be white over the hero.
+  const textColorClass = isVoices ? "text-white" : isSpecial ? "text-black" : (isScrolled ? "text-black" : "text-white");
+  const hamburgerColorClass = isVoices ? "bg-white" : isSpecial ? "bg-black" : (isScrolled ? "bg-black" : "bg-white");
+  const isHomeOrOutreach = pathname === "/" || isSpecial;
+  // When header text is black we prefer a light (white) dropdown modal with dark text.
+  const isHeaderTextBlack = textColorClass.includes("text-black");
 
   return (
     <>
-    <header 
+    <header ref={headerRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${textColorClass} ${
         isHeaderVisible || isMenuOpen ? 'translate-y-0 opacity-100 pointer-events-auto' : '-translate-y-full opacity-0 pointer-events-none'
       }`}
       style={{
         overflow: 'visible',
-        background: isScrolled 
-          ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'
-          : 'linear-gradient(180deg, rgba(0, 27, 87, 0.3) 0%, rgba(0, 27, 87, 0.1) 100%)',
-        backdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'blur(8px)',
-        WebkitBackdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'blur(8px)',
-        borderBottom: isScrolled 
-          ? '1px solid rgba(255, 255, 255, 0.18)'
-          : '1px solid rgba(255, 255, 255, 0.05)',
-        boxShadow: isScrolled
-          ? '0 8px 32px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)'
-          : '0 4px 16px 0 rgba(0, 0, 0, 0.1)',
+        /* Use a subtle, non-flashy background so white text won't get a bright halo.
+           Avoid strong white gradients which can create a glowing effect behind text. */
+        background: isScrolled
+          ? 'linear-gradient(135deg, rgba(0, 27, 87, 0.06) 0%, rgba(0, 27, 87, 0.04) 100%)'
+          : 'transparent',
+        /* Disable backdrop blur when over the hero to avoid light bleeding/halo */
+        backdropFilter: isScrolled ? 'blur(6px)' : 'none',
+        WebkitBackdropFilter: isScrolled ? 'blur(6px)' : 'none',
+        /* Use a subtle darker border only when scrolled; remove when over hero */
+        borderBottom: isScrolled ? '1px solid rgba(0, 0, 0, 0.06)' : 'none',
+        /* Minimize shadows when over hero to avoid glow behind text */
+        boxShadow: isScrolled ? '0 8px 24px rgba(0, 0, 0, 0.08)' : 'none',
       }}
     >
       <nav className="container py-4 lg:py-6">
@@ -140,15 +241,50 @@ export default function Header() {
           {/* Desktop Navigation - Middle section (lg: 1024px+) */}
           <div className="hidden lg:flex items-center gap-8 lg:gap-12 flex-1 justify-center">
             {navItems.map((item) => (
-              <Link
+              <div
                 key={item.id}
-                href={item.href}
-                className={`typography-p2 hover:opacity-80 transition-all duration-300 ${textColorClass} ${
-                  activeSection === item.id ? "font-bold" : ""
-                }`}
+                className="relative"
+                onMouseEnter={() => setOpenDropdown(item.children ? item.id : null)}
+                onMouseLeave={() => setOpenDropdown(null)}
               >
-                {item.label}
-              </Link>
+                <Link
+                  href={resolveHref(item.href)}
+                  className={`typography-p2 hover:opacity-80 transition-all duration-300 ${textColorClass} ${
+                    activeSection === item.id ? "font-bold" : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+
+                {/* Dropdown for items with children (controlled by state to avoid flicker) */}
+                {item.children && (
+                  <div
+                    className={`absolute left-1/2 top-full -translate-x-1/2 w-56 rounded-lg shadow-lg z-[60] transition-all duration-150 ${
+                      openDropdown === item.id ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none translate-y-1"
+                    }`}
+                    onMouseEnter={() => setOpenDropdown(item.id)}
+                    onMouseLeave={() => setOpenDropdown(null)}
+                  >
+                    <div
+                      className={`flex flex-col py-1 rounded-lg overflow-hidden ${isHeaderTextBlack ? "bg-white text-black" : "bg-black/80 text-white"}`}
+                    >
+                      {item.children.map((c) => (
+                        <Link
+                          key={c.id}
+                          href={c.href}
+                          className={`typography-p2 px-4 py-3 transition-colors block rounded-md ${
+                            isHeaderTextBlack
+                              ? "hover:text-black hover:bg-gray-100"
+                              : "hover:text-white hover:bg-gradient-to-b hover:from-[#001B57] hover:via-[#155DFC] hover:to-white/5"
+                          }`}
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
 
@@ -276,7 +412,7 @@ export default function Header() {
                       }}
                     >
                       <Link
-                        href={item.href}
+                        href={resolveHref(item.href)}
                         onClick={() => setIsMenuOpen(false)}
                         className={`group relative flex items-center py-4 transition-all duration-300 ${
                           activeSection === item.id 
@@ -284,38 +420,24 @@ export default function Header() {
                             : "text-white/90 hover:text-white"
                         }`}
                       >
-                        {/* Active underline - extends across */}
-                        {activeSection === item.id && (
-                          <motion.div
-                            layoutId="activeUnderline"
-                            className="absolute left-0 right-0 bottom-0 h-0.5 bg-black"
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                          />
-                        )}
-                        <span className={`typography-p2 font-medium relative z-10 ${
-                          activeSection === item.id ? "font-semibold" : ""
-                        }`}>
-                          {item.label}
-                        </span>
-                        {/* Arrow indicator for active - pointing diagonally up-right */}
-                        {activeSection === item.id && (
-                          <motion.svg
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="w-5 h-5 ml-auto text-black"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M13 7l5 5m0 0l-5 5m5-5H6"
-                            />
-                          </motion.svg>
-                        )}
+                        {item.label}
                       </Link>
+
+                      {/* Mobile: show children as indented links */}
+                      {item.children && (
+                        <div className="ml-6 flex flex-col mb-2">
+                          {item.children.map((c) => (
+                            <Link
+                              key={c.id}
+                              href={c.href}
+                              onClick={() => setIsMenuOpen(false)}
+                              className="typography-p2 text-white/80 py-2"
+                            >
+                              {c.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </motion.div>
                   ))}
                 </div>

@@ -1,0 +1,20 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow public read for stored assets (images)
+    // Allow client writes to the `events/` path so the admin UI can upload images directly.
+    // WARNING: this permits client-side writes under /events/**. For stricter security,
+    // restrict writes to authenticated admins or use server-side Admin SDK uploads.
+    match /events/{allPaths=**} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // All other paths: public read, no client writes
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
+

@@ -4,7 +4,12 @@
 
 @layer base {
   :root {
-    --font-red-hat-display: var(--font-red-hat-display);
+    /* Fallback font family in case the variable isn't applied yet.
+       The Next.js font loader will set the --font-red-hat-display variable on <body>. */
+    --font-red-hat-display: 'Red Hat Display', system-ui, -apple-system, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", sans-serif;
+    --header-height: 88px;
   }
 
   html {
@@ -17,6 +22,9 @@
     @apply bg-white text-black;
     overflow-x: hidden;
     max-width: 100vw;
+    /* Ensure the loaded font variable is used (Next's font sets this on <body>).
+       Fall back to the declared CSS variable above if not present. */
+    font-family: var(--font-red-hat-display);
   }
 
   /* Force light mode - prevent system dark mode from affecting the site */
@@ -30,6 +38,72 @@
 
   * {
     @apply box-border;
+  }
+
+  /* Base element mappings to the responsive typography utilities.
+     This ties semantic elements (h1..p..button) to the design system classes
+     defined under @layer utilities so headings/text automatically scale. */
+  h1 {
+    @apply typography-h1 font-bold;
+    /* Use tighter tracking for large display headings per design guideline */
+    @apply tracking-rhd-3;
+  }
+  h2 {
+    @apply typography-h2 font-bold;
+    @apply tracking-rhd-3;
+  }
+  h3 {
+    @apply typography-h3 font-bold;
+    @apply tracking-rhd-3;
+  }
+  h4 {
+    @apply typography-h4 font-bold;
+    @apply tracking-rhd-2;
+  }
+  h5 {
+    @apply typography-h5 font-bold;
+    @apply tracking-rhd-1;
+  }
+  h6 {
+    @apply typography-h6 font-bold;
+    @apply tracking-rhd-1;
+  }
+
+  p {
+    @apply typography-p1;
+    /* Slight negative tracking for body to improve readability with Red Hat Display */
+    @apply tracking-rhd-1;
+  }
+
+  small,
+  .footnote {
+    @apply typography-footnote;
+  }
+
+  /* Buttons: default to primary button typography; components can override with .typography-btn2 */
+  button,
+  .btn,
+  .btn-primary,
+  .btn-secondary {
+    @apply typography-btn1;
+  }
+
+  /* Remove unwanted glow/halo effects inside header and hero */
+  header,
+  header * {
+    text-shadow: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Ensure typography utilities do not carry drop-shadows */
+  .typography-h1,
+  .typography-h2,
+  .typography-h3,
+  .typography-p1,
+  .typography-p2 {
+    text-shadow: none !important;
+    filter: none !important;
   }
 
   /* Custom Scrollbar Styling */
@@ -131,6 +205,29 @@
   .scroll-to-top-btn:hover {
     background: linear-gradient(90.03deg, #00277E -30.86%, #0D3796 18.56%, #155DFC 98.38%);
   }
+ 
+  /* Article render styles (for /articles/[id]/page) */
+  .article-render {
+    @apply text-black;
+  }
+  .article-render p {
+    @apply typography-p1 mb-6;
+  }
+  .article-render h1 {
+    @apply typography-h1 font-bold mb-6;
+  }
+  .article-render h2 {
+    @apply typography-h2 font-bold mt-8 mb-4;
+  }
+  .article-render h3 {
+    @apply typography-h3 font-bold mt-6 mb-3;
+  }
+  .article-render img {
+    @apply my-6 w-full rounded;
+  }
+  .article-render blockquote {
+    @apply border-l-4 pl-4 italic text-gray-700 my-6;
+  }
 }
 
 @layer utilities {
@@ -149,6 +246,21 @@
   }
   .typography-h3 {
     font-size: 20px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .typography-h4 {
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .typography-h5 {
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .typography-h6 {
+    font-size: 14px;
     line-height: 1.2;
     font-weight: 700;
   }
@@ -189,6 +301,15 @@
     .typography-h3 {
       font-size: 20px;
     }
+    .typography-h4 {
+      font-size: 20px;
+    }
+    .typography-h5 {
+      font-size: 18px;
+    }
+    .typography-h6 {
+      font-size: 16px;
+    }
     .typography-btn1 {
       font-size: 18px;
     }
@@ -217,6 +338,15 @@
     .typography-h3 {
       font-size: 26px;
     }
+    .typography-h4 {
+      font-size: 22px;
+    }
+    .typography-h5 {
+      font-size: 20px;
+    }
+    .typography-h6 {
+      font-size: 18px;
+    }
     .typography-btn1 {
       font-size: 24px;
     }
@@ -244,6 +374,15 @@
     }
     .typography-h3 {
       font-size: 32px;
+    }
+    .typography-h4 {
+      font-size: 28px;
+    }
+    .typography-h5 {
+      font-size: 24px;
+    }
+    .typography-h6 {
+      font-size: 20px;
     }
     .typography-btn1 {
       font-size: 28px;

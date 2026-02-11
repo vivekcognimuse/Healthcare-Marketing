@@ -51,6 +51,11 @@ export interface EventData {
   capacity: number | null; // null means unlimited
   requireApproval: boolean;
   isActive: boolean;
+  image?: string;
+  gallery?: string[];
+  agenda?: string;
+  questions?: { id: string; label: string; required: boolean }[];
+  featured?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -133,6 +138,7 @@ export interface BookingData {
   place: string;
   profession: string;
   age: number;
+  answers?: { questionId: string; answer: string }[];
   paymentDetails: {
     status: "pending" | "success" | "failed";
     transactionId?: string;
