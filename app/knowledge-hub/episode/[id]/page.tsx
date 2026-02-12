@@ -10,21 +10,31 @@ export default async function EpisodePage(props: any) {
   if (!episode) return notFound();
 
   return (
-    <main className="container py-12 pt-24">
+    <main className="container py-12" style={{ paddingTop: "calc(var(--header-height) + 1.5rem)" }}>
       <div className="max-w-6xl mx-auto">
         <div className="mb-4">
-          <Link href="/knowledge-hub" className="text-lg text-gray-600 hover:underline">
+          <Link href="/knowledge-hub" className="article-back-link typography-p2 text-gray-600 hover:underline">
             ← Back to Knowledge Hub
           </Link>
         </div>
-        <h1 className="typography-h2 font-bold mb-4">{episode.title}</h1>
+        <header className="mb-4">
+          <div className="typography-footnote text-gray-500">{episode.date}</div>
+          <h2 className="typography-h2 font-bold mb-4">{episode.title}</h2>
+        </header>
         <div className="mb-6">
           <div className="w-full h-64 md:h-96 bg-gray-100 overflow-hidden rounded">
             {episode.image ? <img src={episode.image} alt={episode.title} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center">No image</div>}
           </div>
         </div>
-        <div className="prose max-w-none">
-          <div dangerouslySetInnerHTML={{ __html: episode.summary || episode.excerpt || "" }} />
+        <div className="prose max-w-none article-render">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: (() => {
+                const raw = (episode.summary || episode.excerpt || "").replace(/^\s*<h[12][^>]*>[\s\S]*?<\/h[12]>\s*/i, "");
+                return raw.replace(/<h2([^>]*)>/gi, "<h3$1>").replace(/<\/h2>/gi, "</h3>");
+              })(),
+            }}
+          />
         </div>
       </div>
     </main>

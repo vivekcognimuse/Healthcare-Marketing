@@ -10,18 +10,18 @@ export default async function ArticlePage(props: any) {
   if (!article) return notFound();
 
   return (
-    <main className="container py-12 pt-24">
+    <main className="container py-12" style={{ paddingTop: "calc(var(--header-height) + 1.5rem)" }}>
       {/* Title row - left aligned */}
       <div className="max-w-6xl mx-auto">
         <div className="mb-4">
-          <Link href="/outreach/articles" className="text-lg text-gray-600 hover:underline">
+          <Link href="/outreach/articles" className="article-back-link typography-p2 text-gray-600 hover:underline">
             ← Back to Articles
           </Link>
         </div>
-        <h1 className="typography-h1 font-bold mb-2 text-left">{article.title}</h1>
-        <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
-          <div>{article.date}</div>
-          <div className="px-2 py-1 bg-gray-100 rounded text-xs text-gray-700">{(article as any).tag || "Newsletter"}</div>
+        <h2 className="typography-h2 font-bold mb-2 text-left">{article.title}</h2>
+        <div className="flex items-center gap-4 mb-6">
+          <div className="typography-footnote text-gray-500">{article.date}</div>
+          <div className="px-2 py-1 bg-gray-100 rounded typography-footnote text-gray-700">{(article as any).tag || "Newsletter"}</div>
         </div>
 
         {/* Main grid: two-column layout with centered content column (no empty right gutter) */}
@@ -50,8 +50,19 @@ export default async function ArticlePage(props: any) {
                   <img src={article.image} alt={article.title} className="relative z-10 max-h-full w-auto object-contain" />
                 </div>
               )}
-              {/* Render the article body (stored as sanitized HTML in data) */}
-              <div dangerouslySetInnerHTML={{ __html: article.body }} />
+              {/* Render the article body (stored as sanitized HTML in data).
+                  Remove the leading H1/H2 from the stored HTML to avoid duplicating the page title
+                  and ensure the visible title uses the page's H2 (typography-h2). */}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: (() => {
+                    const raw = (article.body || "").replace(/^\s*<h[12][^>]*>[\s\S]*?<\/h[12]>\s*/i, "");
+                    // Convert any remaining H2 in the body to H3 to match design,
+                    // leave other headings intact.
+                    return raw.replace(/<h2([^>]*)>/gi, "<h3$1>").replace(/<\/h2>/gi, "</h3>");
+                  })(),
+                }}
+              />
             </div>
           </article>
 

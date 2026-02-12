@@ -28,17 +28,22 @@ export default async function EpisodePage(props: any) {
   const embedUrl = episode?.youtubeId ? `https://www.youtube.com/embed/${episode.youtubeId}` : null;
 
   return (
-    <main className="container py-12 pt-28">
+    <main className="container py-12" style={{ paddingTop: "calc(var(--header-height) + 1.5rem)" }}>
       <div className="mb-6">
-        <Link href="/outreach" className="text-lg text-gray-600 hover:underline">
+        <Link href="/outreach" className="article-back-link typography-p2 text-gray-600 hover:underline">
           ← Back to Conversations
         </Link>
       </div>
 
       <div className="w-full max-w-3xl mx-auto">
         <header className="mb-8">
-          <div className="text-sm ">{episode?.date}</div>
-          <h1 className="typography-h2 font-bold mt-2">{episode?.title}</h1>
+          <div className="flex items-center gap-4 mb-2">
+            <div className="typography-footnote text-gray-500">{episode?.date}</div>
+            {episode?.tag && (
+              <div className="px-2 py-1 bg-gray-100 rounded typography-footnote text-gray-700">{episode.tag}</div>
+            )}
+          </div>
+          <h2 className="typography-h2 font-bold mt-2">{episode?.title}</h2>
         </header>
 
         {embedUrl && (
@@ -59,10 +64,21 @@ export default async function EpisodePage(props: any) {
         )}
 
         {episode?.summary && (
-          <section className="mb-8">
-            <h2 className="typography-h6 font-semibold mb-3">Summary</h2>
-            <p className="typography-p2 text-gray-700">{episode.summary}</p>
-          </section>
+        <section className="mb-8">
+          <h2 className="typography-h2 font-semibold mb-3">Summary</h2>
+          <div className="article-render max-w-none">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: (() => {
+                  // strip leading heading if present, keep body paragraphs as-is
+                  const raw = (episode.summary || "").replace(/^\s*<h[12][^>]*>[\s\S]*?<\/h[12]>\s*/i, "");
+                  // do NOT convert H2 -> H3 here; keep body structure but ensure CSS maps p -> P2
+                  return raw;
+                })(),
+              }}
+            />
+          </div>
+        </section>
         )}
         {episode?.["Key themes"] && (
           <section className="mb-8">
@@ -74,9 +90,9 @@ export default async function EpisodePage(props: any) {
         {episode?.articles && episode.articles.length > 0 && (
           <section className="mb-8">
             <h3 className="typography-h6 font-semibold mb-3">Articles</h3>
-            <ul className="list-disc list-inside space-y-2 text-gray-700">
+            <ul className="list-disc list-inside space-y-2">
               {episode.articles.map((a, idx) => (
-                <li key={idx}>{a}</li>
+                <li key={idx} className="typography-p2 text-gray-700">{a}</li>
               ))}
             </ul>
           </section>

@@ -211,16 +211,33 @@
     @apply text-black;
   }
   .article-render p {
-    @apply typography-p1 mb-6;
+    /* Body text in articles should use p2 per design */
+    @apply typography-p2 mb-6;
   }
   .article-render h1 {
     @apply typography-h1 font-bold mb-6;
   }
+  /* Map article headings to the design's H3 scale for better visual hierarchy:
+     stored H2s are converted to H3 in the renderer, and article H3 should use typography-h3 */
   .article-render h2 {
-    @apply typography-h2 font-bold mt-8 mb-4;
+    @apply typography-h3 font-bold mt-8 mb-4;
   }
   .article-render h3 {
     @apply typography-h3 font-bold mt-6 mb-3;
+  }
+  /* Override for users with scaled displays so article typography matches design
+     Promote the 1728px typography sizes down to the 1440 breakpoint so
+     headings/body use the larger values on common desktop screens (e.g., 1920 @125% scale). */
+  @media (min-width: 1440px) {
+    /* Desktop 1440: use the design tokens for 1440 breakpoint */
+    .article-render h3 {
+      font-size: 26px;
+      line-height: 1.2;
+    }
+    .article-render p {
+      font-size: 20px;
+      line-height: 1.4;
+    }
   }
   .article-render img {
     @apply my-6 w-full rounded;
@@ -399,6 +416,72 @@
     .typography-footnote {
       font-size: 20px;
     }
+  }
+}
+
+/* Article-specific responsive overrides placed after utilities to ensure they win
+   without changing global tokens. These enforce the design sizes for article body
+   headings and paragraphs at the two desktop breakpoints. */
+@media (min-width: 1440px) {
+  .article-render h3 {
+    font-size: 26px;
+    line-height: 1.2;
+  }
+  .article-render p {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+}
+
+@media (min-width: 1728px) {
+  .article-render h3 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+  .article-render p {
+    font-size: 22px;
+    line-height: 1.4;
+  }
+}
+
+/* Explicit small utility for article back link to enforce responsive P2 sizes */
+.article-back-link {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+@media (min-width: 1440px) {
+  .article-back-link {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+}
+
+@media (min-width: 1728px) {
+  .article-back-link {
+    font-size: 22px;
+    line-height: 1.4;
+  }
+}
+
+/* Ensure footnote typography inside article content follows design tokens
+   with higher specificity so it isn't overridden by other utilities. */
+.article-render .typography-footnote {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (min-width: 1440px) {
+  .article-render .typography-footnote {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+}
+
+@media (min-width: 1728px) {
+  .article-render .typography-footnote {
+    font-size: 20px;
+    line-height: 1.4;
   }
 }
 

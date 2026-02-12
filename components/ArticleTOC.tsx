@@ -58,7 +58,7 @@ export default function ArticleTOC({ contentId = "article-content" }: { contentI
                     setActive(h.id);
                   }
                 }}
-                className={`block pl-4 text-base transition-colors duration-200 ${
+                className={`block pl-4 typography-footnote transition-colors duration-200 ${
                   active === h.id
                     ? "text-[#155DFC] font-medium border-l-2 border-[#155DFC]"
                     : "text-black hover:text-[#155DFC] border-l-2 border-transparent"

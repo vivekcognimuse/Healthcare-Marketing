@@ -11,15 +11,15 @@ export default async function ArticlePage(props: any) {
   if (!article) return notFound();
 
   return (
-    <main className="container py-12 pt-24">
+    <main className="container py-12" style={{ paddingTop: "calc(var(--header-height) + 1.5rem)" }}>
       {/* Title row - left aligned */}
       <div className="max-w-6xl mx-auto">
         <div className="mb-4">
-          <Link href="/knowledge-hub/articles" className="text-lg text-gray-600 hover:underline">
+          <Link href="/knowledge-hub/articles" className="article-back-link typography-p2 text-gray-600 hover:underline">
             ← Back to Articles
           </Link>
         </div>
-        <h1 className="typography-h1 font-bold mb-2 text-left">{article.title}</h1>
+        <h2 className="typography-h2 font-bold mb-2 text-left">{article.title}</h2>
         <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
           <div>{article.date}</div>
           <div className="px-2 py-1 bg-gray-100 rounded text-xs text-gray-700">{(article as any).tag || "Newsletter"}</div>
@@ -48,8 +48,16 @@ export default async function ArticlePage(props: any) {
                   <img src={article.image} alt={article.title} className="relative z-10 max-h-full w-auto object-contain" />
                 </div>
               )}
-              {/* Render the article body (stored as sanitized HTML in data) */}
-              <div dangerouslySetInnerHTML={{ __html: article.body }} />
+              {/* Render the article body (stored as sanitized HTML in data).
+                  Strip any leading H1/H2 coming from the saved HTML so the page title (above) controls heading level. */}
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: (() => {
+                    const raw = (article.body || "").replace(/^\s*<h[12][^>]*>[\s\S]*?<\/h[12]>\s*/i, "");
+                    return raw.replace(/<h2([^>]*)>/gi, "<h3$1>").replace(/<\/h2>/gi, "</h3>");
+                  })(),
+                }}
+              />
             </div>
           </article>
 
