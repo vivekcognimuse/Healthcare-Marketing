@@ -21,12 +21,12 @@ const SpeakerSection: React.FC<{ speaker?: Speaker }> = ({ speaker }) => {
   const s = { ...defaultSpeaker, ...(speaker || {}) };
   return (
     <section className="py-6 md:py-8">
-      <div className="mx-auto max-w-3xl px-6">
+      <div className="mx-auto max-w-3xl">
         <h2 className="mb-8 typography-h3 font-semibold text-gray-900">Meet Your Speaker</h2>
-        <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row items-start gap-6">
             <div className="flex-shrink-0">
-              <div className="relative h-32 w-32 sm:h-36 sm:w-36 rounded-2xl overflow-hidden shadow-md bg-gray-100">
+              <div className="relative h-32 w-32 sm:h-72 sm:w-52 rounded-lg overflow-hidden shadow-md bg-gray-100">
                 <Image unoptimized src={s.photoSrc || "/placeholder.svg"} alt={s.name || "Speaker"} fill className="object-cover" />
               </div>
             </div>
@@ -34,7 +34,7 @@ const SpeakerSection: React.FC<{ speaker?: Speaker }> = ({ speaker }) => {
             <div className="flex-1">
               <h3 className="typography-h3 font-sans text-gray-900">{s.name}</h3>
               <p className="mt-1 typography-p3 text-gray-600">{s.title}</p>
-              <p className="mt-1 typography-p2 text-gray-500">{s.affiliation}</p>
+              <p className="mt-1 typography-p20 text-gray-500">{s.affiliation}</p>
               <p className="mt-4 typography-footnote text-gray-700 leading-relaxed">{s.bio}</p>
             </div>
           </div>

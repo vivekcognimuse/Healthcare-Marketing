@@ -71,7 +71,7 @@ const CTASection: React.FC<{
         <Button
           variant="secondary"
           onClick={() => setShowForm(true)}
-          className="mt-8  px-10 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all btn-secondary"
+          className="mt-8 btn-secondary px-4 py-2 tracking-wide"
         >
           {data.buttonText}
         </Button>
@@ -84,9 +84,9 @@ const CTASection: React.FC<{
               <div className="fixed inset-0 z-50 flex items-center justify-center">
                 <div className="absolute inset-0 bg-black/60" onClick={() => setShowForm(false)} />
                 <div className="relative w-full max-w-md mx-4">
-                  <div className="rounded-xl overflow-hidden" style={{  background: "linear-gradient(90deg, #001B57 0%, #0D3796 50%, #155DFC 100%)", }}>
+                  <div className="rounded-lg overflow-hidden" style={{  background: "linear-gradient(90deg, #001B57 0%, #0D3796 50%, #155DFC 100%)", }}>
                     <div className="p-6">
-                      <h3 className="text-xl font-semibold text-white mb-2">Register for this event</h3>
+                      <h3 className="typography-h3 font-semibold text-white mb-2">Register for this event</h3>
                       <form
                         onSubmit={async (e) => {
                           e.preventDefault();
@@ -225,12 +225,12 @@ const CTASection: React.FC<{
                         className="space-y-3"
                       >
                         <div>
-                          <label className="block text-sm text-white mb-1">Name</label>
+                          <label className="block typography-footnote text-white mb-1">Name</label>
                           <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full rounded-md px-3 py-2" />
                           {errors.name && <div className="text-xs text-rose-400 mt-1">{errors.name}</div>}
                         </div>
                         <div>
-                          <label className="block text-sm text-white mb-1">Phone number</label>
+                          <label className="block typography-footnote text-white mb-1">Phone number</label>
                           <div className="flex gap-2">
                             <input
                               type="text"
@@ -255,12 +255,12 @@ const CTASection: React.FC<{
                           {errors.phone && <div className="text-xs text-rose-400 mt-1">{errors.phone}</div>}
                         </div>
                         <div>
-                          <label className="block text-sm text-white mb-1">Place</label>
+                          <label className="block typography-footnote text-white mb-1">Place</label>
                           <input value={form.place} onChange={(e) => setForm({ ...form, place: e.target.value })} className="w-full rounded-md px-3 py-2" />
                           {errors.place && <div className="text-xs text-rose-400 mt-1">{errors.place}</div>}
                         </div>
                         <div>
-                          <label className="block text-sm text-white mb-1">Profession</label>
+                          <label className="block typography-footnote text-white mb-1">Profession</label>
                           <select
                             value={form.profession}
                             onChange={(e) => setForm({ ...form, profession: e.target.value })}
@@ -275,7 +275,7 @@ const CTASection: React.FC<{
                           {form.profession === "Student" && (
                             <div className="mt-3 grid grid-cols-1 gap-3">
                               <div>
-                                <label className="block text-sm text-white mb-1">Course</label>
+                                <label className="block typography-footnote text-white mb-1">Course</label>
                                 <input
                                   value={form.studentCourse}
                                   onChange={(e) => setForm({ ...form, studentCourse: e.target.value })}
@@ -285,7 +285,7 @@ const CTASection: React.FC<{
                                 {errors.studentCourse && <div className="text-xs text-rose-400 mt-1">{errors.studentCourse}</div>}
                               </div>
                               <div>
-                                <label className="block text-sm text-white mb-1">Year / Batch</label>
+                                <label className="block typography-footnote text-white mb-1">Year / Batch</label>
                                 <input
                                   value={form.studentYear}
                                   onChange={(e) => setForm({ ...form, studentYear: e.target.value })}
@@ -299,7 +299,7 @@ const CTASection: React.FC<{
 
                           {form.profession === "Other" && (
                             <div className="mt-3">
-                              <label className="block text-sm text-white mb-1">Please specify</label>
+                              <label className="block typography-footnote text-white mb-1">Please specify</label>
                               <input
                                 value={form.professionOther}
                                 onChange={(e) => setForm({ ...form, professionOther: e.target.value })}
@@ -311,7 +311,7 @@ const CTASection: React.FC<{
                           )}
                         </div>
                         <div>
-                          <label className="block text-sm text-white mb-1">Email</label>
+                            <label className="block typography-footnote text-white mb-1">Email</label>
                           <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full rounded-md px-3 py-2" />
                           {errors.email && <div className="text-xs text-rose-400 mt-1">{errors.email}</div>}
                         </div>

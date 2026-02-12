@@ -59,7 +59,7 @@ export const events: Event[] = [
       title: "Ready to Restore Lives Differently?",
       description:
         "Join a community of professionals for a morning of insight, connection, and growth in the field of Occupational Therapy.",
-      buttonText: "Book Now",
+      buttonText: "REGISTER",
     },
    
   },

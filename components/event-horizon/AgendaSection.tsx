@@ -23,8 +23,8 @@ const AgendaSection: React.FC<{ takeaways?: string[]; agenda?: { time: string; t
   agenda = defaultAgenda,
 }) => {
   return (
-    <section className="py-8 md:py-10 bg-gray-100">
-      <div className="mx-auto max-w-3xl px-6">
+    <section className="py-8 md:py-10 mx-6 px-6 bg-gray-100 rounded-lg">
+      <div className="mx-auto max-w-3xl">
         <h2 className="mb-6 typography-h3">What You'll Walk Away With</h2>
         <ul className="mb-12 space-y-3">
           {takeaways.map((item, i) => {
@@ -53,7 +53,7 @@ const AgendaSection: React.FC<{ takeaways?: string[]; agenda?: { time: string; t
                 <div className="h-3 w-3 rounded-full border-2 border-primary bg-primary/15 transition-transform group-hover:scale-125" />
               </div>
               <div>
-                <p className="typography-h4 text-gray-900" style={{ fontWeight: 600 }}>{item.title}</p>
+                <p className="typography-p2 text-gray-900" style={{ fontWeight: 600 }}>{item.title}</p>
                 {item.desc && <p className="typography-p2 text-gray-600 mt-0.5">{item.desc}</p>}
               </div>
             </div>
