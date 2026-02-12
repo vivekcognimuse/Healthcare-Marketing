@@ -1,31 +1,31 @@
-import EpisodesGrid from "../outreach/../../components/EpisodesGrid";
-import EpisodeCard from "../outreach/../../components/EpisodeCard";
-import episodesData from "../outreach/../../data/outreach/episodes.json";
+import EpisodesGrid from "../../components/EpisodesGrid";
+import EpisodeCard from "../../components/EpisodeCard";
+import episodesData from "../../data/outreach/episodes.json";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Knowledge Hub",
-  description: "Knowledge Hub hero and episodes",
+  title: "Conversations",
+  description: "Out Reach hero and episodes",
 };
 
-export default function KnowledgeHubPage() {
+export default function OutreachPage() {
   const episodes = episodesData;
   const rest = episodes.slice(3);
 
   return (
     <main>
-      {/* Hero */}
-      <section
-        id="knowledge-hub-hero"
-        className="relative min-h-screen flex items-center"
-        style={{
-          background: "linear-gradient(180deg, #001B57 0%, #155DFC 71.32%, #FFFFFF 96.6%)",
-        }}
-      >
-        <div className="container text-center">
-          <h1 className="max-w-5xl mx-auto typography-h1 font-bold italic text-[64px] md:text-[80px] text-white">
-            Occupational Therapy: Restoring Function through Science and Empathy
+      {/* Hero / Intro */}
+      <section id="outreach-hero" className="relative flex items-start bg-white pt-24">
+        <div className="container text-left py-6">
+          <h1 className="typography-h2 font-bold text-black">
+            Episodes
           </h1>
+          <p
+            className="typography-h3 mt-2"
+            style={{ fontWeight: 500, letterSpacing: "2%" }}
+          >
+            Discover Powerful Stories and Conversations in Occupational Therapy
+          </p>
         </div>
       </section>
 
@@ -34,6 +34,9 @@ export default function KnowledgeHubPage() {
 
       {/* Rest of the episodes as stacked cards */}
       <section className="container py-12">
+        <div className="mb-6">
+          <h2 className="typography-h3 font-bold">More Episodes</h2>
+        </div>
         <div className="flex flex-col gap-6">
           {rest.map((ep) => (
             <EpisodeCard key={ep.id} episode={ep} />

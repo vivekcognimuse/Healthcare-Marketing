@@ -4,10 +4,10 @@ export default function ArticleListItem({ article }: { article: any }) {
   return (
     <article className="p-4 border rounded-xl border-gray-200">
       <Link href={`/knowledge-hub/articles/${article.id}`} className="block">
-        <div className="grid grid-cols-[160px_1fr_48px] items-center gap-4">
-          <div className="text-xl text-gray-500">{article.date}</div>
+        <div className="grid grid-cols-[140px_1fr_48px] items-center gap-4">
+          <div className="typography-footnote text-gray-500">{article.date}</div>
 
-          <div className="flex flex-col gap-2 ml-4">
+          <div className="flex flex-col gap-2">
             <h4 className="typography-h4 font-semibold">
               <span className="hover:underline text-black">{article.title}</span>
             </h4>

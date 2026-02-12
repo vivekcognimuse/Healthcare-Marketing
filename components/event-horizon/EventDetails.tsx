@@ -17,21 +17,21 @@ const defaultDetails: DetailItem[] = [
 const EventDetails: React.FC<{ details?: DetailItem[] }> = ({ details = defaultDetails }) => {
   return (
     <section className="py-8 md:py-10">
-      <div className="mx-auto max-w-3xl px-6">
+      <div className="mx-auto max-w-6xl px-8">
         <div
           className="rounded-xl border border-gray-800 p-6 md:p-8 shadow-sm"
           style={{ background: "linear-gradient(90deg, #001B57 0%, #0D3796 50%, #155DFC 100%)" }}
         >
           <h2 className="mb-6 typography-h3 font-semibold text-white">When & Where</h2>
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-8 md:grid-cols-2">
             {details.map((item) => (
-              <div key={item.label} className="flex items-start gap-3 group">
-                <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                  {item.icon && <item.icon className="h-5 w-5 text-white" />}
+              <div key={item.label} className="flex items-center gap-6 group w-full">
+                <div className="mt-0 flex h-12 w-12 md:h-14 md:w-14 flex-shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  {item.icon && <item.icon className="h-6 w-6 md:h-7 md:w-7 text-white" />}
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-white/80">{item.label}</p>
-                  <p className="text-white font-medium">{item.value}</p>
+                <div className="flex-1">
+                  <p className="typography-footnote text-white/80">{item.label}</p>
+                  <p className="typography-p2 text-white font-medium">{item.value}</p>
                 </div>
               </div>
             ))}

@@ -245,6 +245,35 @@
   .article-render blockquote {
     @apply border-l-4 pl-4 italic text-gray-700 my-6;
   }
+  /* Ensure lists in article content render with bullets and proper spacing */
+  .article-render ul,
+  .article-render ol {
+    list-style-position: outside;
+    padding-left: 1.25rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .article-render ul {
+    list-style-type: disc;
+  }
+  .article-render ol {
+    list-style-type: decimal;
+  }
+  .article-render li {
+    margin-bottom: 0.5rem;
+  }
+  /* Links inside article content should be visibly clickable */
+  .article-render a {
+    color: #155DFC;
+    text-decoration: underline;
+    text-decoration-thickness: 1.3px;
+    text-underline-offset: 3px;
+  }
+  .article-render a:hover,
+  .article-render a:focus {
+    color: #0D3796;
+    text-decoration-thickness: 1.6px;
+  }
 }
 
 @layer utilities {
@@ -255,16 +284,19 @@
     font-size: 32px;
     line-height: 1.2;
     font-weight: 700;
+    @apply tracking-rhd-3;
   }
   .typography-h2 {
     font-size: 24px;
     line-height: 1.2;
     font-weight: 700;
+    @apply tracking-rhd-3;
   }
   .typography-h3 {
     font-size: 20px;
     line-height: 1.2;
     font-weight: 700;
+    @apply tracking-rhd-3;
   }
   .typography-h4 {
     font-size: 18px;
@@ -484,4 +516,40 @@
     line-height: 1.4;
   }
 }
+
+/* Apply Red Hat Display tracking to heading tokens and semantic headings
+   to ensure consistent letter-spacing across components (3% tight tracking). */
+.typography-h1,
+h1 {
+  letter-spacing: -0.03em;
+}
+
+.typography-h2,
+h2 {
+  letter-spacing: -0.03em;
+}
+
+.typography-h3,
+h3 {
+  letter-spacing: -0.03em;
+}
+
+/* Ensure Red Hat Display tight tracking (-0.03em) is applied consistently
+   to all typography tokens so using the utility classes or semantic elements
+   yields the same letter-spacing everywhere. */
+.typography-h1,
+.typography-h2,
+.typography-h3,
+.typography-h4,
+.typography-h5,
+.typography-h6,
+.typography-btn1,
+.typography-btn2,
+.typography-p1,
+.typography-p2,
+.typography-footnote,
+h1,h2,h3,h4,h5,h6 {
+  letter-spacing: -0.03em;
+}
+
 

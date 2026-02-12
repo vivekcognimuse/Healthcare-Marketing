@@ -320,7 +320,7 @@ const CTASection: React.FC<{
                             type="submit"
                             variant="primary"
                             disabled={submitting}
-                            className={`flex-1 rounded-full flex items-center justify-center gap-2 ${submitting ? 'opacity-60 cursor-not-allowed' : ''}`}
+                            className={`flex-1 rounded-full px-6 py-3 flex items-center justify-center gap-2 ${submitting ? 'opacity-60 cursor-not-allowed' : ''}`}
                           >
                             {submitting ? (
                               <>
@@ -334,7 +334,7 @@ const CTASection: React.FC<{
                               "Pay Now"
                             )}
                           </Button>
-                          <Button type="button" variant="secondary" onClick={() => setShowForm(false)} className="rounded-full px-4 py-2">
+                          <Button type="button" variant="secondary" onClick={() => setShowForm(false)} className="flex-1 rounded-full px-6 py-3">
                             Cancel
                           </Button>
                         </div>

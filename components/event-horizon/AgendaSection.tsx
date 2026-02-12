@@ -25,28 +25,36 @@ const AgendaSection: React.FC<{ takeaways?: string[]; agenda?: { time: string; t
   return (
     <section className="py-8 md:py-10 bg-gray-100">
       <div className="mx-auto max-w-3xl px-6">
-        <h2 className="mb-6 typography-h3 font-semibold text-gray-900">What You'll Walk Away With</h2>
+        <h2 className="mb-6 typography-h3">What You'll Walk Away With</h2>
         <ul className="mb-12 space-y-3">
-          {takeaways.map((item, i) => (
-            <li key={i} className="flex items-start gap-3">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-              <span className="text-gray-900">{item}</span>
-            </li>
-          ))}
+          {takeaways.map((item, i) => {
+            const parts = item.split(/:\s*/, 2);
+            const lead = parts.length > 1 ? parts[0] + ':' : null;
+            const rest = parts.length > 1 ? parts[1] : item;
+            return (
+              <li key={i} className="flex items-start gap-3">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                <span className="typography-p2 text-gray-900">
+                  {lead ? <strong className="font-semibold mr-1">{lead}</strong> : null}
+                  {rest}
+                </span>
+              </li>
+            );
+          })}
         </ul>
 
-        <h2 className="mb-6 typography-h3 font-semibold text-gray-900">Agenda</h2>
+        <h2 className="mb-6 typography-h3">Agenda</h2>
         <div className="relative space-y-0">
           <div className="absolute left-[59px] top-2 bottom-2 w-px bg-gray-200 hidden sm:block" />
           {agenda.map((item, i) => (
             <div key={i} className="flex items-start gap-4 py-3">
-              <span className="w-[52px] shrink-0 text-sm font-medium text-gray-500 text-right">{item.time}</span>
+              <span className="w-[52px] shrink-0 typography-footnote text-gray-500 text-right">{item.time}</span>
               <div className="relative hidden sm:flex items-center justify-center">
                 <div className="h-3 w-3 rounded-full border-2 border-primary bg-primary/15 transition-transform group-hover:scale-125" />
               </div>
               <div>
-                <p className="font-semibold text-gray-900">{item.title}</p>
-                {item.desc && <p className="text-sm text-gray-600 mt-0.5">{item.desc}</p>}
+                <p className="typography-h4 text-gray-900" style={{ fontWeight: 600 }}>{item.title}</p>
+                {item.desc && <p className="typography-p2 text-gray-600 mt-0.5">{item.desc}</p>}
               </div>
             </div>
           ))}

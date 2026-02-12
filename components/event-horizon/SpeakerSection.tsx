@@ -32,10 +32,10 @@ const SpeakerSection: React.FC<{ speaker?: Speaker }> = ({ speaker }) => {
             </div>
 
             <div className="flex-1">
-              <h3 className="typography-h4 font-sans text-gray-900">{s.name}</h3>
-              <p className="mt-1 typography-p2 text-gray-600">{s.title}</p>
-              <p className="mt-1 typography-footnote text-gray-500">{s.affiliation}</p>
-              <p className="mt-4 typography-p2 text-gray-700 leading-relaxed">{s.bio}</p>
+              <h3 className="typography-h3 font-sans text-gray-900">{s.name}</h3>
+              <p className="mt-1 typography-p3 text-gray-600">{s.title}</p>
+              <p className="mt-1 typography-p2 text-gray-500">{s.affiliation}</p>
+              <p className="mt-4 typography-footnote text-gray-700 leading-relaxed">{s.bio}</p>
             </div>
           </div>
         </div>

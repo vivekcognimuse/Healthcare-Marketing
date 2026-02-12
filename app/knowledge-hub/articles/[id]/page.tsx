@@ -1,13 +1,13 @@
 import articlesData from "../../../../data/outreach/articles.json";
+import ArticleListItem from "../../../../components/ArticleListItem";
 import { notFound } from "next/navigation";
 import ArticleTOC from "../../../../components/ArticleTOC";
 import Link from "next/link";
 
 export default async function ArticlePage(props: any) {
-  const { params } = props as { params: any };
+  const { params } = props as { params: { id: string } };
   const articles: any[] = articlesData as any[];
-  const awaitedParams = await params;
-  const article = articles.find((a) => a.id === awaitedParams.id);
+  const article = articles.find((a) => a.id === params.id);
   if (!article) return notFound();
 
   return (
@@ -20,9 +20,9 @@ export default async function ArticlePage(props: any) {
           </Link>
         </div>
         <h2 className="typography-h2 font-bold mb-2 text-left">{article.title}</h2>
-        <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
-          <div>{article.date}</div>
-          <div className="px-2 py-1 bg-gray-100 rounded text-xs text-gray-700">{(article as any).tag || "Newsletter"}</div>
+        <div className="flex items-center gap-4 mb-6">
+          <div className="typography-footnote text-gray-500">{article.date}</div>
+          <div className="px-2 py-1 bg-gray-100 rounded typography-footnote text-gray-700">{(article as any).tag || "Newsletter"}</div>
         </div>
 
         {/* Main grid: two-column layout with centered content column (no empty right gutter) */}
@@ -36,7 +36,10 @@ export default async function ArticlePage(props: any) {
 
           {/* Center content column */}
           <article className="lg:col-start-2 lg:col-end-3">
-            <div id="article-content" className="article-render mx-auto max-w-[65ch]">
+            <div
+              id="article-content"
+              className="article-render mx-auto max-w-[65ch] prose prose-lg text-base md:text-lg leading-relaxed text-gray-800"
+            >
               {/* Optional article image (hero inside article) */}
               {article.image && (
                 <div className="w-full h-56 md:h-96 flex items-center justify-center bg-gray-100 overflow-hidden rounded mb-6 relative">
@@ -49,12 +52,21 @@ export default async function ArticlePage(props: any) {
                 </div>
               )}
               {/* Render the article body (stored as sanitized HTML in data).
-                  Strip any leading H1/H2 coming from the saved HTML so the page title (above) controls heading level. */}
+                  Remove the leading H1/H2 from the stored HTML to avoid duplicating the page title
+                  and ensure the visible title uses the page's H2 (typography-h2). */}
               <div
                 dangerouslySetInnerHTML={{
                   __html: (() => {
-                    const raw = (article.body || "").replace(/^\s*<h[12][^>]*>[\s\S]*?<\/h[12]>\s*/i, "");
-                    return raw.replace(/<h2([^>]*)>/gi, "<h3$1>").replace(/<\/h2>/gi, "</h3>");
+                    let raw = (article.body || "").replace(/^\s*<h[12][^>]*>[\s\S]*?<\/h[12]>\s*/i, "");
+                    // Convert any remaining H2 in the body to H3 to match design,
+                    // leave other headings intact.
+                    raw = raw.replace(/<h2([^>]*)>/gi, "<h3$1>").replace(/<\/h2>/gi, "</h3>");
+                    // Ensure specific list labels are bolded in-render so content authors
+                    // don't need to include <strong> in the data JSON.
+                    raw = raw.replace(/<li>\s*Observe first, ask second:/g, "<li><strong>Observe first, ask second:</strong>");
+                    raw = raw.replace(/<li>\s*Use visual distance:/g, "<li><strong>Use visual distance:</strong>");
+                    raw = raw.replace(/<li>\s*Validate their choices:/g, "<li><strong>Validate their choices:</strong>");
+                    return raw;
                   })(),
                 }}
               />
@@ -62,6 +74,17 @@ export default async function ArticlePage(props: any) {
           </article>
 
           {/* (removed empty right gutter to avoid unnecessary DOM/space) */}
+        </div>
+        {/* More articles */}
+        <div className="mt-12">
+          <h3 className="typography-h4 font-semibold text-gray-900 mb-4">Other Articles</h3>
+          <div className="mt-2 space-y-3">
+            {articlesData
+              .filter((a) => a.id !== article.id)
+              .map((a) => (
+                <ArticleListItem key={a.id} article={a} />
+              ))}
+          </div>
         </div>
       </div>
     </main>

@@ -33,7 +33,7 @@ export const events: Event[] = [
     attendees: 42,
     tags: ["Occupational Therapy", "Webinar", "Communication"],
     imageUrl: "/assets/CogniMuse.png",
-    cardImageUrl: "/assets/dr saha-event-card.PNG",
+    cardImageUrl: "/assets/image-1.JPG",
     ticketPrice: 249,
     meetLink: "https://meet.google.com/zdf-dxqs-uwd",
     currency: "INR",
@@ -51,11 +51,9 @@ export const events: Event[] = [
       "Official Recognition: Receive a participation certificate to add to your professional portfolio.",
     ],
     agenda: [
-      { time: "11:00 AM", title: "Welcome and Introductions (5 mins)" },
-      { time: "11:05 AM", title: "Keynote Talk by Dr. Shovan Saha (60 mins)" },
-      { time: "12:05 PM", title: "Break (5 mins)" },
-      { time: "12:10 PM", title: "Interactive Q&A (15 mins)" },
-      { time: "12:25 PM", title: "Conclusion (5 mins)" },
+      { time: "11:00 AM", title: "Keynote Talk by Dr. Shovan Saha" },
+      { time: "12:00 PM", title: "Break" },
+      { time: "12:10 PM", title: "Interactive Q&A" },
     ],
     cta: {
       title: "Ready to Restore Lives Differently?",

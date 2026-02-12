@@ -95,7 +95,7 @@ export default function Header() {
     handleHashChange();
     handleScroll();
     // If the current route is an outreach page, prefer the "over-hero" (light) header initially
-    if (pathname && pathname.startsWith("/outreach")) {
+    if (pathname && pathname.startsWith("/knowledge-hub")) {
       setIsScrolled(false);
     }
     // Use IntersectionObserver to detect whether a "hero" section is visible.
@@ -105,7 +105,7 @@ export default function Header() {
     // "Meet Dr. Shovan Saha" block (id="meet-dr-shovan") is visible, then switch to black.
     let heroObserver: IntersectionObserver | null = null;
     const voicesHero = document.getElementById("meet-dr-shovan");
-    if (pathname && pathname.startsWith("/outreach/voices") && voicesHero) {
+    if (pathname && pathname.startsWith("/knowledge-hub/voices") && voicesHero) {
       heroObserver = new IntersectionObserver(
         (entries) => {
           const e = entries[0];
@@ -137,6 +137,26 @@ export default function Header() {
       }
     }
 
+    // Observe footer separately to hide header when footer enters viewport
+    let footerObserver: IntersectionObserver | null = null;
+    const footerEl = document.querySelector("footer");
+    if (footerEl) {
+      footerObserver = new IntersectionObserver(
+        (entries) => {
+          const e = entries[0];
+          if (!e) return;
+          // If footer is intersecting the viewport, hide the header (unless menu is open)
+          if (isMenuOpen) {
+            setIsHeaderVisible(true);
+          } else {
+            setIsHeaderVisible(!e.isIntersecting);
+          }
+        },
+        { root: null, threshold: 0 }
+      );
+      footerObserver.observe(footerEl);
+    }
+
     // Listen for hash changes and scroll
     window.addEventListener("hashchange", handleHashChange);
     window.addEventListener("scroll", handleScroll);
@@ -144,6 +164,8 @@ export default function Header() {
     return () => {
       window.removeEventListener("hashchange", handleHashChange);
       window.removeEventListener("scroll", handleScroll);
+      if (heroObserver) heroObserver.disconnect();
+      if (footerObserver) footerObserver.disconnect();
     };
   }, [isMenuOpen]);
 
@@ -187,21 +209,21 @@ export default function Header() {
     { href: "#packages", label: "Packages", id: "packages" },
     { href: "#testimonials", label: "Testimonials", id: "testimonials" },
     {
-      href: "/outreach",
+      href: "/knowledge-hub",
       label: "Knowledge Hub",
       id: "outreach",
       children: [
-        { href: "/outreach", label: "Episodes", id: "outreach-episodes" },
-        { href: "/outreach/articles", label: "Articles", id: "outreach-articles" },
-        { href: "/outreach/voices", label: "Voices", id: "outreach-voices" },
+        { href: "/knowledge-hub", label: "Episodes", id: "outreach-episodes" },
+        { href: "/knowledge-hub/articles", label: "Articles", id: "outreach-articles" },
+        { href: "/knowledge-hub/voices", label: "Voices", id: "outreach-voices" },
         { href: "/events", label: "Events", id: "events" },
-        // { href: "/outreach/upcoming", label: "Upcoming", id: "outreach-upcoming" },
+       
       ],
     },
   ];
 
-  const isSpecial = !!(pathname && (pathname.startsWith("/outreach") || pathname.startsWith("/events")));
-  const isVoices = !!(pathname && pathname.startsWith("/outreach/voices"));
+  const isSpecial = !!(pathname && (pathname.startsWith("/knowledge-hub") || pathname.startsWith("/events")));
+  const isVoices = !!(pathname && pathname.startsWith("/knowledge-hub/voices"));
   // For the Voices page we want the header text to be white over the hero.
   const textColorClass = isVoices ? "text-white" : isSpecial ? "text-black" : (isScrolled ? "text-black" : "text-white");
   const hamburgerColorClass = isVoices ? "bg-white" : isSpecial ? "bg-black" : (isScrolled ? "bg-black" : "bg-white");
@@ -209,7 +231,7 @@ export default function Header() {
   // When header text is black we prefer a light (white) dropdown modal with dark text.
   const isHeaderTextBlack = textColorClass.includes("text-black");
 
-  return (
+  return (  
     <>
     <header ref={headerRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${textColorClass} ${

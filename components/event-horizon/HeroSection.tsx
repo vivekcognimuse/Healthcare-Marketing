@@ -27,15 +27,15 @@ const HeroSection: React.FC<HeroProps> = ({
           unoptimized
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/70" />
-
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-12 px-6 text-center">
         
-          <h1 className="max-w-3xl typography-h2 font-extrabold leading-tight text-white">
+
+        <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center bg-gradient-to-t from-black/80 via-black/50 via-60% to-black/0 h-fit justify-end pb-6 pt-20 px-6 text-center">
+        
+          <h1 className=" typography-h1 max-w-6xl  text-white">
             {title}
           </h1>
-          <h2 className="max-w-3xl typography-h4 font-semibold text-white/90 mt-2">{tag}</h2>
-          <p className="mt-4 max-w-xl text-lg md:text-xl text-white/80 font-light">{subtitle}</p>
+          <h2 className="max-w-3xl typography-h3  text-white mt-2">{tag}</h2>
+          <p className="mt-4 max-w-xl typography-p2 text-white/90 ">{subtitle}</p>
         </div>
       </div>
     </section>

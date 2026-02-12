@@ -38,21 +38,15 @@ export default async function EventPage({ params }: PageProps) {
           imageSrc={event.imageUrl || "/placeholder.svg"}
         />
 
-        <div className="container mx-auto max-w-4xl px-4 py-12">
+        <div className="container mx-auto max-w-6xl px-8 py-12">
           {/* Event description removed per request */}
 
           <EventDetails details={details} />
-
-          <div className="border-t border-gray-200 my-6" />
-
+          <div className="my-6" />
           <AgendaSection takeaways={event.takeaways} agenda={event.agenda} />
-
-          <div className="border-t border-gray-200 my-6" />
-
+          <div className="my-6" />
           <SpeakerSection speaker={{ name: event.speaker.name, title: event.speaker.role, photoSrc: event.speaker.photoSrc, bio: event.speaker.bio }} />
-
-          <div className="border-t border-gray-200 my-6" />
-
+          <div className="my-6" />
           <CTASection cta={event.cta} eventId={event.id} ticketPrice={event.ticketPrice} currency={event.currency} />
         </div>
       </main>

@@ -18,31 +18,31 @@ const EventCard = ({ event }: { event: Event }) => {
       <div className="flex gap-0">
         <div className="flex-1 p-6 md:p-8 min-w-0">
           <div className="mb-2">
-            <span className="inline-block bg-white/90 text-gray-800 rounded px-3 py-1 text-sm font-medium">
+            <span className="inline-block bg-white/90 text-gray-800 rounded px-3 py-1 typography-footnote font-medium">
               {event.time}
             </span>
           </div>
           <h3 className="typography-h3 font-semibold text-white leading-snug mb-2 group-hover:text-gray-300 transition-colors">
             {event.title}
           </h3>
-          <p className="mt-1 typography-p3 text-gray-400">
+          <p className="mt-1 typography-footnote text-gray-300">
             By <span className="text-white font-medium">{event.speaker.name}</span>
           </p>
-          <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
+          <div className="flex items-center gap-2 mt-2 typography-footnote text-gray-400">
             <MapPin className="h-4 w-4 shrink-0 text-gray-400" />
             <span className="truncate">{event.location}</span>
           </div>
           <div className="flex flex-wrap gap-2 mt-3">
             {event.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-white/5 px-2 py-0.5 text-xs font-medium text-gray-400">
+              <span key={tag} className="rounded-full bg-white/5 px-2 py-0.5 typography-footnote font-medium text-gray-300">
                 {tag}
               </span>
             ))}
           </div>
          
         </div>
-          <div className="hidden sm:flex w-[220px] md:w-[260px] shrink-0 items-center justify-center p-4">
-          <div className="w-full aspect-[4/5] rounded-lg overflow-hidden relative bg-gray-800/20 border border-white/5">
+          <div className="hidden sm:flex w-[240px] md:w-[220px] shrink-0 items-center justify-center p-4">
+          <div className="w-full aspect-[5/5] rounded-lg overflow-hidden relative bg-gray-800/20 border border-white/5">
             <Image
               src={event.cardImageUrl || event.imageUrl || "/placeholder.svg"}
               alt={event.title}

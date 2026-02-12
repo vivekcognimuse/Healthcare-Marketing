@@ -6,6 +6,7 @@ type Article = {
   date: string;
   excerpt?: string;
   image?: string;
+  tag?: string;
 };
 
 export default function ArticlesGrid({ articles }: { articles: Article[] }) {
@@ -26,13 +27,21 @@ export default function ArticlesGrid({ articles }: { articles: Article[] }) {
             </Link>
 
             <div className="md:col-span-1">
-              <div className="inline-block px-3 py-1 rounded bg-gray-100 text-sm text-gray-700">{first.date}</div>
+              <div className="flex items-center gap-3 mb-2">
+              {first.tag && (
+                  <div className="typography-footnote inline-block bg-gray-100 text-gray-500 px-3 py-1 ">
+                    {first.tag}
+                  </div>
+                )}
+                <div className="typography-footnote text-gray-500">{first.date}</div>
+               
+              </div>
               <h3 className="typography-h2 font-bold mt-3">
                 <Link href={`/knowledge-hub/articles/${first.id}`} className="hover:underline">
                   {first.title}
                 </Link>
               </h3>
-              {first.excerpt && <p className="typography-p2 text-gray-700 mt-3">{first.excerpt}</p>}
+              {first.excerpt && <p className="typography-p1 text-gray-700 mt-3">{first.excerpt}</p>}
             </div>
         </div>
       )}
@@ -52,7 +61,15 @@ export default function ArticlesGrid({ articles }: { articles: Article[] }) {
                 <img src={a.image} alt={a.title} className="relative z-10 max-h-full w-auto object-contain" />
               </div>
               <div className="p-4">
-                <div className="text-xs text-gray-500">{a.date}</div>
+                <div className="flex items-center gap-3 mb-2">
+                {a.tag && (
+                    <div className="typography-footnote inline-block bg-gray-100 text-gray-500 px-3 py-1 ">
+                      {a.tag}
+                    </div>
+                  )}
+                  <div className="typography-footnote text-gray-500">{a.date}</div>
+                 
+                </div>
                 <h4 className="typography-h3 font-semibold mt-2">{a.title}</h4>
                 {a.excerpt && <p className="typography-p2 text-gray-700 mt-2">{a.excerpt}</p>}
               </div>

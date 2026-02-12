@@ -32,28 +32,20 @@ export default function VoicesPage() {
                 style={{ display: "block" }}
               />
               {/* overlay on top of image to improve contrast */}
-              <div className="absolute inset-0 bg-black/10 z-10 pointer-events-none rounded" />
+              <div className="absolute inset-0  z-10 pointer-events-none rounded" />
             </div>
 
             {/* Hero text absolutely layered above image and container */}
-            <div className="absolute inset-x-0 bottom-0 z-20 flex justify-center pointer-events-auto">
-              <div className="max-w-6xl mx-auto px-6 text-center text-white">
-                <h1 className="typography-h2 font-bold text-3xl md:text-6xl leading-tight drop-shadow-md">
+            <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/80 via-black/50 via-50% to-black/0 flex flex-col items-center pointer-events-auto">
+              <div className="max-w-6xl mx-auto px-6 py-6 text-center text-white">
+                <h1 className="typography-h1 max-w-6xl">
                   Meet Dr. Shovan Saha
                 </h1>
-                <p className="mt-4 max-w-3xl mx-auto text-lg md:text-xl ">
-                 Bridging Science and Empathy in Occupational Therapy
+                <p className="mt-4 max-w-3xl mx-auto typography-p1 text-gray-100">
+                  Bridging Science and Empathy in Occupational Therapy
                 </p>
 
-                {/* Double down arrows */}
-                <div className="mt-6 flex flex-col items-center gap-1 justify-center">
-                  <svg className="w-6 h-6 text-white opacity-90 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                  <svg className="w-6 h-6 text-white opacity-90 animate-bounce delay-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
+               
               </div>
             </div>
           </div>
@@ -96,19 +88,21 @@ export default function VoicesPage() {
 
           <h3 className="typography-h3 font-semibold mt-4 mb-2">Recognition and Leadership</h3>
           <p className="typography-p2 text-gray-700 mb-3">
-            Dr. Saha's work has not gone unnoticed. He has received numerous awards and recognition for his contributions to clinical practice, innovation, and teaching.
+          Dr. Saha's work has not gone unnoticed. He has received numerous awards, including the <strong> Professional Excellence Award from the All India Occupational Therapists’ Association (AIOTA)</strong>.
           </p>
-          <ul className="list-disc list-inside text-gray-700 mb-4 space-y-2">
-            <li>
-              <strong>Professional Excellence Award</strong> — All India Occupational Therapists’ Association (AIOTA)
-            </li>
-            <li>
-              <strong>International Maddak Award</strong> — for innovations in assistive devices
-            </li>
-            <li>
-              <strong>Best Teacher Awards</strong> — Manipal Academy of Higher Education (MAHE)
-            </li>
-          </ul>
+          {/* <div className="bg-gray-100 p-6 rounded-lg border-l-4 border-primary/20 mb-4">
+            <ul className="list-disc list-inside text-gray-700 space-y-2">
+              <li className="typography-p2">
+                <strong>Professional Excellence Award</strong> — All India Occupational Therapists’ Association (AIOTA)
+              </li>
+              <li className="typography-p2">
+                <strong>International Maddak Award</strong> — for innovations in assistive devices
+              </li>
+              <li className="typography-p2">
+                <strong>Best Teacher Awards</strong> — Manipal Academy of Higher Education (MAHE)
+              </li>
+            </ul>
+          </div> */}
           <p className="typography-p2 text-gray-700 mb-4">
             His contributions have been featured in major newspapers like <em>The Hindu</em>, <em>The Telegraph</em>, and <em>The Times of India</em>, highlighting his ability to combine high-level science with a "healing touch".
           </p>
@@ -128,7 +122,7 @@ export default function VoicesPage() {
             />
           </div>
           <p className="typography-p2 text-gray-700 mb-4">
-          Every journey has a starting point, and for CogniMuse, that moment was in early June 2023. It has been two years and eight months since Manoj S Acharya founded this initiative with very humble beginnings. At the time, it was just a small idea fueled by a personal mission, but life has a way of turning personal challenges into something much larger.
+          Every journey has a starting point, and for CogniMuse, that moment was in early June 2023. It has been two years and eight months since Manoj S founded this initiative with very humble beginnings. What began as a personal mission to bridge the gap between technology and human impact has grown into a specialized ecosystem. While CogniMuse delivers high-impact tech and design solutions for startups globally, it holds a deep-rooted commitment to empowering healthcare professionals. By handling the complexities of digital growth through tailored social media and marketing services, CogniMuse allows healers to focus on their patients while ensuring their life-changing expertise reaches the people who need it most.
 
           </p>
           <p className="typography-p2 text-gray-700 mb-4">
@@ -138,7 +132,7 @@ export default function VoicesPage() {
           <p className="typography-p2 text-gray-700 mb-4">Through his own recovery, Manoj experienced the profound impact of Occupational Therapy firsthand. He realized that while almost everyone knows what physiotherapy is, very few people truly understand Occupational Therapy. Most people only hear about OT in the context of pediatrics, such as helping children with autism or ADHD, but the world of adult rehabilitation is often left in the shadows. Whether it is neuro-rehab, orthopedic recovery, or specialized hand therapy, there is a massive gap in public awareness.
 
 </p>
-<p className="typography-p2 text-gray-700 mb-4">Manoj felt a strong desire to give back to the field that helped him heal. He and Dr. Saha realized they shared a common goal: they wanted to evangelize Occupational Therapy across India. They wanted to strip away the medical jargon and make OT something that anyone can understand and access. They believe that everyone, regardless of where they live, should have the chance to benefit from these life-changing interventions.
+<p className="typography-p2 text-gray-700 mb-4">Manoj felt a strong desire to give back to the field that helped him heal. He and Dr. Saha realized they shared a common goal: they wanted to advocate for Occupational Therapy across India. They wanted to strip away the medical jargon and make OT something that anyone can understand and access. They believe that everyone, regardless of where they live, should have the chance to benefit from these life-changing interventions.
 </p>
 <p className="typography-p2 text-gray-700 mb-4">This partnership has already grown into a vibrant community. Together, they have launched a series of webinars and podcasts designed to share knowledge with the public, students, and healthcare professionals. They talk about things that matter, such as how a simple, low-tech assistive device can help someone return to work, or how specific therapy can improve a person's entire quality of life.
 </p>
