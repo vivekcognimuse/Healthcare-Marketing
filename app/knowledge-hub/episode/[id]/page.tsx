@@ -30,7 +30,7 @@ export default async function EpisodePage(props: any) {
 
   return (
     <main className="container py-12" style={{ paddingTop: "calc(var(--header-height) + 1.5rem)" }}>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <div className="mb-4">
           <Link href="/knowledge-hub" className="article-back-link typography-p2 text-gray-600 hover:underline">
             ← Back to Knowledge Hub
@@ -39,7 +39,7 @@ export default async function EpisodePage(props: any) {
         <header className="mb-8">
           <div className="flex items-center gap-4 mb-2">
           {episode?.tag && (
-              <div className="px-2 py-1 bg-gray-100 rounded typography-footnote text-gray-700">{episode.tag}</div>
+              <div className="px-2 py-1 bg-gray-200 rounded-lg typography-footnote text-gray-700">{episode.tag}</div>
             )}
             <div className="typography-footnote text-gray-500">{episode?.date}</div>
           </div>
@@ -47,38 +47,34 @@ export default async function EpisodePage(props: any) {
         </header>
 
         {embedUrl ? (
-          <div className="mb-4">
-            <div style={{ position: "relative", paddingBottom: "40%", height: 0 }}>
-              <div className="w-full max-w-3xl mx-auto aspect-video rounded-lg overflow-hidden shadow-lg">
-                <iframe
-                  src={embedUrl}
-                  title={episode?.title}
-                  className="w-full h-full min-h-[320px] rounded-lg"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
+          <div className="mb-8 relative z-0">
+            <div className="w-full max-w-3xl mx-auto aspect-video rounded-lg overflow-hidden shadow-lg bg-black relative">
+              <iframe
+                src={embedUrl}
+                title={episode?.title}
+                className="w-full h-full rounded-lg"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
           </div>
         ) : (
-          <div className="mb-4">
-            <div style={{ position: "relative", paddingBottom: "40%", height: 0 }}>
-              <div className="w-full max-w-3xl mx-auto aspect-video rounded-lg overflow-hidden shadow-lg bg-black">
-                {/* Fallback image shown in a video-frame style */}
-                <img
-                  src={episode?.image || "/assets/CogniMuse.png"}
-                  alt={episode?.title || "Coming soon"}
-                  className="w-full h-full object-cover"
-                />
-                {/* Overlay for "Coming soon" */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="bg-black/60 text-white rounded-md px-4 py-2 flex items-center gap-3">
-                    <svg className="w-6 h-6 opacity-95" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-5.197-3.023A1 1 0 008 9.023v5.954a1 1 0 001.555.832l5.197-3.023a1 1 0 000-1.664z" />
-                    </svg>
-                    <span className="typography-h4"> Coming soon</span>
-                  </div>
+          <div className="mb-8 relative z-0">
+            <div className="w-full max-w-3xl mx-auto aspect-video rounded-lg overflow-hidden shadow-lg bg-black relative">
+              {/* Fallback image shown in a video-frame style */}
+              <img
+                src={episode?.image || "/assets/CogniMuse.png"}
+                alt={episode?.title || "Coming soon"}
+                className="w-full h-full object-cover"
+              />
+              {/* Overlay for "Coming soon" */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="bg-black/60 text-white rounded-lg px-4 py-2 flex items-center gap-3">
+                  <svg className="w-6 h-6 opacity-95" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-5.197-3.023A1 1 0 008 9.023v5.954a1 1 0 001.555.832l5.197-3.023a1 1 0 000-1.664z" />
+                  </svg>
+                  <span className="typography-h4"> Coming soon</span>
                 </div>
               </div>
             </div>
@@ -86,11 +82,11 @@ export default async function EpisodePage(props: any) {
         )}
 
         {episode?.summary && (
-          <section className="mb-4">
-          <h2 className="typography-h3  mb-3">Summary</h2>
+          <section className="mb-8 relative z-10">
+            <h2 className="typography-h3 mb-3">Summary</h2>
             <div
               id="article-content"
-              className="article-render mx-auto typography-p2 "
+              className="article-render mx-auto typography-p2"
             >
               <div
                 dangerouslySetInnerHTML={{

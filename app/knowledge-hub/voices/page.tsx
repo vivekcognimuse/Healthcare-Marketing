@@ -110,7 +110,7 @@ export default function VoicesPage() {
 
           <h3 className="typography-h3 font-semibold mt-4 mb-2">A Shared Vision — CogniMuse</h3>
          
-          <div className="my-8 flex justify-center bg-transparent">
+          <div className="my-8 flex justify-center bg-transparent rounded">
             <Image
               src="/assets/CogniMuse.png"
               alt="CogniMuse"
@@ -118,7 +118,7 @@ export default function VoicesPage() {
               width={360}
               height={120}
               style={{ background: "transparent" }}
-              className="w-auto object-contain "
+              className="w-auto object-contain rounded "
             />
           </div>
           <p className="typography-p2 text-gray-700 mb-4">

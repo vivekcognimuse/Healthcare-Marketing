@@ -10,11 +10,18 @@ type Episode = {
   tag?: string;
 };
 
-export default function EpisodeCard({ episode }: { episode: Episode }) {
+type EpisodeCardProps = {
+  episode: Episode;
+  type?: 'episode' | 'article';
+};
+
+export default function EpisodeCard({ episode, type = 'episode' }: EpisodeCardProps) {
+  const linkPath = type === 'article' ? `/knowledge-hub/articles/${episode.id}` : `/knowledge-hub/episode/${episode.id}`;
+  const buttonText = type === 'article' ? 'Read article' : 'View episode';
   return (
-    <article className="border p-4 rounded-xl flex gap-6 border-gray-200 bg-white items-center">
+    <article className="border p-2 rounded flex gap-6 border-gray-200 bg-white">
       <div className="w-1/2 md:w-1/3">
-        <div className="bg-gray-100 w-full h-48 md:h-56 rounded-lg overflow-hidden flex items-center justify-center">
+        <div className="bg-gray-100 w-full h-48 md:h-56 rounded overflow-hidden flex items-center justify-center">
           {episode.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={episode.image} alt={episode.title} className="w-full h-full object-cover object-top" />
@@ -23,32 +30,23 @@ export default function EpisodeCard({ episode }: { episode: Episode }) {
           )}
         </div>
       </div>
-      <div className="flex-1">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <div className="flex items-center gap-3 mb-2">
+      <div className="flex-1 h-48 md:h-56 flex flex-col justify-between">
+        <div className="flex-1 min-h-0 flex flex-col">
+          <div className="flex items-center gap-3 mb-2">
             {episode.tag && (
-                <div className="typography-footnote inline-block bg-gray-100 text-gray-500 px-3 py-1">
-                  {episode.tag}
-                </div>
-              )}
-              <div className="typography-footnote text-gray-500">{episode.date}</div>
-             
-            </div>
-            <h3 className="typography-h3 font-semibold text-gray-900 leading-tight">{episode.title}</h3>
+              <div className="typography-footnote inline-block bg-gray-200 rounded-lg text-gray-500 px-3 py-1">
+                {episode.tag}
+              </div>
+            )}
+            <div className="typography-footnote text-gray-500">{episode.date}</div>
           </div>
-          <div className="flex-shrink-0" />
+          <h3 className="typography-h3 font-semibold text-gray-900 leading-tight mb-2 line-clamp-2">{episode.title}</h3>
+          {episode.excerpt && <p className="typography-p2 text-gray-600 line-clamp-3 flex-1">{episode.excerpt}</p>}
         </div>
-
-        {episode.excerpt && <p className="typography-p2 text-gray-600 mt-4 max-w-prose">{episode.excerpt}</p>}
-        <div className="mt-6 flex flex-col gap-3">
-          
-
-          <div>
-            <Link href={`/knowledge-hub/episode/${episode.id}`} className="btn-secondary px-4 py-2">
-              View episode
-            </Link>
-          </div>
+        <div className="flex-shrink-0 pb-2.5">
+          <Link href={linkPath} className="btn-secondary px-4 py-2">
+            {buttonText}
+          </Link>
         </div>
       </div>
     </article>

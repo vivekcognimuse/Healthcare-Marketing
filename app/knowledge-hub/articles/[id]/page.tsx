@@ -1,5 +1,5 @@
 import articlesData from "../../../../data/outreach/articles.json";
-import ArticleListItem from "../../../../components/ArticleListItem";
+import ArticlesGrid from "../../../../components/ArticlesGrid";
 import { notFound } from "next/navigation";
 import ArticleTOC from "../../../../components/ArticleTOC";
 import Link from "next/link";
@@ -52,7 +52,7 @@ export default async function ArticlePage(props: any) {
         </div>
         <h2 className="typography-h2 font-bold mb-2 text-left">{article.title}</h2>
         <div className="flex items-center gap-4 mb-6">
-        <div className="px-2 py-1 bg-gray-100 rounded typography-footnote text-gray-700">{(article as any).tag || "Newsletter"}</div>
+        <div className="px-2 py-1 bg-gray-200 rounded-lg typography-footnote text-gray-700">{(article as any).tag || "Newsletter"}</div>
           <div className="typography-footnote text-gray-500">{article.date}</div>
         </div>
 
@@ -108,14 +108,11 @@ export default async function ArticlePage(props: any) {
         </div>
         {/* More articles */}
         <div className="mt-12">
-          <h3 className="typography-h4 font-semibold text-gray-900 mb-4">Other Articles</h3>
-          <div className="mt-2 space-y-3">
-            {articlesData
-              .filter((a) => a.id !== article.id)
-              .map((a) => (
-                <ArticleListItem key={a.id} article={a} />
-              ))}
-          </div>
+          <h3 className="typography-h3 font-semibold text-gray-900 mb-4">Other Articles</h3>
+          <ArticlesGrid 
+            articles={articlesData.filter((a) => a.id !== article.id)} 
+            showFirstRow={false}
+          />
         </div>
       </div>
     </main>

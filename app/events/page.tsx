@@ -18,7 +18,7 @@ export default function EventsIndex() {
             <h1 className="typography-h2 font-bold text-black">Workshops That Inspire Growth</h1>
             <p
               className="typography-h3 mt-2"
-              style={{ fontWeight: 500, letterSpacing: "2%" }}
+              style={{ fontWeight: 500 }}
             >
               Expert-led seminars designed to sharpen your skills and expand your perspective.
             </p>

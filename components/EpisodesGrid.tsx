@@ -21,36 +21,35 @@ export default function EpisodesGrid({ episodes }: { episodes: Episode[] }) {
         <h2 className="typography-h3 font-bold">Latest Episodes</h2>
       </div>
       {/* Top row: 60% image (left) and 40% meta (right) on desktop */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-[60%_40%] items-stretch">
-        <Link href={`/knowledge-hub/episode/${first.id}`} className="group block border border-gray-200 rounded overflow-hidden hover:shadow-md transition-shadow">
-          <div className="w-full h-64 md:h-96 overflow-hidden rounded">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-[60%_40%]">
+        <Link href={`/knowledge-hub/episode/${first.id}`} className="group block border border-gray-200 rounded overflow-hidden hover:shadow-md transition-shadow h-48 md:h-64">
+          <div className="w-full h-full overflow-hidden rounded">
             {first.image ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={first.image} alt={first.title} className="w-full h-full object-cover" />
+              <img src={first.image} alt={first.title} className="w-full h-full object-cover object-[50%_40%]" />
             ) : (
               <div className="bg-gray-200 w-full h-full flex items-center justify-center">Image</div>
             )}
           </div>
         </Link>
 
-        <div className="flex flex-col justify-center">
-          <div className="max-w-xl">
-            <div className="flex items-center gap-4">
-              <div className="inline-block px-3 py-1 rounded bg-gray-100 typography-footnote text-gray-500">{first.tag}</div>
+        <div className="h-48 md:h-64 flex flex-col justify-between">
+          <div className="flex-1 min-h-0 flex flex-col">
+            <div className="flex items-center gap-4 mb-2">
+              <div className="inline-block px-3 py-1 rounded bg-gray-200 typography-footnote text-gray-500">{first.tag}</div>
               <div className="typography-footnote text-gray-500">{first.date}</div>
             </div>
-            <h3 className="typography-h2 font-bold mt-3">{first.title}</h3>
-            {first.excerpt && <p className="typography-p1 text-gray-600 mt-3">{first.excerpt}</p>}
-            <div className="mt-4">
-              <Link href={`/knowledge-hub/episode/${first.id}`} className="btn-secondary px-4 py-2">
-                View episode
-              </Link>
-            </div>
+            <h3 className="typography-h3 font-bold mb-2 line-clamp-2">{first.title}</h3>
+            {first.excerpt && <p className="typography-p2 text-gray-600 line-clamp-3 flex-1">{first.excerpt}</p>}
+          </div>
+          <div className="flex-shrink-0 pb-2.5">
+            <Link href={`/knowledge-hub/episode/${first.id}`} className="btn-secondary px-4 py-2">
+              View episode
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Second row: two equal columns for episode 2 and 3 */}
   
     </section>
   );

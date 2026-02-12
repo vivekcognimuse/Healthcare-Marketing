@@ -216,7 +216,7 @@ export default function Header() {
       label: "Knowledge Hub",
       id: "outreach",
       children: [
-        { href: "/knowledge-hub", label: "Episodes", id: "outreach-episodes" },
+        { href: "/knowledge-hub/episode", label: "Episodes", id: "outreach-episodes" },
         { href: "/knowledge-hub/articles", label: "Articles", id: "outreach-articles" },
         { href: "/knowledge-hub/voices", label: "Voices", id: "outreach-voices" },
         { href: "/events", label: "Events", id: "events" },
