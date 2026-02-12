@@ -4,6 +4,37 @@ import { notFound } from "next/navigation";
 import ArticleTOC from "../../../../components/ArticleTOC";
 import Link from "next/link";
 
+// Dynamic metadata for article pages using fields from data/outreach/articles.json
+export async function generateMetadata(props: any) {
+  const { params } = props;
+  const articles: any[] = articlesData as any[];
+  const article = articles.find((a) => a.id === params.id);
+  if (!article) return {};
+
+  const title = article.metaTitle || `${article.title} | CogniMuse`;
+  const description = article.metaDescription || article.excerpt || "";
+  const image = article.image ? article.image : undefined;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: image ? [{ url: image }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
+    alternates: {
+      canonical: `https://musemarketing.web.app/knowledge-hub/articles/${article.id}`,
+    },
+  };
+}
+
 export default async function ArticlePage(props: any) {
   const { params } = props as { params: { id: string } };
   const articles: any[] = articlesData as any[];
@@ -21,8 +52,8 @@ export default async function ArticlePage(props: any) {
         </div>
         <h2 className="typography-h2 font-bold mb-2 text-left">{article.title}</h2>
         <div className="flex items-center gap-4 mb-6">
+        <div className="px-2 py-1 bg-gray-100 rounded typography-footnote text-gray-700">{(article as any).tag || "Newsletter"}</div>
           <div className="typography-footnote text-gray-500">{article.date}</div>
-          <div className="px-2 py-1 bg-gray-100 rounded typography-footnote text-gray-700">{(article as any).tag || "Newsletter"}</div>
         </div>
 
         {/* Main grid: two-column layout with centered content column (no empty right gutter) */}

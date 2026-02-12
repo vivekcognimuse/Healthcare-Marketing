@@ -1,6 +1,7 @@
 import ArticlesGrid from "../../../components/ArticlesGrid";
 import ArticleListItem from "../../../components/ArticleListItem";
 import articlesData from "../../../data/outreach/articles.json";
+import Footer from "../../../components/Footer";
 
 export const metadata = {
   title: "Articles - Out Reach",
@@ -40,6 +41,7 @@ export default function ArticlesPage() {
         </div>
         </div>
       </section>
+    <Footer />
     </main>
   );
 }

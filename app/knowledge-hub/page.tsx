@@ -2,6 +2,7 @@ import EpisodesGrid from "../../components/EpisodesGrid";
 import EpisodeCard from "../../components/EpisodeCard";
 import episodesData from "../../data/outreach/episodes.json";
 import Link from "next/link";
+import Footer from "../../components/Footer";
 
 export const metadata = {
   title: "Conversations",
@@ -13,6 +14,7 @@ export default function OutreachPage() {
   const rest = episodes.slice(3);
 
   return (
+    <>
     <main>
       {/* Hero / Intro */}
       <section id="outreach-hero" className="relative flex items-start bg-white pt-24">
@@ -44,6 +46,8 @@ export default function OutreachPage() {
         </div>
       </section>
     </main>
+    <Footer />
+    </>
   );
 }
 

@@ -38,10 +38,10 @@ export default async function EpisodePage(props: any) {
         </div>
         <header className="mb-8">
           <div className="flex items-center gap-4 mb-2">
-            <div className="typography-footnote text-gray-500">{episode?.date}</div>
-            {episode?.tag && (
+          {episode?.tag && (
               <div className="px-2 py-1 bg-gray-100 rounded typography-footnote text-gray-700">{episode.tag}</div>
             )}
+            <div className="typography-footnote text-gray-500">{episode?.date}</div>
           </div>
           <h2 className="typography-h2 font-bold mt-2">{episode?.title}</h2>
         </header>

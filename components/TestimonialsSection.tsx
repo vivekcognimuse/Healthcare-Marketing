@@ -156,7 +156,7 @@ export default function TestimonialsSection() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                 {testimonials.map((testimonial, index) => (
                   <div
-                    key={index}
+                    key={testimonial.name}
                     className="bg-white rounded-xl p-6 lg:p-8 border border-gray-200"
                   >
                     {/* Mobile Layout */}
@@ -247,7 +247,7 @@ export default function TestimonialsSection() {
                 <AnimatePresence mode="wait">
                   {getVisibleTestimonials().map((testimonial, index) => (
                   <motion.div
-                    key={`${currentIndex}-${index}`}
+                    key={testimonial.name}
                     initial={{ opacity: 0, y: 20, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -20, scale: 0.95 }}

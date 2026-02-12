@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import Button from "./Button";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,10 +14,14 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const headerRef = useRef<HTMLElement | null>(null);
+  // Derived route flags - used by the scroll/visibility logic and styling.
+ 
 
   const resolveHref = (href: string) => {
     if (href.startsWith("#")) {
-      return pathname === "/" ? href : `/${href}`;
+      // Always route to the site's root with the fragment (e.g. /#home).
+      // This ensures header top-level anchors like "#home" navigate to the main homepage.
+      return `/${href}`;
     }
     return href;
   };
@@ -94,7 +97,7 @@ export default function Header() {
     // Set initial active section and scroll state
     handleHashChange();
     handleScroll();
-    // If the current route is an outreach page, prefer the "over-hero" (light) header initially
+    // If the current route is a knowledge-hub page, prefer the "over-hero" (light) header initially
     if (pathname && pathname.startsWith("/knowledge-hub")) {
       setIsScrolled(false);
     }
@@ -145,7 +148,7 @@ export default function Header() {
         (entries) => {
           const e = entries[0];
           if (!e) return;
-          // If footer is intersecting the viewport, hide the header (unless menu is open)
+          // When the footer is visible, hide the header unless the mobile menu is open.
           if (isMenuOpen) {
             setIsHeaderVisible(true);
           } else {
@@ -167,7 +170,7 @@ export default function Header() {
       if (heroObserver) heroObserver.disconnect();
       if (footerObserver) footerObserver.disconnect();
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, pathname]);
 
   // Measure header height and expose as CSS variable for layout spacing
   useEffect(() => {
@@ -224,9 +227,12 @@ export default function Header() {
 
   const isSpecial = !!(pathname && (pathname.startsWith("/knowledge-hub") || pathname.startsWith("/events")));
   const isVoices = !!(pathname && pathname.startsWith("/knowledge-hub/voices"));
-  // For the Voices page we want the header text to be white over the hero.
-  const textColorClass = isVoices ? "text-white" : isSpecial ? "text-black" : (isScrolled ? "text-black" : "text-white");
-  const hamburgerColorClass = isVoices ? "bg-white" : isSpecial ? "bg-black" : (isScrolled ? "bg-black" : "bg-white");
+  // Header text/color rules:
+  // - On the Voices page: white while over the hero, switch to black when scrolled past the hero.
+  // - On other "special" pages (knowledge-hub / events) prefer black text.
+  // - Otherwise (normal pages) switch between white (over hero) and black (scrolled).
+  const textColorClass = isVoices ? (isScrolled ? "text-black" : "text-white") : isSpecial ? "text-black" : (isScrolled ? "text-black" : "text-white");
+  const hamburgerColorClass = isVoices ? (isScrolled ? "bg-black" : "bg-white") : isSpecial ? "bg-black" : (isScrolled ? "bg-black" : "bg-white");
   const isHomeOrOutreach = pathname === "/" || isSpecial;
   // When header text is black we prefer a light (white) dropdown modal with dark text.
   const isHeaderTextBlack = textColorClass.includes("text-black");
@@ -239,17 +245,21 @@ export default function Header() {
       }`}
       style={{
         overflow: 'visible',
-        /* Use a subtle, non-flashy background so white text won't get a bright halo.
-           Avoid strong white gradients which can create a glowing effect behind text. */
+        /* Background logic:
+           - When scrolled, use a subtle gradient (existing behavior).
+           - When header uses the black text variant but is not scrolled, use semi-opaque white (50%) instead of transparent.
+           - Otherwise remain transparent. */
         background: isScrolled
           ? 'linear-gradient(135deg, rgba(0, 27, 87, 0.06) 0%, rgba(0, 27, 87, 0.04) 100%)'
-          : 'transparent',
-        /* Disable backdrop blur when over the hero to avoid light bleeding/halo */
+          : (isHeaderTextBlack ? 'rgba(255, 255, 255, 0.7)' : 'transparent'),
+        /* Apply blur only when scrolled — avoid blur when using the semi-opaque white header
+           (the blur can create a halo/ghosting effect on darker backgrounds). */
         backdropFilter: isScrolled ? 'blur(6px)' : 'none',
         WebkitBackdropFilter: isScrolled ? 'blur(6px)' : 'none',
-        /* Use a subtle darker border only when scrolled; remove when over hero */
-        borderBottom: isScrolled ? '1px solid rgba(0, 0, 0, 0.06)' : 'none',
-        /* Minimize shadows when over hero to avoid glow behind text */
+        /* Show subtle border when scrolled or when using the semi-opaque white background */
+        borderBottom: (isScrolled || isHeaderTextBlack) ? '1px solid rgba(0, 0, 0, 0.06)' : 'none',
+        /* Only apply a prominent shadow when scrolled. When header is the black variant
+           but not scrolled, avoid shadows that produce a glow/halo effect. */
         boxShadow: isScrolled ? '0 8px 24px rgba(0, 0, 0, 0.08)' : 'none',
       }}
     >
@@ -257,7 +267,12 @@ export default function Header() {
         <div className="flex items-center justify-between w-full relative">
           {/* Logo */}
           <Link href="/" className="flex items-center z-10">
-            <span className={`typography-h3 font-bold transition-colors duration-300 ${textColorClass}`}>CogniMuse</span>
+            <span
+              className={`typography-h3 font-bold transition-colors duration-300 ${textColorClass}`}
+              style={{ textShadow: "none", filter: "none" }}
+            >
+              CogniMuse
+            </span>
           </Link>
 
           {/* Desktop Navigation - Middle section (lg: 1024px+) */}
@@ -274,6 +289,7 @@ export default function Header() {
                   className={`typography-p2 hover:opacity-80 transition-all duration-300 ${textColorClass} ${
                     activeSection === item.id ? "font-bold" : ""
                   }`}
+                  style={{ textShadow: "none", filter: "none" }}
                 >
                   {item.label}
                 </Link>
@@ -299,6 +315,7 @@ export default function Header() {
                               ? "hover:text-black hover:bg-gray-100"
                               : "hover:text-white hover:bg-gradient-to-b hover:from-[#001B57] hover:via-[#155DFC] hover:to-white/5"
                           }`}
+                          style={{ textShadow: "none", filter: "none" }}
                         >
                           {c.label}
                         </Link>
@@ -331,6 +348,7 @@ export default function Header() {
             }}
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
             type="button"
           >
             <span className={`w-6 h-0.5 ${hamburgerColorClass} transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
@@ -357,6 +375,7 @@ export default function Header() {
           
           {/* Mobile/Tablet Menu - Slide in from right with gradient background */}
           <motion.div
+            id="mobile-menu"
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -441,6 +460,7 @@ export default function Header() {
                             ? "text-black" 
                             : "text-white/90 hover:text-white"
                         }`}
+                        style={{ textShadow: "none", filter: "none" }}
                       >
                         {item.label}
                       </Link>
@@ -454,6 +474,7 @@ export default function Header() {
                               href={c.href}
                               onClick={() => setIsMenuOpen(false)}
                               className="typography-p2 text-white/80 py-2"
+                              style={{ textShadow: "none", filter: "none" }}
                             >
                               {c.label}
                             </Link>

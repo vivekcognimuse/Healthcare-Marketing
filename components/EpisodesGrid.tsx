@@ -36,7 +36,7 @@ export default function EpisodesGrid({ episodes }: { episodes: Episode[] }) {
         <div className="flex flex-col justify-center">
           <div className="max-w-xl">
             <div className="flex items-center gap-4">
-              <div className="inline-block px-3 py-1 rounded bg-gray-100 typography-footnote text-gray-700">{first.tag}</div>
+              <div className="inline-block px-3 py-1 rounded bg-gray-100 typography-footnote text-gray-500">{first.tag}</div>
               <div className="typography-footnote text-gray-500">{first.date}</div>
             </div>
             <h3 className="typography-h2 font-bold mt-3">{first.title}</h3>
