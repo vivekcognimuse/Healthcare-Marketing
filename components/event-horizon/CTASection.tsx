@@ -81,29 +81,93 @@ const CTASection: React.FC<{
           <>
 
             {showForm && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center">
-                <div className="absolute inset-0 bg-black/60" onClick={() => setShowForm(false)} />
-                <div className="relative w-full max-w-md mx-4">
-                  <div className="rounded-lg overflow-hidden" style={{  background: "linear-gradient(90deg, #001B57 0%, #0D3796 50%, #155DFC 100%)", }}>
-                    <div className="p-6">
-                      <h3 className="typography-h3 font-semibold text-white mb-2">Register for this event</h3>
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6">
+                <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowForm(false)} />
+                <div className="relative w-full max-w-lg mx-auto my-auto">
+                  <div className="rounded overflow-hidden bg-white shadow-2xl border border-gray-100 flex flex-col max-h-[90vh]">
+                    <div className="bg-gradient-to-r from-blue-50 to-white p-4 sm:p-6 md:p-8 border-b border-gray-100 flex-shrink-0">
+                      <h2 className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: 'var(--font-red-hat-display)', color: '#155DFC' }}>
+                        Register Now
+                      </h2>
+                     
+                    </div>
+                    <div className="p-4 sm:p-6 md:p-8 overflow-y-auto flex-1">
+
                       <form
                         onSubmit={async (e) => {
                           e.preventDefault();
                           setSubmitting(true);
                           // validate
                           const errs: Record<string, string> = {};
-                          if (!form.name.trim()) errs.name = "Name is required";
-                          if (!/^\d{6,15}$/.test(form.phone)) errs.phone = "Enter valid phone number (6-15 digits)";
-                          if (!form.place.trim()) errs.place = "Place required";
-                          if (!form.profession || !form.profession.trim()) errs.profession = "Profession required";
-                          // If profession is Other or Student, require additional fields
-                          if (form.profession === "Other" && !form.professionOther.trim()) errs.professionOther = "Please specify profession";
-                          if (form.profession === "Student") {
-                            if (!form.studentCourse.trim()) errs.studentCourse = "Please provide course name";
-                            if (!form.studentYear.trim()) errs.studentYear = "Please provide year/batch";
+                          
+                          // Name validation: Only letters, spaces, and hyphens
+                          if (!form.name.trim()) {
+                            errs.name = "Name is required";
+                          } else if (!/^[a-zA-Z\s\-']+$/.test(form.name.trim())) {
+                            errs.name = "Name can only contain letters, spaces, and hyphens";
+                          } else if (form.name.trim().length < 2) {
+                            errs.name = "Name must be at least 2 characters";
                           }
-                          if (!/^\S+@\S+\.\S+$/.test(form.email)) errs.email = "Valid email required";
+                          
+                          // Phone validation: Exactly 10 digits for Indian numbers
+                          if (!form.phone) {
+                            errs.phone = "Phone number is required";
+                          } else if (!/^\d{10}$/.test(form.phone)) {
+                            errs.phone = "Indian phone number must be exactly 10 digits";
+                          }
+                          
+                          // Location validation
+                          if (!form.place.trim()) {
+                            errs.place = "City/State is required";
+                          } else if (!/^[a-zA-Z\s,\-]+$/.test(form.place.trim())) {
+                            errs.place = "City/State can only contain letters, commas, and hyphens";
+                          } else if (form.place.trim().length < 2) {
+                            errs.place = "City/State must be at least 2 characters";
+                          }
+                          
+                          // Profession validation
+                          if (!form.profession || !form.profession.trim()) {
+                            errs.profession = "Profession is required";
+                          }
+                          
+                          // Conditional validations
+                          if (form.profession === "Other" || form.profession === "Healthcare Professional") {
+                            if (form.professionOther.trim()) {
+                              if (!/^[a-zA-Z\s\-]+$/.test(form.professionOther.trim())) {
+                                errs.professionOther = "Profession can only contain letters and spaces";
+                              } else if (form.professionOther.trim().length < 2) {
+                                errs.professionOther = "Profession must be at least 2 characters";
+                              }
+                            }
+                          }
+                          
+                          if (form.profession === "Student") {
+                            if (!form.studentCourse.trim()) {
+                              errs.studentCourse = "Course name is required";
+                            } else if (!/^[a-zA-Z0-9\s\-()]+$/.test(form.studentCourse.trim())) {
+                              errs.studentCourse = "Course can only contain letters, numbers, spaces, and hyphens";
+                            } else if (form.studentCourse.trim().length < 2) {
+                              errs.studentCourse = "Course must be at least 2 characters";
+                            }
+                            
+                            if (!form.studentYear.trim()) {
+                              errs.studentYear = "Year/Batch is required";
+                            } else if (!/^[a-zA-Z0-9\s\-()]+$/.test(form.studentYear.trim())) {
+                              errs.studentYear = "Year/Batch can only contain letters, numbers, spaces, and hyphens";
+                            } else if (form.studentYear.trim().length < 2) {
+                              errs.studentYear = "Year/Batch must be at least 2 characters";
+                            }
+                          }
+                          
+                          // Email validation: Proper regex for email
+                          if (!form.email.trim()) {
+                            errs.email = "Email is required";
+                          } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+                            errs.email = "Please enter a valid email address";
+                          } else if (form.email.trim().length > 254) {
+                            errs.email = "Email is too long";
+                          }
+                          
                           setErrors(errs);
                           if (Object.keys(errs).length) {
                             setSubmitting(false);
@@ -111,6 +175,11 @@ const CTASection: React.FC<{
                           }
 
                           try {
+                            if (!eventId) {
+                              alert("Event is unavailable. Please refresh and try again.");
+                              setSubmitting(false);
+                              return;
+                            }
                             // create booking via firebase client util
                             const { createBooking, updateBookingPayment } = await import("@/lib/firebase/db-queries");
                             const bookingRes = await createBooking({
@@ -120,10 +189,12 @@ const CTASection: React.FC<{
                               phone: `${form.phoneCode}${form.phone.trim()}`,
                               place: form.place.trim(),
                               profession:
-                                form.profession === "Other"
-                                  ? form.professionOther.trim()
-                                  : form.profession === "Student"
+                                form.profession === "Student"
                                   ? `Student - ${form.studentCourse.trim()} (${form.studentYear.trim()})`
+                                  : form.profession === "Other"
+                                  ? form.professionOther.trim() || "Other"
+                                  : form.profession === "Healthcare Professional" && form.professionOther.trim()
+                                  ? `Healthcare Professional - ${form.professionOther.trim()}`
                                   : form.profession.trim(),
                               paymentDetails: { status: "pending" },
                             } as any);
@@ -160,6 +231,10 @@ const CTASection: React.FC<{
                                 order_id: orderResp.orderId,
                                 prefill: { name: form.name, email: form.email, contact: `${form.phoneCode}${form.phone}` },
                                 handler: async function (response: any) {
+                                  // Optimistic UX: show success modal immediately after payment callback
+                                  setShowSuccess(true);
+                                  setShowForm(false);
+
                                   // verify
                                   const verify = await fetch("/api/payments/verify", {
                                     method: "POST",
@@ -173,21 +248,22 @@ const CTASection: React.FC<{
                                   }).then((r) => r.json());
 
                                   if (verify.success) {
-                                    // update booking payment locally
-                                    await updateBookingPayment(bookingId, { status: "success", transactionId: response.razorpay_payment_id, amount: orderResp.amount / 100, currency: orderResp.currency });
-                                    // load meet link from events data if available
+                                    // Update booking and fetch meet link in background (non-blocking)
+                                    updateBookingPayment(bookingId, { status: "success", transactionId: response.razorpay_payment_id, amount: orderResp.amount / 100, currency: orderResp.currency }).catch(() => {});
                                     try {
                                       const ev = events.find((e: any) => e.id === eventId);
-                                      setMeetLink(ev ? ev.meetLink || null : null);
+                                      if (ev?.meetLink) setMeetLink(ev.meetLink);
                                     } catch {}
-                                    // show success modal with meet link
-                                    setShowSuccess(true);
-                                    setShowForm(false);
                                   } else {
-                                    alert("Payment verification failed");
+                                    setShowSuccess(false);
+                                    setShowForm(true);
+                                    alert("Payment verification failed. Please try again.");
                                   }
                                 },
-                                modal: { ondismiss: function () { /* handle dismiss */ } },
+                                modal: { ondismiss: function () {
+                                  setShowSuccess(false);
+                                  setShowForm(true);
+                                } },
                               };
 
                               // Verify public key is present and not empty (embedded from .env via NEXT_PUBLIC_*)
@@ -206,15 +282,15 @@ const CTASection: React.FC<{
                               const rzp = new (window as any).Razorpay(options);
                               rzp.open();
                             } else {
-                              // free event - mark success
-                              await updateBookingPayment(bookingId, { status: "success", amount: 0, currency: "INR" });
-                              // show success modal and meet link
-                              try {
-                                const ev = events.find((e: any) => e.id === eventId);
-                                setMeetLink(ev ? ev.meetLink || null : null);
-                              } catch {}
+                              // free event - show success modal immediately
                               setShowSuccess(true);
                               setShowForm(false);
+                              // Update booking in background (non-blocking)
+                              updateBookingPayment(bookingId, { status: "success", amount: 0, currency: "INR" }).catch(() => {});
+                              try {
+                                const ev = events.find((e: any) => e.id === eventId);
+                                if (ev?.meetLink) setMeetLink(ev.meetLink);
+                              } catch {}
                             }
                           } catch (err: any) {
                             alert("Error: " + (err.message || err));
@@ -222,120 +298,316 @@ const CTASection: React.FC<{
                             setSubmitting(false);
                           }
                         }}
-                        className="space-y-3"
                       >
-                        <div>
-                          <label className="block typography-footnote text-white mb-1">Name</label>
-                          <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full rounded-md px-3 py-2" />
-                          {errors.name && <div className="text-xs text-rose-400 mt-1">{errors.name}</div>}
-                        </div>
-                        <div>
-                          <label className="block typography-footnote text-white mb-1">Phone number</label>
-                          <div className="flex gap-2">
-                            <input
-                              type="text"
-                              value={form.phoneCode || "+91"}
-                              onChange={(e) =>
-                                setForm({
-                                  ...form,
-                                  phoneCode: e.target.value.replace(/[^+\d]/g, "").slice(0, 5), // Limit to something reasonable for country codes
-                                })
-                              }
-                              className="w-20 rounded-md px-3 py-2 bg-white text-black"
-                              placeholder="+91"
+                        {/* Two-column layout for Name & Location */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4">
+                          {/* Name Field */}
+                          <div>
+                            <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Full Name *</label>
+                            <input 
+                              value={form.name} 
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                // Only allow letters, spaces, and hyphens
+                                if (/^[a-zA-Z\s\-']*$/.test(value) || value === '') {
+                                  setForm({ ...form, name: value });
+                                }
+                              }}
+                              placeholder="Your name"
+                              className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all" 
+                              style={{ 
+                                fontFamily: 'var(--font-red-hat-display)', 
+                                fontSize: '16px', 
+                                padding: '10px 12px', 
+                                border: '1px solid #D5D5D5', 
+                                borderRadius: '6px',
+                                color: '#1E1E1E'
+                              }}
                             />
+                            {errors.name && <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>{errors.name}</div>}
+                          </div>
+
+                          {/* Location Field */}
+                          <div>
+                            <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>City / State *</label>
+                            <input 
+                              value={form.place} 
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                // Only allow letters, spaces, commas, and hyphens
+                                if (/^[a-zA-Z\s,\-]*$/.test(value) || value === '') {
+                                  setForm({ ...form, place: value });
+                                }
+                              }}
+                              placeholder="e.g., Mumbai, Maharashtra"
+                              className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all" 
+                              style={{ 
+                                fontFamily: 'var(--font-red-hat-display)', 
+                                fontSize: '16px', 
+                                padding: '10px 12px', 
+                                border: '1px solid #D5D5D5', 
+                                borderRadius: '6px',
+                                color: '#1E1E1E'
+                              }}
+                            />
+                            {errors.place && <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>{errors.place}</div>}
+                          </div>
+                        </div>
+
+                        {/* Phone Field */}
+                        <div className="mb-4">
+                          <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Phone Number *</label>
+                          <div className="flex gap-0">
+                            <div 
+                              className="flex items-center justify-center font-medium" 
+                              style={{ 
+                                fontFamily: 'var(--font-red-hat-display)', 
+                                fontSize: '15px', 
+                                padding: '10px 12px', 
+                                backgroundColor: '#F0F4FF',
+                                border: '1px solid #D5D5D5',
+                                borderRight: 'none',
+                                borderTopLeftRadius: '6px',
+                                borderBottomLeftRadius: '6px',
+                                color: '#155DFC',
+                                minWidth: '55px'
+                              }}
+                            >
+                              +91
+                            </div>
                             <input
                               value={form.phone}
-                              onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                              className="flex-1 rounded-md px-3 py-2"
-                              placeholder="Enter local number"
+                              onChange={(e) => {
+                                const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+                                setForm({ ...form, phone: value });
+                              }}
+                              inputMode="numeric"
+                              placeholder="Please enter your 10 digit whatsapp number"
+                              maxLength={10}
+                              className="flex-1 bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                              style={{ 
+                                fontFamily: 'var(--font-red-hat-display)', 
+                                fontSize: '16px', 
+                                padding: '10px 12px', 
+                                border: '1px solid #D5D5D5',
+                                borderTopRightRadius: '6px',
+                                borderBottomRightRadius: '6px',
+                                color: '#1E1E1E'
+                              }}
                             />
                           </div>
-                          <div className="text-xs text-gray-300 mt-2">Please provide WhatsApp number</div>
-                          {errors.phone && <div className="text-xs text-rose-400 mt-1">{errors.phone}</div>}
+                          <div style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: '12px', color: '#6B7280', letterSpacing: '0.03em', marginTop: '6px', lineHeight: '1.4' }}> We'll use this to add you to our exclusive WhatsApp group with event updates and announcements</div>
+                          {errors.phone && <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>{errors.phone}</div>}
                         </div>
-                        <div>
-                          <label className="block typography-footnote text-white mb-1">Place</label>
-                          <input value={form.place} onChange={(e) => setForm({ ...form, place: e.target.value })} className="w-full rounded-md px-3 py-2" />
-                          {errors.place && <div className="text-xs text-rose-400 mt-1">{errors.place}</div>}
-                        </div>
-                        <div>
-                          <label className="block typography-footnote text-white mb-1">Profession</label>
+
+                        {/* Profession Field */}
+                        <div className="mb-4">
+                          <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Your Profession *</label>
                           <select
                             value={form.profession}
                             onChange={(e) => setForm({ ...form, profession: e.target.value })}
-                            className="w-full rounded-md px-3 py-2 bg-white text-black"
+                            className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                            style={{ 
+                              fontFamily: 'var(--font-red-hat-display)', 
+                              fontSize: '16px', 
+                              padding: '10px 12px', 
+                              border: '1px solid #D5D5D5', 
+                              borderRadius: '6px',
+                              color: form.profession ? '#1E1E1E' : '#999999',
+                              appearance: 'none',
+                              backgroundImage: 'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23155DFC\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e")',
+                              backgroundRepeat: 'no-repeat',
+                              backgroundPosition: 'right 10px center',
+                              backgroundSize: '18px',
+                              paddingRight: '36px'
+                            }}
                           >
-                            <option value="">Select profession</option>
+                            <option value="">Select your profession</option>
                             <option value="Student">Student</option>
+                            <option value="OT Professional">OT Professional</option>
+                        
+                            <option value="Healthcare Professional">Healthcare Professional</option>
                             <option value="Other">Other</option>
                           </select>
-                          {errors.profession && <div className="text-xs text-rose-400 mt-1">{errors.profession}</div>}
+{errors.profession && <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>{errors.profession}</div>}
 
                           {form.profession === "Student" && (
-                            <div className="mt-3 grid grid-cols-1 gap-3">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 p-4 rounded-lg bg-blue-50 border border-blue-100">
                               <div>
-                                <label className="block typography-footnote text-white mb-1">Course</label>
+                                <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(12px, 3vw, 13px)', color: '#1E1E1E', fontWeight: '600' }}>Course *</label>
                                 <input
                                   value={form.studentCourse}
-                                  onChange={(e) => setForm({ ...form, studentCourse: e.target.value })}
-                                  className="w-full rounded-md px-3 py-2"
-                                  placeholder="e.g., BPT, MSc OT"
+                                  onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (/^[a-zA-Z0-9\s\-()]*$/.test(value) || value === '') {
+                                      setForm({ ...form, studentCourse: value });
+                                    }
+                                  }}
+                                  placeholder="e.g., BPT"
+                                  className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                                  style={{ 
+                                    fontFamily: 'var(--font-red-hat-display)', 
+                                    fontSize: '15px', 
+                                    padding: '8px 10px', 
+                                    border: '1px solid #D5D5D5', 
+                                    borderRadius: '4px',
+                                    color: '#1E1E1E'
+                                  }}
                                 />
-                                {errors.studentCourse && <div className="text-xs text-rose-400 mt-1">{errors.studentCourse}</div>}
+                                {errors.studentCourse && <div style={{ fontSize: 'clamp(11px, 2.5vw, 12px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '3px', fontWeight: '500' }}>{errors.studentCourse}</div>}
                               </div>
                               <div>
-                                <label className="block typography-footnote text-white mb-1">Year / Batch</label>
+                                <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(12px, 3vw, 13px)', color: '#1E1E1E', fontWeight: '600' }}>Year / Batch *</label>
                                 <input
                                   value={form.studentYear}
-                                  onChange={(e) => setForm({ ...form, studentYear: e.target.value })}
-                                  className="w-full rounded-md px-3 py-2"
-                                  placeholder="e.g., 2021 batch / 3rd year"
+                                  onChange={(e) => {
+                                    const value = e.target.value;
+                                    if (/^[a-zA-Z0-9\s\-()]*$/.test(value) || value === '') {
+                                      setForm({ ...form, studentYear: value });
+                                    }
+                                  }}
+                                  placeholder="e.g., 2024-2025"
+                                  className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                                  style={{ 
+                                    fontFamily: 'var(--font-red-hat-display)', 
+                                    fontSize: '15px', 
+                                    padding: '8px 10px', 
+                                    border: '1px solid #D5D5D5', 
+                                    borderRadius: '4px',
+                                    color: '#1E1E1E'
+                                  }}
                                 />
-                                {errors.studentYear && <div className="text-xs text-rose-400 mt-1">{errors.studentYear}</div>}
+                                {errors.studentYear && <div style={{ fontSize: 'clamp(11px, 2.5vw, 12px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '3px', fontWeight: '500' }}>{errors.studentYear}</div>}
                               </div>
                             </div>
                           )}
 
                           {form.profession === "Other" && (
-                            <div className="mt-3">
-                              <label className="block typography-footnote text-white mb-1">Please specify</label>
+                            <div className="mt-4 p-4 rounded-lg bg-blue-50 border border-blue-100">
+                              <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(12px, 3vw, 13px)', color: '#1E1E1E', fontWeight: '600' }}>Please specify</label>
                               <input
                                 value={form.professionOther}
-                                onChange={(e) => setForm({ ...form, professionOther: e.target.value })}
-                                className="w-full rounded-md px-3 py-2"
-                                placeholder="Your profession"
+                                onChange={(e) => {
+                                  const value = e.target.value;
+                                  if (/^[a-zA-Z\s\-]*$/.test(value) || value === '') {
+                                    setForm({ ...form, professionOther: value });
+                                  }
+                                }}
+                                placeholder="Tell us your profession"
+                                className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                                style={{ 
+                                  fontFamily: 'var(--font-red-hat-display)', 
+                                  fontSize: '15px', 
+                                  padding: '8px 10px', 
+                                  border: '1px solid #D5D5D5', 
+                                  borderRadius: '4px',
+                                  color: '#1E1E1E'
+                                }}
                               />
-                              {errors.professionOther && <div className="text-xs text-rose-400 mt-1">{errors.professionOther}</div>}
+                                {errors.professionOther && <div style={{ fontSize: 'clamp(11px, 2.5vw, 12px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '3px', fontWeight: '500' }}>{errors.professionOther}</div>}
+                            </div>
+                          )}
+
+                          {form.profession === "Healthcare Professional" && (
+                            <div className="mt-4 p-4 rounded-lg bg-blue-50 border border-blue-100">
+                              <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(12px, 3vw, 13px)', color: '#1E1E1E', fontWeight: '600' }}>Please specify</label>
+                              <input
+                                value={form.professionOther}
+                                onChange={(e) => {
+                                  const value = e.target.value;
+                                  if (/^[a-zA-Z\s\-]*$/.test(value) || value === '') {
+                                    setForm({ ...form, professionOther: value });
+                                  }
+                                }}
+                                placeholder="e.g., Physiotherapist"
+                                className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                                style={{ 
+                                  fontFamily: 'var(--font-red-hat-display)', 
+                                  fontSize: '15px', 
+                                  padding: '8px 10px', 
+                                  border: '1px solid #D5D5D5', 
+                                  borderRadius: '4px',
+                                  color: '#1E1E1E'
+                                }}
+                              />
+                                {errors.professionOther && <div style={{ fontSize: 'clamp(11px, 2.5vw, 12px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '3px', fontWeight: '500' }}>{errors.professionOther}</div>}
                             </div>
                           )}
                         </div>
-                        <div>
-                            <label className="block typography-footnote text-white mb-1">Email</label>
-                          <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full rounded-md px-3 py-2" />
-                          {errors.email && <div className="text-xs text-rose-400 mt-1">{errors.email}</div>}
+
+                        {/* Email Field */}
+                        <div className="mb-6">
+                          <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Email Address *</label>
+                          <input 
+                            value={form.email} 
+                            onChange={(e) => setForm({ ...form, email: e.target.value.trim() })}
+                            placeholder="you@example.com"
+                            type="email"
+                            className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all" 
+                            style={{ 
+                              fontFamily: 'var(--font-red-hat-display)', 
+                              fontSize: '16px', 
+                              padding: '10px 12px', 
+                              border: '1px solid #D5D5D5', 
+                              borderRadius: '6px',
+                              color: '#1E1E1E'
+                            }}
+                          />
+                          <div style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: '12px', color: '#6B7280', letterSpacing: '0.03em', marginTop: '6px', lineHeight: '1.4' }}>We'll send payment info, event updates and resources to this email</div>
+                          {errors.email && <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>{errors.email}</div>}
                         </div>
-                          <div className="flex items-center gap-3 mt-4">
+
+                        {/* Payment Notice */}
+                        {ticketPrice > 0 && (
+                          <div className="mb-6 p-3 rounded-lg bg-amber-50 border border-amber-200">
+                            <p style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#92400E', fontWeight: '600' }}>
+                              💳 Secure payment of ₹{ticketPrice} via Razorpay
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-2 w-full pt-2">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setShowForm(false)}
+                            className="w-full sm:flex-1 transition-all duration-300 py-2"
+                            style={{ 
+                              borderColor: '#155DFC', 
+                              color: '#155DFC',
+                              backgroundColor: '#FAFAFA',
+                              fontSize: '14px'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = '#155DFC';
+                              e.currentTarget.style.color = '#FFFFFF';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = '#FAFAFA';
+                              e.currentTarget.style.color = '#155DFC';
+                            }}
+                          >
+                            Cancel
+                          </Button>
                           <Button
                             type="submit"
-                            variant="primary"
                             disabled={submitting}
-                            className={`flex-1 rounded-full px-6 py-3 flex items-center justify-center gap-2 ${submitting ? 'opacity-60 cursor-not-allowed' : ''}`}
+                            variant="secondary"
+                            className="w-full sm:flex-1 py-2"
+                            style={{ opacity: submitting ? 0.7 : 1, cursor: submitting ? 'not-allowed' : 'pointer', fontSize: '14px' }}
                           >
                             {submitting ? (
                               <>
-                                <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                                <svg className="w-3 h-3 animate-spin inline mr-1.5" viewBox="0 0 24 24" fill="none">
                                   <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" strokeWidth="4"></circle>
                                   <path d="M22 12a10 10 0 0 1-10 10" stroke="white" strokeWidth="4" strokeLinecap="round"></path>
                                 </svg>
                                 Processing...
                               </>
                             ) : (
-                              "Pay Now"
+                              "Register & Pay"
                             )}
-                          </Button>
-                          <Button type="button" variant="secondary" onClick={() => setShowForm(false)} className="flex-1 rounded-full px-6 py-3">
-                            Cancel
                           </Button>
                         </div>
                       </form>
@@ -345,43 +617,50 @@ const CTASection: React.FC<{
               </div>
             )}
           {showSuccess && (
-            <div className="fixed inset-0 z-60 flex items-center justify-center">
-              <div className="absolute inset-0 bg-black/60" onClick={() => setShowSuccess(false)} />
-              <div className="relative w-full max-w-md mx-4">
-                <div className="rounded-xl border border-gray-800 bg-[#071032] overflow-hidden shadow-lg">
-                  <div className="p-6 text-center">
-                    <h3 className="text-xl font-semibold text-white mb-2">Booking confirmed</h3>
-                    <p className="mb-4 text-gray-300">Booking successful — here's the event link:</p>
-                    {meetLink ? (
-                      <>
-                        <a href={meetLink} target="_blank" rel="noreferrer" className="block text-blue-400 underline mb-4">{meetLink}</a>
-                        <div className="flex gap-3 mb-4 justify-center">
-                          <Button
-                            variant="outline"
-                            onClick={async () => {
-                              try {
-                                await navigator.clipboard.writeText(meetLink);
-                                setCopied(true);
-                                setTimeout(() => setCopied(false), 2500);
-                              } catch (err) {
-                                alert("Copy failed");
-                              }
-                            }}
-                            className="rounded-full px-4 py-2"
-                          >
-                            {copied ? "Copied" : "Copy link"}
-                          </Button>
-                        </div>
-                      </>
-                    ) : (
-                      <p className="mb-4">No meeting link available yet. We'll notify you before the event.</p>
-                    )}
-                    <p className="text-sm text-gray-400 mb-4">We will notify you before the event.</p>
-                      <div className="flex justify-center">
-                        <Button variant="secondary" onClick={() => { setShowSuccess(false); }} className="rounded-full px-4 py-2">
-                          Close
-                        </Button>
-                      </div>
+            <div className="fixed inset-0 flex items-center justify-center p-4" style={{ zIndex: 9999 }}>
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowSuccess(false)} />
+              <div className="relative w-full max-w-lg mx-auto">
+                <div className="rounded-lg overflow-hidden bg-white shadow-2xl border border-gray-100">
+                  <div className="bg-gradient-to-r from-green-50 to-white p-6 border-b border-gray-100 text-center">
+                    <div className="w-14 h-14 mx-auto mb-3 rounded-full flex items-center justify-center bg-green-100">
+                      <svg className="w-7 h-7" fill="none" stroke="#059669" viewBox="0 0 24 24" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h2 style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: '700', color: '#155DFC', marginBottom: '4px' }}>You're All Set!</h2>
+                    <p style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(14px, 3vw, 16px)', color: '#6B7280', fontWeight: '500' }}>Your registration has been confirmed</p>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="mb-4 p-3 rounded-lg bg-gray-50 border border-gray-200">
+                      <p style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#374151', lineHeight: '1.5', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', fontWeight: '500', textAlign: 'center' }}>
+                        <img src="/assets/events/whatsapp-icon.svg" alt="WhatsApp" style={{ width: 'clamp(24px, 7vw, 32px)', height: 'clamp(24px, 7vw, 32px)', flexShrink: 0 }} />
+                        <span>Join link will be sent via WhatsApp before the event.</span>
+                      </p>
+                    </div>
+
+                    <div className="flex w-full pt-2">
+                      <button 
+                        onClick={() => { setShowSuccess(false); }} 
+                        style={{ 
+                          fontFamily: 'var(--font-red-hat-display)', 
+                          fontSize: 'clamp(14px, 3.5vw, 16px)', 
+                          fontWeight: '700',
+                          padding: '10px 24px', 
+                          border: 'none',
+                          borderRadius: '6px',
+                          background: 'linear-gradient(135deg, #00277E, #0D3796, #155DFC)',
+                          color: 'white',
+                          cursor: 'pointer',
+                          width: '100%',
+                          transition: 'all 0.3s'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(21, 93, 252, 0.3)'}
+                        onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
+                      >
+                        Done
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -389,9 +668,6 @@ const CTASection: React.FC<{
           )}
           </>
         )}
-        
-
-      
       </div>
     </section>
   );

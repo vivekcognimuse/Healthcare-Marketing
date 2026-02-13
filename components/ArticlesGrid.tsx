@@ -23,14 +23,22 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
   // Pagination for 2nd row (all remaining articles)
   const remainingArticles = articles.slice(1); // All articles after the first
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2; // 2 articles per page (1 row)
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const totalPages = Math.ceil(remainingArticles.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
+  // Page 1: 2 articles, Page 2+: 4 articles
+  const firstPageSize = 2;
+  const otherPageSize = 4;
+  const itemsPerPage = currentPage === 1 ? firstPageSize : otherPageSize;
+  
+  const totalPages = remainingArticles.length <= firstPageSize 
+    ? 1 
+    : 1 + Math.ceil((remainingArticles.length - firstPageSize) / otherPageSize);
+  
+  const startIndex = currentPage === 1 ? 0 : firstPageSize + (currentPage - 2) * otherPageSize;
   const endIndex = startIndex + itemsPerPage;
   const currentItems = remainingArticles.slice(startIndex, endIndex);
   const isSingleItem = currentItems.length === 1;
+  const hasOddItems = currentItems.length > 1 && currentItems.length % 2 === 1;
 
   const handlePageChange = (pageNum: number) => {
     setCurrentPage(pageNum);
@@ -42,10 +50,10 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
   return (
     <section className="container py-6 px-0">
       {/* First article: large image left, meta on right for desktop */}
-      {showFirstRow && first && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {showFirstRow && first && currentPage === 1 && (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 2xl:gap-10">
             <Link href={`/knowledge-hub/articles/${first.id}`} className="md:col-span-2 block">
-              <div className="w-full h-48 md:h-64 overflow-hidden rounded relative flex items-center justify-center bg-gray-100">
+              <div className="w-full h-48 md:h-64 2xl:h-80 overflow-hidden rounded relative flex items-center justify-center bg-gray-100">
                 {/* blurred background filling the card */}
                 <div
                   className="absolute inset-0 bg-center bg-cover filter blur-sm scale-105 z-0"
@@ -56,7 +64,7 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
               </div>
             </Link>
 
-            <div className="md:col-span-1 h-48 md:h-64 flex flex-col justify-between">
+            <div className="md:col-span-1 h-48 md:h-64 2xl:h-80 flex flex-col justify-between 2xl:py-2.5">
               <div className="flex-1 min-h-0 flex flex-col">
                 <div className="flex items-center gap-3 mb-2">
                   {first.tag && (
@@ -66,14 +74,14 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
                   )}
                   <div className="typography-footnote text-gray-500">{first.date}</div>
                 </div>
-                <h3 className="typography-h3 font-bold mb-2 line-clamp-2">
+                <h3 className="typography-h3 font-bold mb-2 2xl:mb-3 line-clamp-2">
                   <Link href={`/knowledge-hub/articles/${first.id}`} className="hover:underline">
                     {first.title}
                   </Link>
                 </h3>
-                {first.excerpt && <p className="typography-p2 text-gray-700 line-clamp-3 flex-1">{first.excerpt}</p>}
+                {first.excerpt && <p className="typography-p2 text-gray-700 line-clamp-3 2xl:line-clamp-4 flex-1">{first.excerpt}</p>}
               </div>
-              <div className="flex-shrink-0 pb-2.5">
+              <div className="flex-shrink-0 pb-2.5 2xl:pb-0">
                 <Link href={`/knowledge-hub/articles/${first.id}`} className="btn-secondary px-4 py-2">
                   Read article
                 </Link>
@@ -84,10 +92,12 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
 
       {/* Paginated 2nd row (all remaining articles) */}
       {remainingArticles.length > 0 && (
-        <div ref={contentRef} className={showFirstRow ? "mt-6" : ""}>
+        <div ref={contentRef} className={showFirstRow && currentPage === 1 ? "mt-6" : ""}>
           <div className={`grid grid-cols-1 gap-6 ${isSingleItem ? 'md:grid-cols-1 justify-items-center' : 'md:grid-cols-2'}`}>
-            {currentItems.map((article) => (
-              <div key={article.id} className={`border rounded overflow-hidden flex flex-col ${isSingleItem ? 'w-full md:max-w-[calc(50%-0.75rem)]' : 'w-full'}`}>
+            {currentItems.map((article, index) => {
+              const isLastOddItem = hasOddItems && index === currentItems.length - 1;
+              return (
+              <div key={article.id} className={`border rounded overflow-hidden flex flex-col ${isSingleItem ? 'w-full md:max-w-[calc(50%-0.75rem)]' : 'w-full'} ${isLastOddItem ? 'md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:mx-auto' : ''}`}>
                 <Link href={`/knowledge-hub/articles/${article.id}`} className="group block">
                   <div className="h-56 flex items-center justify-center bg-gray-100 overflow-hidden relative">
                     {/* blurred background filling the card */}
@@ -121,7 +131,8 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
                   </div>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
 
           {/* Pagination */}

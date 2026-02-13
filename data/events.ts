@@ -39,11 +39,11 @@ export const events: Event[] = [
     currency: "INR",
     speaker: {
       name: "Dr. Shovan Saha",
-      role: "Associate Professor, Occupational Therapy.",
+      role: "Additional Professor, Occupational Therapy.",
       affiliation: "Manipal College of Health Professions.",
       bio:
         "Dr. Shovan Saha is a highly respected leader in the world of Occupational Therapy with over 25 years of experience. As an Associate Professor at Manipal Academy of Higher Education, he has spent his career balancing teaching with hands-on patient care. Dr. Saha is known for his 'healing touch' and his ability to create simple, low cost tools that help people return to their daily roles.",
-      photoSrc: "/assets/image-1.JPG",
+      photoSrc: "/assets/events/profile.png",
     },
     takeaways: [
       "Clear Communication Skills: Learn how to describe Occupational Therapy in simple terms that anyone can understand.",

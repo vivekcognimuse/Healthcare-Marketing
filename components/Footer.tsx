@@ -128,7 +128,15 @@ export default function Footer() {
                   className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px] cursor-pointer"
                 >
                   Testimonials
-                </a>
+                </a> 
+                <div className="w-8 h-px border-t border-dotted border-white/30 md:hidden"></div>
+                <Link
+                  href="/knowledge-hub"
+                  className="typography-footnote text-white/60 hover:text-white/80 transition-colors text-xs sm:text-sm md:text-base lg:text-[22px] cursor-pointer"
+                >
+                  Knowledge Hub
+                </Link>
+                
               </div>
             </div>
           </div>

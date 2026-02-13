@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Clock, Video } from "lucide-react";
 import type { Event } from "@/data/events";
@@ -25,12 +26,16 @@ export default function EventCard({ event }: { event: Event }) {
         className="hidden md:block w-full relative"
         style={{
           borderTop: "7px solid #155DFC",
-          backgroundImage: "url('/assets/events/bg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
         }}
       >
+        <Image
+          src="/assets/events/bg.png"
+          alt=""
+          fill
+          priority
+          sizes="(min-width: 1024px) 1200px, 100vw"
+          className="object-cover object-center"
+        />
         <div className="flex flex-col md:flex-row items-stretch">
           {/* Left content */}
           <div className="flex-1 px-10 md:px-12 py-10 md:py-12 text-white relative z-10">

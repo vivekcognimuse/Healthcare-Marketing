@@ -79,8 +79,8 @@ export default function Header() {
       // If menu is open, always show header
       if (isMenuOpen) {
         setIsHeaderVisible(true);
-      } else if (footerVisible && !isSpecial) {
-        // Hide header when footer is visible, but keep it visible on special pages (events/outreach)
+      } else if (footerVisible) {
+        // Hide header when footer is visible on all pages
         setIsHeaderVisible(false);
       } else {
         // Keep header visible on special pages (events/outreach) to avoid disappearing over hero-like content
@@ -225,6 +225,20 @@ export default function Header() {
     },
   ];
 
+  const isNavItemActive = (item: { href: string; id: string; children?: { href: string }[] }) => {
+    if (item.href.startsWith("#")) {
+      return pathname === "/" && activeSection === item.id;
+    }
+
+    if (!pathname) return false;
+
+    if (item.href === "/knowledge-hub") {
+      return pathname.startsWith("/knowledge-hub") || pathname.startsWith("/events");
+    }
+
+    return pathname === item.href;
+  };
+
   const isSpecial = !!(pathname && (pathname.startsWith("/knowledge-hub") || pathname.startsWith("/events")));
   const isVoices = !!(pathname && pathname.startsWith("/knowledge-hub/voices"));
   // Header text/color rules:
@@ -236,6 +250,13 @@ export default function Header() {
   const isHomeOrOutreach = pathname === "/" || isSpecial;
   // When header text is black we prefer a light (white) dropdown modal with dark text.
   const isHeaderTextBlack = textColorClass.includes("text-black");
+  const headerBackground = isHeaderTextBlack
+    ? "rgba(255, 255, 255, 0.9)"
+    : isScrolled
+    ? "linear-gradient(135deg, rgba(0, 27, 87, 0.06) 0%, rgba(0, 27, 87, 0.04) 100%)"
+    : "transparent";
+  const headerBlur = !isHeaderTextBlack && isScrolled ? "blur(6px)" : "none";
+  const headerShadow = !isHeaderTextBlack && isScrolled ? "0 8px 24px rgba(0, 0, 0, 0.08)" : "none";
 
   return (  
     <>
@@ -249,18 +270,16 @@ export default function Header() {
            - When scrolled, use a subtle gradient (existing behavior).
            - When header uses the black text variant but is not scrolled, use semi-opaque white (50%) instead of transparent.
            - Otherwise remain transparent. */
-        background: isScrolled
-          ? 'linear-gradient(135deg, rgba(0, 27, 87, 0.06) 0%, rgba(0, 27, 87, 0.04) 100%)'
-          : (isHeaderTextBlack ? 'rgba(255, 255, 255, 0.7)' : 'transparent'),
+        background: headerBackground,
         /* Apply blur only when scrolled — avoid blur when using the semi-opaque white header
            (the blur can create a halo/ghosting effect on darker backgrounds). */
-        backdropFilter: isScrolled ? 'blur(6px)' : 'none',
-        WebkitBackdropFilter: isScrolled ? 'blur(6px)' : 'none',
+        backdropFilter: headerBlur,
+        WebkitBackdropFilter: headerBlur,
         /* Show subtle border when scrolled or when using the semi-opaque white background */
         borderBottom: (isScrolled || isHeaderTextBlack) ? '1px solid rgba(0, 0, 0, 0.06)' : 'none',
         /* Only apply a prominent shadow when scrolled. When header is the black variant
            but not scrolled, avoid shadows that produce a glow/halo effect. */
-        boxShadow: isScrolled ? '0 8px 24px rgba(0, 0, 0, 0.08)' : 'none',
+        boxShadow: headerShadow,
       }}
     >
       <nav className="container py-4 lg:py-6">
@@ -287,7 +306,7 @@ export default function Header() {
                 <Link
                   href={resolveHref(item.href)}
                   className={`typography-p2 hover:opacity-80 transition-all duration-300 ${textColorClass} ${
-                    activeSection === item.id ? "font-bold" : ""
+                    isNavItemActive(item) ? "!font-bold" : ""
                   }`}
                   style={{ textShadow: "none", filter: "none" }}
                 >
@@ -306,20 +325,24 @@ export default function Header() {
                     <div
                       className={`flex flex-col py-1 rounded-lg overflow-hidden ${isHeaderTextBlack ? "bg-white text-black" : "bg-black/80 text-white"}`}
                     >
-                      {item.children.map((c) => (
-                        <Link
-                          key={c.id}
-                          href={c.href}
-                          className={`typography-p2 px-4 py-3 transition-colors block rounded-md ${
-                            isHeaderTextBlack
-                              ? "hover:text-black hover:bg-gray-100"
-                              : "hover:text-white hover:bg-gradient-to-b hover:from-[#001B57] hover:via-[#155DFC] hover:to-white/5"
-                          }`}
-                          style={{ textShadow: "none", filter: "none" }}
-                        >
-                          {c.label}
-                        </Link>
-                      ))}
+                      {item.children.map((c) => {
+                        const isActive = !!pathname && pathname === c.href;
+                        return (
+                          <Link
+                            key={c.id}
+                            href={c.href}
+                            className={`typography-p2 px-4 py-3 transition-colors block rounded-md ${
+                              isHeaderTextBlack
+                                ? "hover:text-black hover:bg-gray-100"
+                                : "hover:text-white hover:bg-gradient-to-b hover:from-[#001B57] hover:via-[#155DFC] hover:to-white/5"
+                            } ${isActive ? (isHeaderTextBlack ? "text-black" : "text-white") : ""}`}
+                            style={{ textShadow: "none", filter: "none" }}
+                          >
+                            <span className={`inline-block w-3 ${isHeaderTextBlack ? "text-black" : "text-white"} ${isActive ? "opacity-100" : "opacity-0"}`}>|</span>
+                            <span className="ml-2">{c.label}</span>
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -456,8 +479,8 @@ export default function Header() {
                         href={resolveHref(item.href)}
                         onClick={() => setIsMenuOpen(false)}
                         className={`group relative flex items-center py-4 transition-all duration-300 ${
-                          activeSection === item.id 
-                            ? "text-black" 
+                          isNavItemActive(item) 
+                            ? "text-black !font-bold" 
                             : "text-white/90 hover:text-white"
                         }`}
                         style={{ textShadow: "none", filter: "none" }}
