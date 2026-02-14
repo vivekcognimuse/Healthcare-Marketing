@@ -64,7 +64,7 @@ export default async function EpisodePage(props: any) {
             <div className="w-full max-w-3xl mx-auto aspect-video rounded-lg overflow-hidden shadow-lg bg-black relative">
               {/* Fallback image shown in a video-frame style */}
               <img
-                src={episode?.image || "/assets/CogniMuse.png"}
+                src={episode?.image || "/assets/CogniMuse.webp"}
                 alt={episode?.title || "Coming soon"}
                 className="w-full h-full object-cover"
               />

@@ -75,6 +75,15 @@ const config: Config = {
         "desktop-1440": "1440px",
         "desktop-1728": "1728px",
       },
+      animation: {
+        shimmer: "shimmer 2s infinite linear",
+      },
+      keyframes: {
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+      },
     },
   },
   plugins: [],

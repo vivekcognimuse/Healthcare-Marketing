@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Gallery from "../../../components/Gallery";
+import Footer from "../../../components/Footer";
 
 export const metadata = {
   title: "Voices - Out Reach",
@@ -26,7 +27,7 @@ export default function VoicesPage() {
             <div className="pt-2 relative z-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/assets/dr saha-tint.png"
+                src="/assets/dr saha-tint.webp"
                 alt="Dr. Shovan Saha"
                 className="w-full h-auto object-contain rounded"
                 style={{ display: "block" }}
@@ -112,7 +113,7 @@ export default function VoicesPage() {
          
           <div className="my-8 flex justify-center bg-transparent rounded">
             <Image
-              src="/assets/CogniMuse.png"
+              src="/assets/CogniMuse.webp"
               alt="CogniMuse"
               unoptimized
               width={360}
@@ -140,19 +141,17 @@ export default function VoicesPage() {
 </p>
 <p className="typography-p2 text-gray-700 mb-4">This is just the beginning.</p>
 
+          {/* Image gallery */}
+          <div className="mt-12">
+         
+            {/* @ts-ignore */}
+            <Gallery images={images} />
+          </div>
          
         </div>
       </section>
 
-      {/* Image gallery - masonry-like with lightbox */}
-      <section className="container py-12">
-   
-        <div>
-          {/* client-side gallery component */}
-          {/* @ts-ignore */}
-          <Gallery images={images} />
-        </div>
-      </section>
+      <Footer />
     </main>
   );
 }

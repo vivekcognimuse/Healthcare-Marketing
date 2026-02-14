@@ -91,21 +91,9 @@ export default function KnowledgeHubPage() {
             return (
               <div key={item.id} className="border rounded-lg overflow-hidden flex flex-col">
                 <Link href={linkPath} className="block">
-                  <div className="w-full h-64 overflow-hidden bg-gray-100 relative flex items-center justify-center">
-                    {isArticle ? (
-                      <>
-                        {/* blurred background for articles */}
-                        <div
-                          className="absolute inset-0 bg-center bg-cover filter blur-sm scale-105 z-0"
-                          style={{ backgroundImage: `url(${item.image})` }}
-                        />
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={item.image} alt={item.title} className="relative z-10 max-h-full w-auto object-contain" />
-                      </>
-                    ) : (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
-                    )}
+                  <div className="w-full h-64 overflow-hidden bg-gray-100 relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={item.image} alt={item.title} className="w-full h-full object-cover object-center" />
                   </div>
                 </Link>
                 <div className="p-6 flex flex-col flex-1">

@@ -26,7 +26,7 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
   const contentRef = useRef<HTMLDivElement>(null);
 
   // Page 1: 2 articles, Page 2+: 4 articles
-  const firstPageSize = 2;
+  const firstPageSize = 4;
   const otherPageSize = 4;
   const itemsPerPage = currentPage === 1 ? firstPageSize : otherPageSize;
   
@@ -53,14 +53,9 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
       {showFirstRow && first && currentPage === 1 && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 2xl:gap-10">
             <Link href={`/knowledge-hub/articles/${first.id}`} className="md:col-span-2 block">
-              <div className="w-full h-48 md:h-64 2xl:h-80 overflow-hidden rounded relative flex items-center justify-center bg-gray-100">
-                {/* blurred background filling the card */}
-                <div
-                  className="absolute inset-0 bg-center bg-cover filter blur-sm scale-105 z-0"
-                  style={{ backgroundImage: `url(${first.image})` }}
-                />
+              <div className="w-full h-48 md:h-64 2xl:h-80 overflow-hidden rounded relative bg-gray-100">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={first.image} alt={first.title} className="relative z-10 max-h-full w-auto object-contain" />
+                <img src={first.image} alt={first.title} className="w-full h-full object-cover object-center" />
               </div>
             </Link>
 
@@ -99,14 +94,9 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
               return (
               <div key={article.id} className={`border rounded overflow-hidden flex flex-col ${isSingleItem ? 'w-full md:max-w-[calc(50%-0.75rem)]' : 'w-full'} ${isLastOddItem ? 'md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:mx-auto' : ''}`}>
                 <Link href={`/knowledge-hub/articles/${article.id}`} className="group block">
-                  <div className="h-56 flex items-center justify-center bg-gray-100 overflow-hidden relative">
-                    {/* blurred background filling the card */}
-                    <div
-                      className="absolute inset-0 bg-center bg-cover filter blur-sm scale-105 z-0"
-                      style={{ backgroundImage: `url(${article.image})` }}
-                    />
+                  <div className="h-56 bg-gray-100 overflow-hidden relative">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={article.image} alt={article.title} className="relative z-10 max-h-full w-auto object-contain" />
+                    <img src={article.image} alt={article.title} className="w-full h-full object-cover object-center" />
                   </div>
                 </Link>
                 <div className="p-4 flex flex-col flex-1">

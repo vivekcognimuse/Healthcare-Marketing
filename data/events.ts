@@ -32,7 +32,7 @@ export const events: Event[] = [
     capacity: 500,
     attendees: 42,
     tags: ["Occupational Therapy", "Webinar", "Communication"],
-    imageUrl: "/assets/CogniMuse.png",
+    imageUrl: "/assets/CogniMuse.webp",
     cardImageUrl: "/assets/image-1.JPG",
     ticketPrice: 249,
     meetLink: "https://meet.google.com/zdf-dxqs-uwd",

@@ -73,13 +73,9 @@ export default async function ArticlePage(props: any) {
             >
               {/* Optional article image (hero inside article) */}
               {article.image && (
-                <div className="w-full h-56 md:h-96 flex items-center justify-center bg-gray-100 overflow-hidden rounded mb-6 relative">
-                  <div
-                    className="absolute inset-0 bg-center bg-cover filter blur-sm scale-105 z-0 rounded"
-                    style={{ backgroundImage: `url(${article.image})` }}
-                  />
+                <div className="w-full h-56 md:h-96  overflow-hidden rounded mb-6 relative">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={article.image} alt={article.title} className="relative z-10 max-h-full w-auto object-contain" />
+                  <img src={article.image} alt={article.title} className="w-full h-full object-cover object-center" />
                 </div>
               )}
               {/* Render the article body (stored as sanitized HTML in data).
