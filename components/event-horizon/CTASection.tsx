@@ -1,5 +1,6 @@
  "use client";
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { events } from "../../data/events";
 import { Bell } from "lucide-react";
 import Button from "../Button";
@@ -9,7 +10,9 @@ const CTASection: React.FC<{
   eventId?: string;
   ticketPrice?: number;
   currency?: string;
-}> = ({ cta, eventId, ticketPrice = 0, currency = "INR" }) => {
+  variant?: "default" | "sidebar";
+  theme?: "light" | "dark";
+}> = ({ cta, eventId, ticketPrice = 0, currency = "INR", variant = "default", theme = "light" }) => {
   const [showNotify, setShowNotify] = useState(false);
   const [email, setEmail] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -62,30 +65,32 @@ const CTASection: React.FC<{
     setShowNotify(false);
   };
 
+  const isSidebar = variant === "sidebar";
+  const isDark = theme === "dark";
+
   return (
-    <section className="py-10 md:py-12">
-      <div className="mx-auto max-w-xl px-6 text-center">
-        <h2 className="typography-h3 font-semibold text-gray-900">{data.title}</h2>
-        <p className="mt-3 typography-p2 text-gray-600">{data.description}</p>
+    <section className={isSidebar ? "py-0" : "py-10 md:py-12"}>
+      <div className={isSidebar ? "mx-auto max-w-none px-0 text-left" : "mx-auto max-w-xl px-6 text-center"}>
+        <h2 className={`typography-h3 font-semibold ${isDark ? "text-white" : "text-[#1E1E1E]"}`}>{data.title}</h2>
+        <p className={`mt-3 typography-p2 ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>{data.description}</p>
 
         <Button
           variant="secondary"
           onClick={() => setShowForm(true)}
-          className="mt-8 btn-secondary px-4 py-2 tracking-wide"
+          className={isSidebar ? "mt-6 w-full btn-secondary px-4 py-2 tracking-wide" : "mt-8 btn-secondary px-4 py-2 tracking-wide"}
         >
           {data.buttonText}
         </Button>
 
         {/* Booking Form Modal */}
-        {typeof window !== "undefined" && (
-          <>
-
-            {showForm && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6">
-                <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowForm(false)} />
-                <div className="relative w-full max-w-lg mx-auto my-auto">
+        {typeof window !== "undefined" &&
+          showForm &&
+          createPortal(
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-6">
+              <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowForm(false)} />
+              <div className="relative w-full max-w-lg mx-auto my-auto">
                   <div className="rounded overflow-hidden bg-white shadow-2xl border border-gray-100 flex flex-col max-h-[90vh]">
-                    <div className="bg-gradient-to-r from-blue-50 to-white p-4 sm:p-6 md:p-8 border-b border-gray-100 flex-shrink-0">
+                    <div className="bg-gradient-to-r from-blue-50 to-white p-4 sm:p-6 md:p-8 border-b border-gray-100 flex-shrink-0 text-center">
                       <h2 className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: 'var(--font-red-hat-display)', color: '#155DFC' }}>
                         Register Now
                       </h2>
@@ -614,11 +619,16 @@ const CTASection: React.FC<{
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
-          {showSuccess && (
-            <div className="fixed inset-0 flex items-center justify-center p-4" style={{ zIndex: 9999 }}>
-              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowSuccess(false)} />
+              </div>,
+            document.body
+          )}
+
+        {/* Success Modal */}
+        {typeof window !== "undefined" &&
+          showSuccess &&
+          createPortal(
+            <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999]">
+              <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowSuccess(false)} />
               <div className="relative w-full max-w-lg mx-auto">
                 <div className="rounded-lg overflow-hidden bg-white shadow-2xl border border-gray-100">
                   <div className="bg-gradient-to-r from-green-50 to-white p-6 border-b border-gray-100 text-center">
@@ -658,16 +668,15 @@ const CTASection: React.FC<{
                         onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 16px rgba(21, 93, 252, 0.3)'}
                         onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'}
                       >
-                        Done
+                        Close
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </div>,
+            document.body
           )}
-          </>
-        )}
       </div>
     </section>
   );

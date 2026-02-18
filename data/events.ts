@@ -6,7 +6,7 @@ export interface Event {
   cta?: { title?: string; description?: string; buttonText?: string };
   date: string;
   time: string;
-  location: string;
+  Platform: string;
   meetLink?: string;
   capacity: number;
   attendees: number;
@@ -28,7 +28,7 @@ export const events: Event[] = [
     
     date: "Sunday, March 15, 2026",
     time: "11:00 AM to 12:30 PM IST",
-    location: "Online via Google-Meet (Link provided upon registration)",
+    Platform: "Google-Meet (Link provided upon registration)",
     capacity: 500,
     attendees: 42,
     tags: ["Occupational Therapy", "Webinar", "Communication"],

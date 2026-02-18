@@ -74,7 +74,7 @@ export default function Footer() {
           <div className="container relative h-full flex items-center justify-center px-4 sm:px-6">
             <div className="relative w-full flex justify-center items-center h-full">
               {/* Navigation Links - Positioned on top of eclipse */}
-              <div className="absolute top-[15%] sm:top-[20%] md:top-[15%] lg:top-1/4 left-1/2 transform -translate-x-1/2 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8 z-20 px-4">
+          <div className="absolute top-[15%] sm:top-[20%] md:top-[15%] lg:top-1/4 left-1/2 transform -translate-x-1/2 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 lg:gap-8 z-5 px-4">
                 <a 
                   href="#home" 
                   onClick={(e) => {
