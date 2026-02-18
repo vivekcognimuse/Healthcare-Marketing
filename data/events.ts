@@ -24,11 +24,11 @@ export const events: Event[] = [
   {
     id: "evt_001",
     title: "Sundays with Dr. Shovan Saha",
-    tagline: "How to Explain OT to Anyone",
-    
+    tagline: "WEBINAR",
+    description: "An insightful session on simplifying and strengthening the way we communicate Occupational Therapy.",
     date: "Sunday, March 15, 2026",
     time: "11:00 AM to 12:30 PM IST",
-    Platform: "Google-Meet (Link provided upon registration)",
+    Platform: "Link provided upon registration",
     capacity: 500,
     attendees: 42,
     tags: ["Occupational Therapy", "Webinar", "Communication"],
@@ -56,10 +56,10 @@ export const events: Event[] = [
       { time: "12:10 PM", title: "Interactive Q&A" },
     ],
     cta: {
-      title: "Ready to Restore Lives Differently?",
+      title: "",
       description:
         "Join a community of professionals for a morning of insight, connection, and growth in the field of Occupational Therapy.",
-      buttonText: "REGISTER",
+      buttonText: "Register Now",
     },
    
   },

@@ -2,13 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+/* TT Commons Pro Font - Add your font files to /public/fonts/ */
+@font-face {
+  font-family: 'TT Commons Pro';
+  src: url('/fonts/TTCommonsPro-Regular.woff2') format('woff2'),
+       url('/fonts/TTCommonsPro-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Commons Pro';
+  src: url('/fonts/TTCommonsPro-Bold.woff2') format('woff2'),
+       url('/fonts/TTCommonsPro-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* PP Editorial New Font - Add your font files to /public/fonts/ */
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('/fonts/PPEditorialNew-Regular.woff2') format('woff2'),
+       url('/fonts/PPEditorialNew-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('/fonts/PPEditorialNew-Bold.woff2') format('woff2'),
+       url('/fonts/PPEditorialNew-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    /* Fallback font family in case the variable isn't applied yet.
-       The Next.js font loader will set the --font-red-hat-display variable on <body>. */
-    --font-red-hat-display: 'Red Hat Display', system-ui, -apple-system, "Segoe UI",
+    /* Base font family for the site. */
+    --font-tt-commons-pro: 'TT Commons Pro', system-ui, -apple-system, "Segoe UI",
       Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol", sans-serif;
+    --font-anonymous-pro: 'Anonymous Pro', 'Courier New', monospace;
+    --font-pp-editorial: 'PP Editorial New', Georgia, serif;
     --header-height: 88px;
   }
 
@@ -22,9 +61,7 @@
     @apply bg-white text-black;
     overflow-x: hidden;
     max-width: 100vw;
-    /* Ensure the loaded font variable is used (Next's font sets this on <body>).
-       Fall back to the declared CSS variable above if not present. */
-    font-family: var(--font-red-hat-display);
+     font-family: var(--font-tt-commons-pro);
   }
 
   /* Force light mode - prevent system dark mode from affecting the site */

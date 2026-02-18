@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Red_Hat_Display } from "next/font/google";
+import { Anonymous_Pro } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 
-const redHatDisplay = Red_Hat_Display({
+const anonymousPro = Anonymous_Pro({
   subsets: ["latin"],
   weight: ["400", "700"],
-  variable: "--font-red-hat-display",
+  variable: "--font-anonymous-pro",
 });
 
 export const metadata: Metadata = {
@@ -83,7 +83,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${redHatDisplay.variable} font-sans antialiased`} suppressHydrationWarning>
+      <body className={`${anonymousPro.variable} font-sans antialiased`} suppressHydrationWarning>
         <Header />
         {children}
       </body>

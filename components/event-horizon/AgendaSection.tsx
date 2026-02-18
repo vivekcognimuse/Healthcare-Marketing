@@ -1,5 +1,4 @@
 import React from "react";
-import { CheckCircle2 } from "lucide-react";
 
 const defaultTakeaways = [
   "Discover your personal leadership style through guided self-reflection",
@@ -48,10 +47,9 @@ const AgendaSection: React.FC<{
             const rest = parts.length > 1 ? parts[1] : item;
             return (
               <li key={i} className="flex items-start gap-3">
-                <CheckCircle2 className={`mt-0.5 h-5 w-5 shrink-0 ${isDark ? "text-white" : "text-primary"}`} />
                 <span className={`typography-p2 ${isDark ? "text-white/80" : "text-[#1E1E1E]"}`}>
                   {lead ? <strong className={`font-semibold mr-1 ${isDark ? "text-white" : "text-[#1E1E1E]"}`}>{lead}</strong> : null}
-                  {rest}
+                    <div className={`text-[#1E1E1E]/70`}>{rest}</div>
                 </span>
               </li>
             );
@@ -59,17 +57,19 @@ const AgendaSection: React.FC<{
         </ul>
 
         <h2 className={`mb-6 typography-h3 ${isDark ? "text-white" : "text-[#1E1E1E]"}`}>Agenda</h2>
-        <div className="relative space-y-0">
-          <div className={`absolute left-[59px] top-2 bottom-2 w-px ${isDark ? "bg-white/15" : "bg-gray-200"} hidden sm:block`} />
+        <div className="space-y-0">
           {agenda.map((item, i) => (
-            <div key={i} className="flex items-start gap-4 py-3">
-              <span className={`w-[52px] shrink-0 typography-footnote text-right ${isDark ? "text-white/60" : "text-[#1E1E1E]/60"}`}>{item.time}</span>
-              <div className="relative hidden sm:flex items-center justify-center">
-                <div className={`h-3 w-3 rounded-full border-2 ${isDark ? "border-white/40 bg-white/10" : "border-primary bg-primary/15"} transition-transform group-hover:scale-125`} />
+            <div key={i} className="flex items-start gap-4">
+              <div className="relative flex flex-col items-center shrink-0">
+                <div className={`h-2.5 w-2.5 rounded-full ${isDark ? "bg-white" : "bg-[#1E1E1E]"}`} />
+                {i < agenda.length - 1 && (
+                  <div className={` w-px flex-1 ${isDark ? "bg-white/30" : "bg-[#1E1E1E]/30"}`} style={{ minHeight: "72px" }} />
+                )}
               </div>
-              <div>
-                <p className={`typography-p2 ${isDark ? "text-white" : "text-[#1E1E1E]"}`} style={{ fontWeight: 600 }}>{item.title}</p>
-                {item.desc && <p className={`typography-p2 mt-0.5 ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>{item.desc}</p>}
+              <div className="flex-1">
+                <p className={`typography-p2 font-semibold text-[#1E1E1E]`} style={{fontWeight: 600}}>{item.time}</p>
+                <p className={`typography-p2 ${isDark ? "text-white/80" : "text-[#1E1E1E]/70"}`}>{item.title}</p>
+                {item.desc && <p className={`typography-p2 mt-1 ${isDark ? "text-white/70" : "text-[#1E1E1E]/60"}`}>{item.desc}</p>}
               </div>
             </div>
           ))}

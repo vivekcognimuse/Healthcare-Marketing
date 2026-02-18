@@ -32,34 +32,36 @@ const SpeakerSection: React.FC<{ speaker?: Speaker; variant?: "standalone" | "em
           Meet Your Speaker
         </h2>
         <div
-          className={`rounded-xl p-8 sm:p-8 2xl:p-10 ${
-            isDark ? "bg-transparent border border-white/10 shadow-none" : "bg-white border border-gray-200 shadow-sm"
-          }`}
+          className={`rounded-xl
+          `}
         >
-          <div className="flex flex-col sm:flex-row items-start gap-6 sm:gap-8 mb-8">
-            <div className="flex-shrink-0">
-              <div className="relative w-32 sm:w-48 2xl:w-56 aspect-[4/5] rounded-lg overflow-hidden shadow-md">
-                <Image unoptimized src={s.photoSrc || "/placeholder.svg"} alt={s.name || "Speaker"} fill className="object-cover" />
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_240px] items-stretch gap-6 lg:gap-8">
+            <div className="flex flex-col justify-between">
+              <div>
+                <p className={`typography-p2 font-semibold ${isDark ? "text-white" : "text-[#1E1E1E]"}`} >
+                  {s.name}
+                </p>
+                <p className={`mt-1 typography-p2 ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>
+                  {s.title}
+                </p>
+                <p className={`mt-1 typography-p2 ${isDark ? "text-white/60" : "text-[#1E1E1E]/60"}`}>
+                  {s.affiliation}
+                </p>
               </div>
-            </div>
-
-            <div className="flex-1">
-              <h3 className={`typography-p1 font-bold ${isDark ? "text-white" : "text-[#1E1E1E]"}`} style={{ letterSpacing: '0.03em', lineHeight: '1.25' }}>
-                {s.name}
-              </h3>
-              <p className={`mt-2 typography-p2 ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`} style={{ letterSpacing: '0.03em', lineHeight: '1.5' }}>
-                {s.title}
-              </p>
-              <p className={`mt-1 typography-p2 ${isDark ? "text-white/60" : "text-[#1E1E1E]/60"}`} style={{ letterSpacing: '0.03em', lineHeight: '1.5' }}>
-                {s.affiliation}
+              <p className={`mt-4 typography-footnote ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>
+                {s.bio}
               </p>
             </div>
-          </div>
 
-          <div>
-            <p className={`typography-footnote ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`} style={{ letterSpacing: '0.05em', lineHeight: '1.5' }}>
-              {s.bio}
-            </p>
+            <div className="relative w-full overflow-hidden rounded-lg lg:h-full min-h-[220px]" style={{ boxShadow: '0px 4px 15.2px 0px #00000040' }}>
+              <Image
+              unoptimized
+              src={s.photoSrc || "/placeholder.svg"}
+              alt={s.name || "Speaker"}
+              fill
+              className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>
