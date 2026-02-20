@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+
 import EventsFooter from "@/components/event-horizon/EventsFooter";
 import HeroSection from "@/components/event-horizon/HeroSection";
 import EventDetails from "@/components/event-horizon/EventDetails";
@@ -6,6 +6,7 @@ import CTASection from "@/components/event-horizon/CTASection";
 import EventTabs from "@/components/event-horizon/EventTabs";
 import { CalendarDays, Clock, Video, IndianRupee } from "lucide-react";
 import { events } from "@/data/events";
+import Link from "next/link";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -27,16 +28,16 @@ export default async function EventPage({ params }: PageProps) {
   ];
 
   return (
-    <>
-      <Header />
-      <main className="min-h-screen bg-[#FCF4E1] text-[#1E1E1E]" style={{ paddingTop: "var(--header-height)" }}>
+    <div className="min-h-screen bg-[#FCF4E1]">
+
+      <main className="min-h-screen  text-[#1E1E1E]">
         <HeroSection
           imageSrc={event.imageUrl || "/placeholder.svg"}
           alt={event.title}
         />
 
         <section className=" text-[#1E1E1E]">
-          <div className="container mx-auto max-w-7xl px-6 md:px-8 pt-8 pb-12">
+          <div className="container mx-auto px-20 pt-8 pb-12">
             <div className="mt-0">
               <EventDetails 
                 details={details} 
@@ -47,8 +48,8 @@ export default async function EventPage({ params }: PageProps) {
               />
             </div>
 
-            <div className="mt-16 grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] items-start">
-              <div className="max-w-6xl">
+            <div className="mt-16 grid gap-10 lg:grid-cols-[minmax(0,1fr)_550px] items-start">
+              <div className="max-w-7xl">
                 <EventTabs
                   takeaways={event.takeaways}
                   agenda={event.agenda}
@@ -84,9 +85,24 @@ export default async function EventPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+        <section >
+          <div className="container mx-auto px-20 p-8">
+            <div className="flex items-center justify-between">
+              <h2 className="typography-h3 text-[#1E1E1E]">You may be interested in...</h2>
+              <Link 
+                href="/events" 
+                className="flex items-center gap-2 typography-p2 text-[#1E1E1E] hover:opacity-70 transition-opacity font-medium"
+              >
+                View all events
+                <span>→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
       <EventsFooter />
-    </>
+    </div>
   );
 }
 

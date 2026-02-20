@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { events } from "../../data/events";
-import { Bell } from "lucide-react";
+import { Bell, ChevronRight} from "lucide-react";
 import Button from "../Button";
 
 const CTASection: React.FC<{
@@ -74,13 +74,33 @@ const CTASection: React.FC<{
         <h2 className={`typography-h3 font-semibold ${isDark ? "text-white" : "text-[#1E1E1E]"}`}>{data.title}</h2>
         <p className={`mt-3 typography-p2 ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>{data.description}</p>
 
-        <Button
-          variant="secondary"
-          onClick={() => setShowForm(true)}
-          className={isSidebar ? "mt-6 w-full btn-secondary px-4 py-2 tracking-wide" : "mt-8 btn-secondary px-4 py-2 tracking-wide"}
-        >
-          {data.buttonText}
-        </Button>
+        <div className="mt-6 bg-white rounded-2xl shadow-sm border border-[#1E1E1E]/10 max-w-2xl">
+          <div className="flex flex-col md:flex-row">
+            {/* Left side - Image */}
+            <div className="md:w-1/2 p-4">
+              <img 
+                src="/assets/events/Register-cta.png" 
+                alt="Register" 
+                className="w-full h-full object-cover rounded-2xl"
+              />
+            </div>
+            
+            {/* Right side - Text and Button */}
+            <div className="md:w-1/2 p-2 py-4 flex flex-col justify-between items-center">
+              <h3 className="typography-p1 font-semibold text-[#1E1E1E] text-left">
+                Restore Lives Differently
+              </h3>
+              <Button
+                variant="secondary"
+                onClick={() => setShowForm(true)}
+                className="w-full !rounded-full !px-1.5 !py-3 flex items-center justify-center gap-2 "
+              >
+                {data.buttonText}
+                <ChevronRight className="w-12 h-12 bg-white rounded-full text-[#155DFC] p-1" />
+              </Button>
+            </div>
+          </div>
+        </div>
 
         {/* Booking Form Modal */}
         {typeof window !== "undefined" &&

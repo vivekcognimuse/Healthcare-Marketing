@@ -13,11 +13,11 @@ const HeroSection: React.FC<HeroProps> = ({
   return (
     <section className="relative overflow-hidden">
       <div className="w-full relative overflow-hidden rounded-b">
-        <div className="relative w-full h-[200px] sm:h-[280px] md:h-[360px] lg:h-[480px]">
+        <div className="relative w-full h-[200px] sm:h-[300px] md:h-[390px] lg:h-[600px]">
           <Image
             src={imageSrc}
             alt={alt}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-center"
             style={{
               borderBottomLeftRadius: "100px",
               borderBottomRightRadius: "100px",

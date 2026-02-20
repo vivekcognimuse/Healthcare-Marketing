@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Anonymous_Pro } from "next/font/google";
 import "./globals.css";
-import Header from "../components/Header";
+import EventHeader from "../components/EventHeader";
 
 const anonymousPro = Anonymous_Pro({
   subsets: ["latin"],
@@ -84,7 +84,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${anonymousPro.variable} font-sans antialiased`} suppressHydrationWarning>
-        <Header />
+        <EventHeader />
         {children}
       </body>
     </html>

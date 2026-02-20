@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export default function EventsFooter() {
   return (
-    <footer className="relative text-[#1E1E1E] overflow-hidden bg-[#FCF4E1]">
+    <footer className="relative text-[#1E1E1E] overflow-hidden">
       {/* Footer Background Image - Crop sides and bottom, show top border only */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute -left-18 -right-8 -bottom-8 top-0 md:-left-32 md:-right-12 md:-bottom-12 lg:-left-40 lg:-right-20 lg:-bottom-20">
+        <div className="absolute -left-18 -right-8 -bottom-8 top-0 md:-left-32 md:-right-12 md:-bottom-12 lg:-left-48 lg:-right-20 lg:-bottom-20">
           <div className="relative w-full h-full">
             <Image
               src="/Images webp/footer-bg.png"
@@ -49,7 +49,7 @@ export default function EventsFooter() {
           <div className="flex flex-col items-end gap-8 md:gap-12 lg:gap-16 pt-4">
             {/* CTA Button */}
             <a 
-              href="https://wa.me/8861078009" 
+              href="https://calendly.com/meet-manoj-cognimuse/consultation" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-[#155DFC] text-white px-6 py-3 md:px-8 md:py-4 rounded-full hover:bg-[#0D4AD3] transition-colors"
@@ -114,7 +114,7 @@ export default function EventsFooter() {
                   Voices
                 </Link>
                 <Link 
-                  href="/pricing" 
+                  href="/#packages" 
                   className="text-sm md:text-base lg:text-lg hover:opacity-70 transition-opacity"
                 >
                   Plans

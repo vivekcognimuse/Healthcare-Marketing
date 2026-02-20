@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import EventHeader from "@/components/EventHeader";
 import Hero from "@/components/Hero";
 import TransitionSection from "@/components/TransitionSection";
 import ContentSection from "@/components/ContentSection";
@@ -98,7 +98,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
       />
       <main className="min-h-screen">
-        <Header />
+        <EventHeader />
         <Hero />
         <TransitionSection />
         <ContentSection />

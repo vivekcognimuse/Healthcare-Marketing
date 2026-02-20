@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Gallery from "../../../components/Gallery";
-import Footer from "../../../components/Footer";
+import EventsFooter from "../../../components/event-horizon/EventsFooter";
 
 export const metadata = {
   title: "Voices - Out Reach",
@@ -18,7 +18,7 @@ export default function VoicesPage() {
   ];
 
   return (
-    <main>
+    <main className="bg-[#FCF4E1]">
       {/* Hero */}
       <section className="w-full bg-[#03050B]">
         <div className="w-full h-[90vh] md:h-[80vh] relative overflow-hidden">
@@ -39,10 +39,14 @@ export default function VoicesPage() {
             {/* Hero text absolutely layered above image and container */}
             <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/80 via-black/50 via-50% to-black/0 flex flex-col items-center pointer-events-auto">
               <div className="max-w-6xl mx-auto px-6 py-6 text-center text-white">
-                <h1 className="typography-h1 max-w-6xl">
+                <h1 className="typography-h1 max-w-6xl" style={{ 
+                  fontFamily: "'PP Editorial New', serif",
+                  letterSpacing: "-0.02em"
+                }}>
                   Meet Dr. Shovan Saha
                 </h1>
-                <p className="mt-4 max-w-3xl mx-auto typography-p1 text-gray-100">
+                <p className="mt-4 max-w-3xl mx-auto typography-p1 text-gray-100" style={{ 
+                  fontFamily: "'Anonymous Pro', monospace"}}>
                   Bridging Science and Empathy in Occupational Therapy
                 </p>
 
@@ -54,7 +58,7 @@ export default function VoicesPage() {
       </section>
 
       {/* Intro / Bio */}
-      <section className="container py-12">
+      <section className="container py-12 ">
         <div className="max-w-3xl mx-auto">
           <h2 className="typography-h3 font-semibold mb-4">About Dr. Shovan Saha</h2>
           <p className="typography-p2 text-gray-700 mb-4">
@@ -151,7 +155,7 @@ export default function VoicesPage() {
         </div>
       </section>
 
-      <Footer />
+      <EventsFooter />
     </main>
   );
 }

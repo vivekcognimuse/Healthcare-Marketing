@@ -22,7 +22,7 @@ export interface Event {
 
 export const events: Event[] = [
   {
-    id: "evt_001",
+    id: "sundays-with-dr-shovan-saha",
     title: "Sundays with Dr. Shovan Saha",
     tagline: "WEBINAR",
     description: "An insightful session on simplifying and strengthening the way we communicate Occupational Therapy.",

@@ -1,13 +1,12 @@
 import { Sparkles } from "lucide-react";
-import Header from "@/components/Header";
 import EventsFooter from "@/components/event-horizon/EventsFooter";
 import EventCard from "@/components/EventCard";
 import { events } from "@/data/events";
 
 export default function EventsIndex() {
   return (
-    <div className="min-h-screen bg-white" style={{ paddingTop: "var(--header-height)" }}>
-      <Header />
+    <div className="min-h-screen " style={{ paddingTop: "var(--header-height)" }}>
+
 
       {/* Hero + Events */}
       <section className="">
@@ -39,7 +38,7 @@ export default function EventsIndex() {
       </section>
 
      
-      <EventsFooter />
+      <EventsFooter/>
     </div>
   );
 }

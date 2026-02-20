@@ -108,7 +108,7 @@
 
   p {
     @apply typography-p1;
-    /* Slight negative tracking for body to improve readability with Red Hat Display */
+    /* Slight negative tracking for body to improve readability */
     @apply tracking-rhd-1;
   }
 
@@ -318,34 +318,40 @@
   
   /* Mobile First - Default (375px) */
   .typography-h1 {
+    font-family: var(--font-pp-editorial);
     font-size: 32px;
     line-height: 1.2;
     font-weight: 700;
     @apply tracking-rhd-3;
   }
   .typography-h2 {
+    font-family: var(--font-tt-commons-pro);
     font-size: 24px;
     line-height: 1.2;
     font-weight: 700;
     @apply tracking-rhd-3;
   }
   .typography-h3 {
+    font-family: var(--font-tt-commons-pro);
     font-size: 20px;
     line-height: 1.2;
     font-weight: 700;
     @apply tracking-rhd-3;
   }
   .typography-h4 {
+    font-family: var(--font-pp-editorial);
     font-size: 18px;
     line-height: 1.2;
     font-weight: 700;
   }
   .typography-h5 {
+    font-family: var(--font-pp-editorial);
     font-size: 16px;
     line-height: 1.2;
     font-weight: 700;
   }
   .typography-h6 {
+    font-family: var(--font-pp-editorial);
     font-size: 14px;
     line-height: 1.2;
     font-weight: 700;
@@ -554,7 +560,7 @@
   }
 }
 
-/* Apply Red Hat Display tracking to heading tokens and semantic headings
+/* Apply  tracking to heading tokens and semantic headings
    to ensure consistent letter-spacing across components (0.01em open/free tracking). */
 .typography-h1,
 h1 {
@@ -571,7 +577,7 @@ h3 {
   letter-spacing: 0.01em;
 }
 
-/* Ensure Red Hat Display open tracking (0.01em) is applied consistently
+/* Ensure  open tracking (0.01em) is applied consistently
    to all typography tokens so using the utility classes or semantic elements
    yields the same letter-spacing everywhere. */
 .typography-h1,
