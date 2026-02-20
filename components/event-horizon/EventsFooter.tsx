@@ -25,7 +25,7 @@ export default function EventsFooter() {
       {/* Content Container */}
       <div className="relative z-10 min-h-[60vh] md:min-h-[70vh] lg:min-h-[80vh] flex flex-col">
         {/* Main Content Area */}
-        <div className="flex-1 flex items-start justify-between px-6 md:px-12 lg:px-20 pt-12 md:pt-16 lg:pt-24 pb-8">
+        <div className="flex-1 flex items-center justify-between px-6 md:px-12 lg:px-20 pt-12 md:pt-16 lg:pt-24 pb-8">
           {/* Left Side - Headline */}
           <div className="flex-1 max-w-[60%] md:max-w-[55%] lg:max-w-[50%]">
             <h2 
@@ -46,7 +46,7 @@ export default function EventsFooter() {
           </div>
 
           {/* Right Side - Navigation and CTA */}
-          <div className="flex flex-col items-end gap-8 md:gap-12 lg:gap-16 pt-4">
+          <div className="flex flex-col items-end gap-8 md:gap-12 lg:gap-16">
             {/* CTA Button */}
             <a 
               href="https://calendly.com/meet-manoj-cognimuse/consultation" 
