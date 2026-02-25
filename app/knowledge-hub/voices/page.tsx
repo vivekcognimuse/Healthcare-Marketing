@@ -18,7 +18,7 @@ export default function VoicesPage() {
   ];
 
   return (
-    <main className="bg-[#FCF4E1]">
+    <main>
       {/* Hero */}
       <section className="w-full bg-[#03050B]">
         <div className="w-full h-[90vh] md:h-[80vh] relative overflow-hidden">

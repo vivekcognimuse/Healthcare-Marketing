@@ -285,7 +285,7 @@ export default function Header() {
           padding: '0',
         }}
       >
-        <nav className="px-6 lg:px-8 py-2.5 lg:py-3">
+        <nav className="px-6 lg:px-8 py-2.5 lg:py-[22px]">
           <div className="flex items-center w-full relative gap-6 lg:gap-8">
             {/* Logo */}
             <Link href="/" className="flex items-center z-10 flex-shrink-0">
@@ -374,7 +374,7 @@ export default function Header() {
         href="https://wa.me/8861078009"
         target="_blank"
         rel="noopener noreferrer"
-        className="hidden lg:block typography-btn1 px-8 py-2.5 lg:py-3 transition-all duration-300 bg-white text-black rounded-full hover:scale-105 active:scale-95 whitespace-nowrap"
+        className="hidden lg:block typography-btn1 px-8 py-2.5 lg:py-[22px] transition-all duration-300 bg-white text-black rounded-full hover:scale-105 active:scale-95 whitespace-nowrap"
       >
         Get a quote
       </a>

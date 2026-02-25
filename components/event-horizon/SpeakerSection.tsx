@@ -38,7 +38,7 @@ const SpeakerSection: React.FC<{ speaker?: Speaker; variant?: "standalone" | "em
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_240px] items-stretch gap-6 lg:gap-8">
             <div className="flex flex-col justify-between">
               <div>
-                <p className={`typography-p2 font-semibold ${isDark ? "text-white" : "text-[#1E1E1E]"}`} >
+                <p className={`typography-p2 font-semibold ${isDark ? "text-white" : "text-[#1E1E1E]"}`} style={{ fontWeight: 600 }}>
                   {s.name}
                 </p>
                 <p className={`mt-1 typography-p2 ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>

@@ -74,7 +74,7 @@ const CTASection: React.FC<{
         <h2 className={`typography-h3 font-semibold ${isDark ? "text-white" : "text-[#1E1E1E]"}`}>{data.title}</h2>
         <p className={`mt-3 typography-p2 ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>{data.description}</p>
 
-        <div className="mt-6 bg-white rounded-2xl shadow-sm border border-[#1E1E1E]/10 max-w-2xl">
+        <div className="mt-6 bg-white rounded-2xl border border-[#121212] max-w-2xl" style={{ boxShadow: '0px 4px 20px 0px #0000001A' }}>
           <div className="flex flex-col md:flex-row">
             {/* Left side - Image */}
             <div className="md:w-1/2 p-4">

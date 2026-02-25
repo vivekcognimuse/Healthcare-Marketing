@@ -23,7 +23,7 @@ const EventTabs: React.FC<EventTabsProps> = ({ takeaways, agenda, description, s
         aria-label="Event details"
       >
         <div
-          className={`typography-h2 pb-2 font-semibold text-[#1E1E1E]`}
+          className={`typography-h2 pb-2 text-[#1E1E1E]`} style={{ fontWeight: 600 }}
         >
           Description
         </div>

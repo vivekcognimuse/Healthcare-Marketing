@@ -28,7 +28,7 @@ export default async function EventPage({ params }: PageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FCF4E1]">
+    <div className="min-h-screen">
 
       <main className="min-h-screen  text-[#1E1E1E]">
         <HeroSection
@@ -67,7 +67,7 @@ export default async function EventPage({ params }: PageProps) {
 
               <aside className="lg:sticky lg:top-24">
                 <div>
-                  <h3 className="typography-h2 font-semibold text-[#1E1E1E]">Book your slot</h3>
+                  <h3 className="typography-h2 font-semibold text-[#1E1E1E]" style={{ fontWeight: 600 }}>Book your slot</h3>
                   <div className="h-px bg-[#1E1E1E]/10 mt-2" />
      
                   <div className="pt-6">
