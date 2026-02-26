@@ -21,25 +21,22 @@ const AgendaSection: React.FC<{
   takeaways?: string[];
   agenda?: { time: string; title: string; desc?: string }[];
   variant?: "standalone" | "embedded";
-  theme?: "light" | "dark";
 }> = ({
   takeaways = defaultTakeaways,
   agenda = defaultAgenda,
   variant = "standalone",
-  theme = "light",
 }) => {
   const isEmbedded = variant === "embedded";
-  const isDark = theme === "dark";
   return (
     <section
       className={
         isEmbedded
           ? "py-0"
-          : `py-8 md:py-10 mx-6 px-6 rounded-lg ${isDark ? "bg-transparent" : "bg-gray-100"}`
+          : "py-8 md:py-10 mx-6 px-6 rounded-lg bg-gray-100"
       }
     >
       <div className={isEmbedded ? "mx-auto" : "mx-auto max-w-3xl"}>
-        <h2 className={`mb-6 typography-h3 ${isDark ? "text-white" : "text-[#1E1E1E]"}`}>What You'll Walk Away With</h2>
+        <h2 className="mb-6 typography-h3 !font-semibold text-[#1E1E1E]">What You'll Walk Away With</h2>
         <ul className="mb-12 space-y-3">
           {takeaways.map((item, i) => {
             const parts = item.split(/:\s*/, 2);
@@ -47,29 +44,29 @@ const AgendaSection: React.FC<{
             const rest = parts.length > 1 ? parts[1] : item;
             return (
               <li key={i} className="flex items-start gap-3">
-                <span className={`typography-p2 ${isDark ? "text-white/80" : "text-[#1E1E1E]"}`}>
-                  {lead ? <strong className={`font-semibold mr-1 ${isDark ? "text-white" : "text-[#1E1E1E]"}`}>{lead}</strong> : null}
-                    <div className={`text-[#1E1E1E]/70`}>{rest}</div>
+                <span className="typography-p2 text-[#1E1E1E]">
+                  {lead ? <strong className="font-semibold mr-1 text-[#1E1E1E]">{lead}</strong> : null}
+                    <div className="text-[#1E1E1E]/70">{rest}</div>
                 </span>
               </li>
             );
           })}
         </ul>
 
-        <h2 className={`mb-6 typography-h3 ${isDark ? "text-white" : "text-[#1E1E1E]"}`}>Agenda</h2>
+        <h2 className="mb-6 typography-h3 !font-semibold text-[#1E1E1E]">Agenda</h2>
         <div className="space-y-0">
           {agenda.map((item, i) => (
             <div key={i} className="flex items-start gap-4">
               <div className="relative flex flex-col items-center shrink-0">
-                <div className={`h-2.5 w-2.5 rounded-full ${isDark ? "bg-white" : "bg-[#1E1E1E]"}`} />
+                <div className="h-2.5 w-2.5 rounded-full bg-[#1E1E1E]" />
                 {i < agenda.length - 1 && (
-                  <div className={` w-px flex-1 ${isDark ? "bg-white/30" : "bg-[#1E1E1E]/30"}`} style={{ minHeight: "72px" }} />
+                  <div className="w-px flex-1 bg-[#1E1E1E]/30" style={{ minHeight: "72px" }} />
                 )}
               </div>
               <div className="flex-1">
                 <p className={`typography-p2 font-semibold text-[#1E1E1E]`} style={{fontWeight: 600}}>{item.time}</p>
-                <p className={`typography-p2 ${isDark ? "text-white/80" : "text-[#1E1E1E]/70"}`}>{item.title}</p>
-                {item.desc && <p className={`typography-p2 mt-1 ${isDark ? "text-white/70" : "text-[#1E1E1E]/60"}`}>{item.desc}</p>}
+                <p className="typography-p2 text-[#1E1E1E]/70">{item.title}</p>
+                {item.desc && <p className="typography-p2 mt-1 text-[#1E1E1E]/60">{item.desc}</p>}
               </div>
             </div>
           ))}

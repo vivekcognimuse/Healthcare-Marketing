@@ -38,7 +38,7 @@ const EventDetails: React.FC<{
             {tag && (
                 <div className="inline-block mb-6">
                 <span 
-                  className="px-6 py-2 text-white text-sm font-medium tracking-wide"
+                  className="px-6 py-2 text-white typography-p2 !font-bold tracking-wide"
                   style={{ 
                   fontFamily: "'Anonymous Pro', monospace",
                   backgroundColor: "#EF7438",
@@ -53,10 +53,11 @@ const EventDetails: React.FC<{
             )}
             {title && (
               <h1 
-                className={`text-4xl md:text-5xl lg:text-6xl font-normal leading-tight ${isDark ? "text-white" : "text-[#1E1E1E]"}`}
+                className={`typography-h1 !font-normal text-[#1E1E1E]`}
                 style={{ 
                   fontFamily: "'PP Editorial New', serif",
-                  letterSpacing: "-0.02em"
+                  letterSpacing: "-0.02em",
+                  
                 }}
               >
                 {title}
@@ -80,14 +81,14 @@ const EventDetails: React.FC<{
             {details.map((item) => (
               <div key={item.label} className="flex items-start gap-4">
                 <div
-                  className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full border border-[#1E1E1E] bg-[#FCF4E1]
+                  className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full border border-[#1E1E1E] 
                   }`}
                 >
                   {item.icon && <item.icon className={`h-6 w-6 text-[#1E1E1E]`} />}
                 </div>
                 <div className="flex-1">
-                  <p className={`typography-p1  text-black `} style={{ fontFamily: "'TT Commons Pro', sans-serif", fontWeight: 600 }}>{item.label}</p>
-                  <p className={`typography-p2 text-black/70`} style={{ fontFamily: "'TT Commons Pro', sans-serif" }}>{item.value}</p>
+                  <p className={`typography-p1 !font-semibold text-black `} style={{ fontFamily: "'TT Commons Pro', sans-serif", fontWeight: 600 }}>{item.label}</p>
+                  <p className={`typography-p2 !font-semibold text-black/70`} style={{ fontFamily: "'TT Commons Pro', sans-serif" }}>{item.value}</p>
                 </div>
               </div>
             ))}

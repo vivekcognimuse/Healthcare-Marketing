@@ -5,7 +5,7 @@ import ContentSection from "@/components/ContentSection";
 import WhyChooseSection from "@/components/WhyChooseSection";
 import PackagesSection from "@/components/PackagesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import Footer from "@/components/Footer";
+import EventsFooter from "@/components/event-horizon/EventsFooter";
 import ScrollToTop from "@/components/ScrollToTop";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 
@@ -97,15 +97,15 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
       />
-      <main className="min-h-screen">
+      <main className="min-h-screen" style={{ backgroundColor: '#FCF4E1' }}>
         <EventHeader />
         <Hero />
-        <TransitionSection />
+
         <ContentSection />
         <WhyChooseSection />
         <PackagesSection />
         <TestimonialsSection />
-        <Footer />
+        <EventsFooter />
         <WhatsAppIcon />
       </main>
     </>

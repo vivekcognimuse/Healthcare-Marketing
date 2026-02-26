@@ -39,13 +39,13 @@ export default function VoicesPage() {
             {/* Hero text absolutely layered above image and container */}
             <div className="absolute bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-black/80 via-black/50 via-50% to-black/0 flex flex-col items-center pointer-events-auto">
               <div className="max-w-6xl mx-auto px-6 py-6 text-center text-white">
-                <h1 className="typography-h1 max-w-6xl" style={{ 
+                <h1 className="typography-h1 !font-normal max-w-6xl" style={{ 
                   fontFamily: "'PP Editorial New', serif",
                   letterSpacing: "-0.02em"
                 }}>
                   Meet Dr. Shovan Saha
                 </h1>
-                <p className="mt-4 max-w-3xl mx-auto typography-p1 text-gray-100" style={{ 
+                <p className="mt-4 max-w-3xl mx-auto typography-h3 !font-medium  text-gray-100" style={{ 
                   fontFamily: "'Anonymous Pro', monospace"}}>
                   Bridging Science and Empathy in Occupational Therapy
                 </p>

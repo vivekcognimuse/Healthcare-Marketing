@@ -118,7 +118,7 @@ export default function ContentSection() {
   const isCardsInView = useInView(cardsRef, { once: true, margin: "-50px" });
 
   return (
-    <section id="services" className="bg-white py-12 sm:py-16 lg:py-24">
+    <section id="services" className="bg-transparent py-12 sm:py-16 lg:py-24">
       <div className="container">
         {/* Header */}
         <motion.div 
@@ -158,7 +158,7 @@ export default function ContentSection() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="bg-primary/10 rounded-xl p-6 lg:p-8 hover:shadow-lg transition-shadow"
+              className="bg-[white] rounded-xl p-6 lg:p-8 shadow-lg hover:shadow-xl transition-shadow"
             >
               <div className="flex items-start justify-between mb-4">
                 <Image
@@ -256,12 +256,13 @@ const StackedCard = memo(({
     >
       <motion.div
         style={{
-          background: 'linear-gradient(180deg, rgba(21, 93, 252, 0.3) 0%, rgba(102, 102, 102, 0) 28.85%)',
+          background: '#FFFFFF',
           borderRadius: '16px',
           padding: '3px',
           transformOrigin: 'top center',
           minHeight: '100vh',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
+          border: '1px solid #E5E7EB',
         }}
         animate={{
           scale: scaleValue,
@@ -794,7 +795,7 @@ function StackedFolderCards({ services }: StackedFolderCardsProps) {
               className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100"
             >
               {/* Card Header */}
-              <div className="bg-gradient-to-r from-primary/5 to-primary/10 px-6 py-5 border-b border-gray-200">
+              <div className="bg-white px-6 py-5 border-b border-gray-200">
                 <div className="flex items-start justify-between flex-wrap gap-4">
                   <h3 className="text-2xl font-bold text-black leading-tight">
                     {service.name}
@@ -1051,7 +1052,7 @@ function StackedFolderCards({ services }: StackedFolderCardsProps) {
           >
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
               {/* Card Header - Enhanced - Hashtags hidden on mobile */}
-              <div className="bg-gradient-to-r from-primary/5 to-primary/10 px-4 py-4 sm:px-5 sm:py-5 border-b border-gray-200">
+              <div className="bg-white px-4 py-4 sm:px-5 sm:py-5 border-b border-gray-200">
                 <h3 className="text-xl sm:text-2xl font-bold text-black leading-tight">
                   {service.name}
                 </h3>

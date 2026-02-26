@@ -12,10 +12,9 @@ export default function EventsIndex() {
       <section className="">
         <div className="container">
           <div className="py-12 pt-8">
-            <h1 className="typography-h2 font-bold text-black">Workshops That Inspire Growth</h1>
+            <h1 className="typography-h1 !font-normal text-black">Workshops That Inspire Growth</h1>
             <p
-              className="typography-h3 mt-2"
-              style={{ fontWeight: 500 }}
+              className="typography-h3 !font-medium mt-2"
             >
               Expert-led seminars designed to sharpen your skills and expand your perspective.
             </p>

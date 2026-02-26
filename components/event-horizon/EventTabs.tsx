@@ -31,10 +31,10 @@ const EventTabs: React.FC<EventTabsProps> = ({ takeaways, agenda, description, s
 
       <div className={isDark ? "pt-6" : "pt-6"}>
         <div id="event-tab-description" role="tabpanel">
-          <p className={`typography-p1 text-[#1E1E1E]/70 pb-8`} style={{ fontFamily: "'TT Commons Pro', sans-serif" }}>{description}</p>
-          <AgendaSection takeaways={takeaways} agenda={agenda} variant="embedded" theme={theme} />
+          <p className={`typography-p2 !font-medium text-[#1E1E1E]/70 pb-8`} style={{ fontFamily: "'TT Commons Pro', sans-serif" }}>{description}</p>
+          <AgendaSection takeaways={takeaways} agenda={agenda} variant="embedded"  />
           <div className="mt-12">
-            <SpeakerSection speaker={speaker} variant="embedded" theme={theme} />
+            <SpeakerSection speaker={speaker} variant="embedded" />
           </div>
         </div>
       </div>

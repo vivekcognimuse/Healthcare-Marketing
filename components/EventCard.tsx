@@ -30,7 +30,7 @@ export default function EventCard({ event }: { event: Event }) {
     <Link
       href={`/events/${event.id}`}
       aria-label={`Open event: ${event.title}`}
-      className="block w-full rounded-none overflow-hidden transform transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      className="block w-full rounded-2xl overflow-hidden transform transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
       {/* Mobile & Tablet: Optimized with Next.js Image */}
       <div className="block md:hidden w-full relative aspect-[9/16]">
@@ -128,7 +128,7 @@ export default function EventCard({ event }: { event: Event }) {
               {/* Register button */}
               <div>
                 <span
-                  className="btn-secondary px-4 py-2 tracking-wide"
+                  className="btn-secondary px-4 py-2 tracking-wide rounded-full"
                 >
                   REGISTER NOW
                 </span>

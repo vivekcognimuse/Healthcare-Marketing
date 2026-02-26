@@ -1,6 +1,6 @@
 import ArticlesGrid from "../../../components/ArticlesGrid";
 import articlesData from "../../../data/outreach/articles.json";
-import Footer from "../../../components/Footer";
+import EventsFooter from "@/components/event-horizon/EventsFooter";
 
 export const metadata = {
   title: "Articles - Out Reach",
@@ -13,10 +13,10 @@ export default function ArticlesPage() {
   return (
     <main>
       {/* Hero / Intro */}
-      <section id="articles-hero" className="relative flex items-start bg-white pt-24">
+      <section id="articles-hero" className="relative flex items-start bg-[#FCF4E1] pt-24">
         <div className="container text-left py-6">
-          <h1 className="typography-h2 font-bold text-black">Articles</h1>
-          <p className="typography-h3  mt-2" style={{ fontWeight: 500 }}>
+          <h1 className="typography-h1 !font-normal text-black">Articles</h1>
+          <p className="typography-h3 !font-medium mt-2">
           Insights and resources on Occupational Therapy
           </p>
         </div>
@@ -27,7 +27,7 @@ export default function ArticlesPage() {
         {/* ArticlesGrid now handles all articles with pagination for 2nd row */}
         <ArticlesGrid articles={articles} />
       </section>
-    <Footer />
+    <EventsFooter />
     </main>
   );
 }

@@ -42,7 +42,7 @@ export default async function ArticlePage(props: any) {
   if (!article) return notFound();
 
   return (
-    <main className="container py-12" style={{ paddingTop: "calc(var(--header-height) + 1.5rem)" }}>
+    <main className="container py-12 " style={{ paddingTop: "calc(var(--header-height) + 1.5rem)" }}>
       {/* Title row - left aligned */}
       <div className="max-w-6xl mx-auto">
         <div className="mb-4">
@@ -50,7 +50,7 @@ export default async function ArticlePage(props: any) {
             ← Back to Articles
           </Link>
         </div>
-        <h2 className="typography-h2 font-bold mb-2 text-left">{article.title}</h2>
+        <h2 className="typography-h1 !font-medium mb-2 text-left">{article.title}</h2>
         <div className="flex items-center gap-4 mb-6">
         <div className="px-2 py-1 bg-gray-200 rounded-lg typography-footnote text-gray-700">{(article as any).tag || "Newsletter"}</div>
           <div className="typography-footnote text-gray-500">{article.date}</div>

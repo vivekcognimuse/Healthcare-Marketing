@@ -79,7 +79,7 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section id="testimonials" className="bg-white py-12 sm:py-16 lg:py-24">
+    <section id="testimonials" className="bg-transparent py-12 sm:py-16 lg:py-24">
       <div className="container">
         {/* Header */}
         <div className="text-center mb-12 lg:mb-16">
@@ -157,7 +157,8 @@ export default function TestimonialsSection() {
                 {testimonials.map((testimonial, index) => (
                   <div
                     key={testimonial.name}
-                    className="bg-white rounded-xl p-6 lg:p-8 border border-gray-200"
+                    className="bg-white rounded-2xl p-6 lg:p-8"
+                    style={{ boxShadow: '0px 4px 10px 0px #00000026' }}
                   >
                     {/* Mobile Layout */}
                     <div className="md:hidden">
@@ -176,7 +177,7 @@ export default function TestimonialsSection() {
                             alt={testimonial.name}
                             width={60}
                             height={60}
-                            className="w-16 h-16 rounded-full object-cover"
+                            className="w-16 h-16 rounded-2xl object-cover"
                           />
                         </div>
                         <div className="flex flex-col">
@@ -205,7 +206,7 @@ export default function TestimonialsSection() {
                             alt={testimonial.name}
                             width={120}
                             height={120}
-                            className="w-24 h-24 rounded-lg object-cover"
+                            className="w-24 h-24 rounded-2xl object-cover"
                           />
                         </div>
                         <div className="flex-1">
@@ -257,7 +258,8 @@ export default function TestimonialsSection() {
                       ease: [0.4, 0, 0.2, 1]
                     }}
                     whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                    className="bg-white rounded-xl p-6 lg:p-8 border border-gray-200 flex flex-col h-full min-h-[320px] md:min-h-[280px]"
+                    className="bg-white rounded-2xl p-6 lg:p-8 flex flex-col h-full min-h-[320px] md:min-h-[280px]"
+                    style={{ boxShadow: '0px 4px 10px 0px #00000026' }}
                   >
                     {/* Mobile Layout: Quote at top, then author info, then image and rating */}
                     <div className="md:hidden flex flex-col flex-1">
@@ -298,7 +300,7 @@ export default function TestimonialsSection() {
                             alt={testimonial.name}
                             width={60}
                             height={60}
-                            className="w-16 h-16 rounded-full object-cover"
+                            className="w-16 h-16 rounded-2xl object-cover"
                           />
                         </div>
                         <div className="flex flex-col">
@@ -346,7 +348,7 @@ export default function TestimonialsSection() {
                               alt={testimonial.name}
                               width={120}
                               height={120}
-                              className="w-26 h-26 rounded-lg object-cover obnject-bottom"
+                              className="w-26 h-26 rounded-2xl object-cover obnject-bottom"
                             />
                           </motion.div>
                         </div>

@@ -9,10 +9,9 @@ interface Speaker {
   affiliation?: string;
 }
 
-const SpeakerSection: React.FC<{ speaker?: Speaker; variant?: "standalone" | "embedded"; theme?: "light" | "dark" }> = ({
+const SpeakerSection: React.FC<{ speaker?: Speaker; variant?: "standalone" | "embedded" }> = ({
   speaker,
   variant = "standalone",
-  theme = "light",
 }) => {
   const defaultSpeaker: Required<Speaker> = {
     name: "Dr. Elena Marsh",
@@ -24,11 +23,10 @@ const SpeakerSection: React.FC<{ speaker?: Speaker; variant?: "standalone" | "em
   };
   const s = { ...defaultSpeaker, ...(speaker || {}) };
   const isEmbedded = variant === "embedded";
-  const isDark = theme === "dark";
   return (
     <section className={isEmbedded ? "py-0" : "py-6 md:py-8"}>
       <div className={isEmbedded ? "mx-auto" : "mx-auto max-w-3xl px-4 sm:px-6 2xl:max-w-5xl"}>
-        <h2 className={`mb-8 typography-h3 font-semibold ${isDark ? "text-white" : "text-[#1E1E1E]"}`} style={{ letterSpacing: '0.03em', lineHeight: '1.25' }}>
+        <h2 className="mb-8 typography-h3 !font-semibold text-[#1E1E1E]" style={{ letterSpacing: '0.03em', lineHeight: '1.25' }}>
           Meet Your Speaker
         </h2>
         <div
@@ -38,17 +36,17 @@ const SpeakerSection: React.FC<{ speaker?: Speaker; variant?: "standalone" | "em
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_240px] items-stretch gap-6 lg:gap-8">
             <div className="flex flex-col justify-between">
               <div>
-                <p className={`typography-p2 font-semibold ${isDark ? "text-white" : "text-[#1E1E1E]"}`} style={{ fontWeight: 600 }}>
+                <p className="typography-p2 font-semibold text-[#1E1E1E]" style={{ fontWeight: 600 }}>
                   {s.name}
                 </p>
-                <p className={`mt-1 typography-p2 ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>
+                <p className="mt-1 typography-p2 text-[#1E1E1E]/70">
                   {s.title}
                 </p>
-                <p className={`mt-1 typography-p2 ${isDark ? "text-white/60" : "text-[#1E1E1E]/60"}`}>
+                <p className="mt-1 typography-p2 text-[#1E1E1E]/60">
                   {s.affiliation}
                 </p>
               </div>
-              <p className={`mt-4 typography-footnote ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>
+              <p className="mt-4 typography-footnote text-[#1E1E1E]/70">
                 {s.bio}
               </p>
             </div>

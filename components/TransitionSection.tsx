@@ -36,7 +36,7 @@ export default function TransitionSection() {
   }, [words.length]);
 
   return (
-    <section ref={sectionRef} className="bg-white py-8 sm:py-12">
+    <section ref={sectionRef} className="bg-transparent py-8 sm:py-12">
       <div className="container">
         <div className="grid md:grid-cols-2 gap-6 items-center">
           {/* Abstract Graphic */}

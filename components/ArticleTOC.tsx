@@ -43,7 +43,7 @@ export default function ArticleTOC({ contentId = "article-content" }: { contentI
   return (
     <nav className="sticky top-28 hidden lg:block">
       <div className="w-full">
-        <h4 className="typography-h5 font-normal text-gray-500 mb-4">Table of Contents</h4>
+        <p className="typography-p1 font-normal text-gray-500 mb-4" >Table of Contents</p>
         <ul className="space-y-3">
           {headings.map((h) => (
             <li key={h.id} className="relative">

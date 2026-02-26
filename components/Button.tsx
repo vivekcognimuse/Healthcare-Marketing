@@ -9,8 +9,8 @@ export default function Button({ variant = "primary", children, className = "", 
   // Check if className contains custom padding (py-*)
   const hasCustomPadding = /py-[\d.]+|!py-[\d.]+/.test(className);
   const baseStyles = hasCustomPadding 
-    ? "typography-btn1 px-8 transition-all duration-300"
-    : "typography-btn1 px-8 py-4 transition-all duration-300";
+    ? "typography-btn1 px-8 rounded-full transition-all duration-300"
+    : "typography-btn1 px-8 py-4 rounded-full transition-all duration-300";
   
   if (variant === "primary") {
     return (

@@ -2,7 +2,7 @@ import EpisodesGrid from "../../../components/EpisodesGrid";
 import EpisodeCard from "../../../components/EpisodeCard";
 import episodesData from "../../../data/outreach/episodes.json";
 import Link from "next/link";
-import Footer from "../../../components/Footer";
+import EventsFooter from "@/components/event-horizon/EventsFooter";
 
 export const metadata = {
   title: "Conversations",
@@ -15,16 +15,15 @@ export default function EpisodePage() {
 
   return (
     <>
-    <main>
+    <main className="bg-[#FCF4E">
       {/* Hero / Intro */}
-      <section id="outreach-hero" className="relative flex items-start bg-white pt-24">
+      <section id="outreach-hero" className="relative flex items-start  pt-24">
         <div className="container text-left py-6">
-          <h1 className="typography-h2 font-bold text-black">
+          <h1 className="typography-h1 !font-normal text-black">
             Episodes
           </h1>
           <p
-            className="typography-h3 mt-2"
-            style={{ fontWeight: 500 }}
+            className="typography-h3 !font-medium mt-2"
           >
             Discover Powerful Stories and Conversations in Occupational Therapy
           </p>
@@ -46,7 +45,7 @@ export default function EpisodePage() {
         </div>
       </section>
     </main>
-    <Footer />
+    <EventsFooter />
     </>
   );
 }

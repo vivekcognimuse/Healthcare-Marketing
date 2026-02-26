@@ -23,14 +23,14 @@ export default function Hero() {
       id="home"
       className="relative text-white min-h-screen flex items-center py-12 sm:py-16 lg:py-24 z-0"
       style={{
-        background: 'linear-gradient(180deg, #001B57 0%, #155DFC 71.32%, #FFFFFF 96.6%)'
+        background: 'linear-gradient(180deg, #001B57 0%, #155DFC 71.32%, #FCF4E1 96.6%)'
       }}
     >
       <div className="container pt-20 sm:pt-24 lg:pt-28">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Content */}
           <div className="text-center lg:text-left">
-            <h1 className="typography-h1 mb-6">
+            <h1 className="typography-h1 !font-normal mb-6">
               <span className="block">Expert Marketing for</span>
               <span className="block lg:whitespace-nowrap">Healthcare Professionals.</span>
             </h1>

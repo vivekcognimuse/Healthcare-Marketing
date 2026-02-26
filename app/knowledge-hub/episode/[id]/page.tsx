@@ -29,7 +29,7 @@ export default async function EpisodePage(props: any) {
   const embedUrl = episode?.youtubeId ? `https://www.youtube.com/embed/${episode.youtubeId}` : null;
 
   return (
-    <main className="container py-12" style={{ paddingTop: "calc(var(--header-height) + 1.5rem)" }}>
+    <main className="container py-12"  style={{ paddingTop: "calc(var(--header-height) + 1.5rem)" }}>
       <div className="max-w-3xl mx-auto">
         <div className="mb-4">
           <Link href="/knowledge-hub" className="article-back-link typography-p2 text-gray-600 hover:underline">

@@ -67,6 +67,7 @@ const proFeatures = [
 
 export default function PackagesSection() {
   const [activeTab, setActiveTab] = useState(0); // 0 for Essential, 1 for Pro
+  const [selectedPackage, setSelectedPackage] = useState<'essential' | null>(null);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const [isJsEnabled, setIsJsEnabled] = useState(false);
@@ -108,7 +109,7 @@ export default function PackagesSection() {
   const isCardsInView = useInView(cardsRef, { once: true, margin: "-50px" });
 
   return (
-    <section id="packages" className="bg-white py-12 sm:py-16 lg:py-24">
+    <section id="packages" className="bg-transparent py-12 sm:py-16 lg:py-24">
       <div className="container">
         {/* Header */}
         <motion.div 
@@ -127,13 +128,13 @@ export default function PackagesSection() {
         </motion.div>
 
         {/* Package Cards */}
-        <div className="max-w-3xl md:max-w-xl lg:max-w-5xl mx-auto">
+        <div className="max-w-3xl md:max-w-xl lg:max-w-7xl mx-auto">
           {/* Mobile: Fallback - Show both packages when JS is disabled */}
           {!isJsEnabled && (
             <div className="md:hidden space-y-6">
               {/* Essential Package */}
               <div className="px-4">
-                <div className="flex flex-col bg-white border-[1px] border-black/50 rounded-xl overflow-hidden">
+                <div className="flex flex-col bg-white border-[1px] border-black/50 rounded-2xl overflow-hidden" style={{ boxShadow: '0px 6px 10px 0px #0000001A' }}>
                   <div className="p-6 pb-0">
                     <h3 className="typography-h3 text-black mb-4 text-center">Essential</h3>
                     <div className="w-full h-[1px] bg-black mb-6"></div>
@@ -158,15 +159,14 @@ export default function PackagesSection() {
                             <p className="typography-p2 text-black break-words" style={{ fontWeight: 'bold' }}>{feature.title}</p>
                           </div>
                         </li>
-                      ))}
-                    </ul>
+                      ))}                    </ul>
                   </div>
                   <div className="border-t-[1px] border-black/50">
                     <a 
                       href="https://wa.me/8861078009"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-white text-black border-none typography-btn1 py-4 rounded-b-xl hover:opacity-90 transition-opacity font-bold block text-center"
+                      className="w-full bg-white text-black border-none typography-btn1 py-4 rounded-b-2xl hover:bg-primary/10 transition-colors font-bold block text-center"
                     >
                       CONNECT WITH AN EXPERT
                     </a>
@@ -176,7 +176,7 @@ export default function PackagesSection() {
               {/* Pro Package */}
               <div className="px-4">
                 <div className="relative flex flex-col">
-                  <div className="flex flex-col bg-primary/10 border-2 border-primary rounded-xl overflow-hidden">
+                  <div className="flex flex-col bg-primary/10 border-2 border-primary rounded-2xl overflow-hidden" style={{ boxShadow: '0px 10px 30px 0px #00000040' }}>
                     <div className="p-6 pb-0">
                       <h3 className="typography-h3 text-primary mb-4 text-center">Pro</h3>
                       <div className="w-full h-[2px] bg-primary mb-6"></div>
@@ -209,7 +209,7 @@ export default function PackagesSection() {
                         href="https://wa.me/8861078009"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full bg-primary text-white border-none typography-btn1 py-4 rounded-b hover:opacity-90 transition-opacity font-bold block text-center"
+                        className="w-full bg-primary/80 text-white border-none typography-btn1 py-4 rounded-b-2xl hover:bg-primary transition-colors font-bold block text-center"
                       >
                         CONNECT WITH AN EXPERT
                       </a>
@@ -260,7 +260,7 @@ export default function PackagesSection() {
               <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${activeTab * 100}%)` }}>
               {/* Essential Package - Mobile */}
               <div className="min-w-full flex-shrink-0 px-4">
-                <div className="flex flex-col bg-white border-[1px] border-black/50 rounded-xl overflow-hidden">
+                <div className="flex flex-col bg-white border-[1px] border-black/50 rounded-2xl overflow-hidden" style={{ boxShadow: '0px 6px 10px 0px #0000001A' }}>
                   <div className="p-6 pb-0">
                     <h3 className="typography-h3 text-black mb-4 text-center">Essential</h3>
                     <div className="w-full h-[1px] bg-black mb-6"></div>
@@ -293,7 +293,7 @@ export default function PackagesSection() {
                       href="https://wa.me/8861078009"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full bg-white text-black border-none typography-btn1 py-4 rounded-b-xl hover:opacity-90 transition-opacity font-bold block text-center"
+                      className="w-full bg-white text-black border-none typography-btn1 py-4 rounded-b-2xl hover:bg-primary/10 transition-colors font-bold block text-center"
                     >
                       CONNECT WITH AN EXPERT
                     </a>
@@ -304,7 +304,7 @@ export default function PackagesSection() {
               {/* Pro Package - Mobile */}
               <div className="min-w-full flex-shrink-0 px-4">
                 <div className="relative flex flex-col">
-                  <div className="flex flex-col bg-primary/10 border-[1px] border-primary rounded-xl overflow-hidden">
+                  <div className="flex flex-col bg-primary/10 border-[1px] border-primary rounded-2xl overflow-hidden" style={{ boxShadow: '0px 10px 30px 0px #00000040' }}>
                     <div className="p-6 pb-0">
                       <h3 className="typography-h3 text-primary mb-4 text-center">Pro</h3>
                       <div className="w-full h-[1px] bg-primary mb-6"></div>
@@ -337,7 +337,7 @@ export default function PackagesSection() {
                         href="https://wa.me/8861078009"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full bg-primary text-white border-none typography-btn1 py-4 rounded-b hover:opacity-90 transition-opacity font-bold block text-center"
+                        className="w-full bg-primary/80 text-white border-none typography-btn1 py-4 rounded-b-2xl hover:bg-primary transition-colors font-bold block text-center"
                       >
                         CONNECT WITH AN EXPERT
                       </a>
@@ -390,7 +390,9 @@ export default function PackagesSection() {
                 visible: { opacity: 1, y: 0 },
               }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col bg-white border-[1px] border-black/50 rounded-xl hover:shadow-lg transition-shadow overflow-hidden"
+              onClick={() => setSelectedPackage(selectedPackage === 'essential' ? null : 'essential')}
+              className="flex flex-col bg-white border-[1px] border-black/50 rounded-2xl transition-all  overflow-hidden"
+              style={{ boxShadow: '0px 6px 10px 0px #0000001A' }}
             >
               <div className="p-8 lg:p-10 pb-0">
                 <h3 className="typography-h3 text-black mb-2 text-center">Essential</h3>
@@ -428,7 +430,7 @@ export default function PackagesSection() {
                   href="https://wa.me/8861078009"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-white text-black border-none typography-btn1 py-4 rounded-b-xl hover:opacity-90 transition-opacity font-bold block text-center"
+                  className="w-full bg-white text-black border-none typography-btn1 py-4 rounded-b-2xl hover:bg-primary/10 transition-colors font-bold block text-center cursor-pointer"
                 >
                   CONNECT WITH AN EXPERT
                 </a>
@@ -455,7 +457,7 @@ export default function PackagesSection() {
               >
                 Most Popular
               </div>
-              <div className="flex flex-col bg-primary/10 border-[1px] border-primary rounded-xl hover:shadow-lg transition-shadow overflow-hidden">
+              <div className="flex flex-col bg-white border-[1px] border-primary rounded-2xl transition-all overflow-hidden" style={{ boxShadow: '0px 10px 30px 0px #00000040' }}>
                 <div className="p-8 lg:p-10 pb-0">
                   <h3 className="typography-h3 text-primary mb-2 text-center">Pro</h3>
                   <p className="typography-p2 text-black/70 mb-6 text-center">
@@ -492,7 +494,7 @@ export default function PackagesSection() {
                     href="https://wa.me/8861078009"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full bg-primary text-white border-none typography-btn1 py-4 rounded-b hover:opacity-90 transition-opacity font-bold block text-center"
+                    className="w-full bg-primary/80 text-white border-none typography-btn1 py-4 rounded-b-2xl hover:bg-primary transition-colors font-bold block text-center"
                   >
                     CONNECT WITH AN EXPERT
                   </a>

@@ -4,7 +4,7 @@ import EpisodeCard from "../../components/EpisodeCard";
 import episodesData from "../../data/outreach/episodes.json";
 import articlesData from "../../data/outreach/articles.json";
 import Link from "next/link";
-import Footer from "../../components/Footer";
+import EventsFooter from "@/components/event-horizon/EventsFooter";
 import { useState, useRef } from "react";
 
 type Episode = {
@@ -61,16 +61,16 @@ export default function KnowledgeHubPage() {
 
   return (
     <>
-    <main>
+    <main >
       {/* Hero / Intro */}
-      <section id="knowledge-hub-hero" className="relative flex items-start bg-white pt-24">
+      <section id="knowledge-hub-hero" className="relative flex items-start  pt-24">
         <div className="container text-left py-6">
-          <h1 className="typography-h2 font-bold text-black">
+          <h1 className="typography-h1 !font-normal text-black">
             Knowledge Hub
           </h1>
           <p
-            className="typography-h3 mt-2"
-            style={{ fontWeight: 500 }}
+            className="typography-h3 !font-medium mt-2"
+            
           >
             Discover Powerful Stories, Conversations, and Insights in Occupational Therapy
           </p>
@@ -99,11 +99,7 @@ export default function KnowledgeHubPage() {
                 <div className="p-6 flex flex-col flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     {item.tag && (
-                      <div className={`typography-footnote inline-block px-3 py-1 rounded-lg ${
-                        isArticle 
-                          ? 'bg-gray-200 text-gray-500' 
-                          : 'bg-amber-50 text-amber-800'
-                      }`}>
+                      <div className={`typography-footnote inline-block px-3 py-1 rounded-lg bg-gray-200 text-gray-500 `}>
                         {item.tag}
                       </div>
                     )}
@@ -116,7 +112,7 @@ export default function KnowledgeHubPage() {
                   </h3>
                   {item.excerpt && <p className="typography-p2 text-gray-600 mb-4 line-clamp-3 flex-1">{item.excerpt}</p>}
                   <div className="mt-auto">
-                    <Link href={linkPath} className="btn-secondary px-4 py-2">
+                    <Link href={linkPath} className="btn-secondary px-4 py-2 rounded-full">
                       {buttonText}
                     </Link>
                   </div>
@@ -148,7 +144,7 @@ export default function KnowledgeHubPage() {
         )}
       </section>
     </main>
-    <Footer />
+    <EventsFooter />
     </>
   );
 }

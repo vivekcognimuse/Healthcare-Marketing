@@ -28,7 +28,7 @@ export default async function EventPage({ params }: PageProps) {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#FCF4E1]">
 
       <main className="min-h-screen  text-[#1E1E1E]">
         <HeroSection

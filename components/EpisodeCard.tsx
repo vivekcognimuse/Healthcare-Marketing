@@ -19,9 +19,9 @@ export default function EpisodeCard({ episode, type = 'episode' }: EpisodeCardPr
   const linkPath = type === 'article' ? `/knowledge-hub/articles/${episode.id}` : `/knowledge-hub/episode/${episode.id}`;
   const buttonText = type === 'article' ? 'Read article' : 'View episode';
   return (
-    <article className="border p-2 rounded flex gap-6 border-gray-200 bg-white">
+    <article className="border p-4 rounded-lg flex gap-6 border-gray-200 ">
       <div className="w-1/2 md:w-1/3">
-        <div className="bg-gray-100 w-full h-48 md:h-56 rounded overflow-hidden flex items-center justify-center">
+        <div className="bg-gray-100 w-full h-48 md:h-56 rounded-lg overflow-hidden flex items-center justify-center">
           {episode.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={episode.image} alt={episode.title} className="w-full h-full object-cover object-top" />
@@ -44,7 +44,7 @@ export default function EpisodeCard({ episode, type = 'episode' }: EpisodeCardPr
           {episode.excerpt && <p className="typography-p2 text-gray-600 line-clamp-3 flex-1">{episode.excerpt}</p>}
         </div>
         <div className="flex-shrink-0 pb-2.5">
-          <Link href={linkPath} className="btn-secondary px-4 py-2">
+          <Link href={linkPath} className="btn-secondary px-4 py-2 rounded-full">
             {buttonText}
           </Link>
         </div>

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { events } from "../../data/events";
-import { Bell, ChevronRight} from "lucide-react";
+import { Bell, ChevronRight, Linkedin, Instagram, MessageCircle, Link } from "lucide-react";
 import Button from "../Button";
 
 const CTASection: React.FC<{
@@ -20,7 +20,7 @@ const CTASection: React.FC<{
   const [showSuccess, setShowSuccess] = useState(false);
   const [meetLink, setMeetLink] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [form, setForm] = useState({ name: "", phoneCode: "+91", phone: "", place: "", profession: "", professionOther: "", studentCourse: "", studentYear: "", email: "" });
+  const [form, setForm] = useState({ name: "", phoneCode: "+91", phone: "", place: "", profession: "", professionOther: "", studentCourse: "", studentYear: "", email: "", referrerName: "", referrerPlatform: "", referrerCustomName: "", referrerPlatformOther: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const defaultCTA = {
     title: "Ready to Lead Differently?",
@@ -69,12 +69,29 @@ const CTASection: React.FC<{
   const isDark = theme === "dark";
 
   return (
-    <section className={isSidebar ? "py-0" : "py-10 md:py-12"}>
+    <>
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideDown {
+          from { 
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to { 
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+      <section className={isSidebar ? "py-0" : "py-10 md:py-12"}>
       <div className={isSidebar ? "mx-auto max-w-none px-0 text-left" : "mx-auto max-w-xl px-6 text-center"}>
         <h2 className={`typography-h3 font-semibold ${isDark ? "text-white" : "text-[#1E1E1E]"}`}>{data.title}</h2>
-        <p className={`mt-3 typography-p2 ${isDark ? "text-white/70" : "text-[#1E1E1E]/70"}`}>{data.description}</p>
+        <p className={`typography-p2 !font-medium text-[#1E1E1E]/70 pb-8`} style={{ fontFamily: "'TT Commons Pro', sans-serif" }}>{data.description}</p>
 
-        <div className="mt-6 bg-white rounded-2xl border border-[#121212] max-w-2xl" style={{ boxShadow: '0px 4px 20px 0px #0000001A' }}>
+        <div className="mt-6 bg-white rounded-2xl border border-[#121212]/40 max-w-2xl" style={{ boxShadow: '0px 4px 20px 0px #0000001A' }}>
           <div className="flex flex-col md:flex-row">
             {/* Left side - Image */}
             <div className="md:w-1/2 p-4">
@@ -114,7 +131,6 @@ const CTASection: React.FC<{
                       <h2 className="text-2xl sm:text-3xl font-bold" style={{ fontFamily: 'var(--font-red-hat-display)', color: '#155DFC' }}>
                         Register Now
                       </h2>
-                     
                     </div>
                     <div className="p-4 sm:p-6 md:p-8 overflow-y-auto flex-1">
 
@@ -193,6 +209,20 @@ const CTASection: React.FC<{
                             errs.email = "Email is too long";
                           }
                           
+                          // Referrer validation
+                          if (!form.referrerName) {
+                            errs.referrerName = "Please tell us who referred you";
+                          }
+                          if (form.referrerName === "Someone Else" && form.referrerCustomName.length < 2) {
+                            errs.referrerCustomName = "Please enter the referrer's name (at least 2 characters)";
+                          }
+                          if (!form.referrerPlatform) {
+                            errs.referrerPlatform = "Please select where you saw the post";
+                          }
+                          if (form.referrerPlatform === "Others" && !form.referrerPlatformOther.trim()) {
+                            errs.referrerPlatformOther = "Please specify where you found it";
+                          }
+                          
                           setErrors(errs);
                           if (Object.keys(errs).length) {
                             setSubmitting(false);
@@ -221,6 +251,8 @@ const CTASection: React.FC<{
                                   : form.profession === "Healthcare Professional" && form.professionOther.trim()
                                   ? `Healthcare Professional - ${form.professionOther.trim()}`
                                   : form.profession.trim(),
+                              referrerName: form.referrerName === "Someone Else" ? form.referrerCustomName.trim() : form.referrerName.trim(),
+                              referrerPlatform: form.referrerPlatform === "Others" ? form.referrerPlatformOther.trim() : form.referrerPlatform,
                               paymentDetails: { status: "pending" },
                             } as any);
                             if (!bookingRes.success) throw new Error(bookingRes.error || "Booking failed");
@@ -328,7 +360,7 @@ const CTASection: React.FC<{
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-4">
                           {/* Name Field */}
                           <div>
-                            <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Full Name *</label>
+                            <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Full Name <span style={{ color: '#DC2626' }}>*</span></label>
                             <input 
                               value={form.name} 
                               onChange={(e) => {
@@ -354,7 +386,7 @@ const CTASection: React.FC<{
 
                           {/* Location Field */}
                           <div>
-                            <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>City / State *</label>
+                            <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>City / State <span style={{ color: '#DC2626' }}>*</span></label>
                             <input 
                               value={form.place} 
                               onChange={(e) => {
@@ -381,7 +413,7 @@ const CTASection: React.FC<{
 
                         {/* Phone Field */}
                         <div className="mb-4">
-                          <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Phone Number *</label>
+                          <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Phone Number <span style={{ color: '#DC2626' }}>*</span></label>
                           <div className="flex gap-0">
                             <div 
                               className="flex items-center justify-center font-medium" 
@@ -427,7 +459,7 @@ const CTASection: React.FC<{
 
                         {/* Profession Field */}
                         <div className="mb-4">
-                          <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Your Profession *</label>
+                          <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Your Profession <span style={{ color: '#DC2626' }}>*</span></label>
                           <select
                             value={form.profession}
                             onChange={(e) => setForm({ ...form, profession: e.target.value })}
@@ -459,7 +491,7 @@ const CTASection: React.FC<{
                           {form.profession === "Student" && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 p-4 rounded-lg bg-blue-50 border border-blue-100">
                               <div>
-                                <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(12px, 3vw, 13px)', color: '#1E1E1E', fontWeight: '600' }}>Course *</label>
+                                <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(12px, 3vw, 13px)', color: '#1E1E1E', fontWeight: '600' }}>Course <span style={{ color: '#DC2626' }}>*</span></label>
                                 <input
                                   value={form.studentCourse}
                                   onChange={(e) => {
@@ -482,7 +514,7 @@ const CTASection: React.FC<{
                                 {errors.studentCourse && <div style={{ fontSize: 'clamp(11px, 2.5vw, 12px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '3px', fontWeight: '500' }}>{errors.studentCourse}</div>}
                               </div>
                               <div>
-                                <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(12px, 3vw, 13px)', color: '#1E1E1E', fontWeight: '600' }}>Year / Batch *</label>
+                                <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(12px, 3vw, 13px)', color: '#1E1E1E', fontWeight: '600' }}>Year / Batch <span style={{ color: '#DC2626' }}>*</span></label>
                                 <input
                                   value={form.studentYear}
                                   onChange={(e) => {
@@ -562,7 +594,7 @@ const CTASection: React.FC<{
 
                         {/* Email Field */}
                         <div className="mb-6">
-                          <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Email Address *</label>
+                          <label className="block text-left font-medium mb-2" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#1E1E1E', fontWeight: '600' }}>Email Address <span style={{ color: '#DC2626' }}>*</span></label>
                           <input 
                             value={form.email} 
                             onChange={(e) => setForm({ ...form, email: e.target.value.trim() })}
@@ -582,11 +614,154 @@ const CTASection: React.FC<{
                           {errors.email && <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>{errors.email}</div>}
                         </div>
 
+                        {/* How did you find this event? */}
+                        <div className="mb-6 p-4 rounded-xl border-2 border-blue-200 transition-all duration-300" style={{ boxShadow: '0 2px 8px rgba(21, 93, 252, 0.1)' }}>
+                          <div className="flex items-center gap-2 mb-4">
+
+                            <label className="block text-left font-semibold" style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(14px, 3.5vw, 16px)', color: '#155DFC' }}>
+                              How did you find this event? <span style={{ color: '#DC2626' }}>*</span>
+                            </label>
+                          </div>
+
+                          <div className="grid grid-cols-1 gap-3">
+                            <div>
+                              <select
+                                value={form.referrerName}
+                                onChange={(e) => {
+                                  const value = e.target.value;
+                                  setForm({ ...form, referrerName: value, referrerCustomName: "" });
+                                  setErrors({ ...errors, referrerName: "", referrerCustomName: "" });
+                                }}
+                                className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                                style={{
+                                  fontFamily: 'var(--font-red-hat-display)',
+                                  fontSize: '15px',
+                                  padding: '10px 12px',
+                                  border: '1px solid #D5D5D5',
+                                  borderRadius: '6px',
+                                  color: form.referrerName ? '#1E1E1E' : '#999999',
+                                  appearance: 'none',
+                                  backgroundImage: 'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23155DFC\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e")',
+                                  backgroundRepeat: 'no-repeat',
+                                  backgroundPosition: 'right 10px center',
+                                  backgroundSize: '18px',
+                                  paddingRight: '36px'
+                                }}
+                              >
+                                <option value="">Who told you about us?</option>
+                                <option value="Vinoth">Vinoth</option>
+                                <option value="Manikantan">Manikantan</option>
+                                <option value="Shovan Saha">Shovan Saha</option>
+                                <option value="Manoj S">Manoj S</option>
+                                <option value="Nithish Kumar">Nithish Kumar</option>
+                                <option value="Chaitanya">Chaitanya</option>
+                                <option value="Someone Else">Someone Else</option>
+                              </select>
+                              {errors.referrerName && (
+                                <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>
+                                  {errors.referrerName}
+                                </div>
+                              )}
+                            </div>
+
+                            {form.referrerName === "Someone Else" && (
+                              <div style={{ animation: 'fadeIn 0.2s ease-in' }}>
+                                <input
+                                  value={form.referrerCustomName}
+                                  onChange={(e) => {
+                                    setForm({ ...form, referrerCustomName: e.target.value });
+                                    setErrors({ ...errors, referrerCustomName: "" });
+                                  }}
+                                  placeholder="Enter their name"
+                                  className="w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+                                  style={{
+                                    fontFamily: 'var(--font-red-hat-display)',
+                                    fontSize: '15px',
+                                    padding: '10px 12px',
+                                    border: '1px solid #D5D5D5',
+                                    borderRadius: '6px',
+                                    color: '#1E1E1E'
+                                  }}
+                                />
+                                {errors.referrerCustomName && (
+                                  <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>
+                                    {errors.referrerCustomName}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+
+                            <div>
+                              <select
+                                value={form.referrerPlatform}
+                                onChange={(e) => {
+                                  const value = e.target.value;
+                                  setForm({ ...form, referrerPlatform: value, referrerPlatformOther: "" });
+                                  setErrors({ ...errors, referrerPlatform: "", referrerPlatformOther: "" });
+                                }}
+                                className="w-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-400 transition-all"
+                                style={{
+                                  fontFamily: 'var(--font-red-hat-display)',
+                                  fontSize: '15px',
+                                  padding: '10px 12px',
+                                  border: '1px solid #D5D5D5',
+                                  borderRadius: '6px',
+                                  color: form.referrerPlatform ? '#1E1E1E' : '#999999',
+                                  appearance: 'none',
+                                  backgroundImage: 'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23155DFC\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6 9 12 15 18 9\'%3e%3c/polyline%3e%3c/svg%3e")',
+                                  backgroundRepeat: 'no-repeat',
+                                  backgroundPosition: 'right 10px center',
+                                  backgroundSize: '18px',
+                                  paddingRight: '36px'
+                                }}
+                              >
+                                <option value="">Where did you see the post?</option>
+                                <option value="LinkedIn">LinkedIn</option>
+                                <option value="WhatsApp">WhatsApp</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Others">Others</option>
+                              </select>
+                              {errors.referrerPlatform && (
+                                <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>
+                                  {errors.referrerPlatform}
+                                </div>
+                              )}
+                            </div>
+
+                            {form.referrerPlatform === "Others" && (
+                              <div style={{ animation: 'fadeIn 0.2s ease-in' }}>
+                                <input
+                                  value={form.referrerPlatformOther}
+                                  onChange={(e) => {
+                                    setForm({ ...form, referrerPlatformOther: e.target.value });
+                                    setErrors({ ...errors, referrerPlatformOther: "" });
+                                  }}
+                                  placeholder="Please specify where you found it"
+                                  className="w-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
+                                  style={{
+                                    fontFamily: 'var(--font-red-hat-display)',
+                                    fontSize: '15px',
+                                    padding: '10px 12px',
+                                    border: '1px solid #D5D5D5',
+                                    borderRadius: '6px',
+                                    color: '#1E1E1E'
+                                  }}
+                                />
+                                {errors.referrerPlatformOther && (
+                                  <div style={{ fontSize: 'clamp(12px, 2.5vw, 13px)', color: '#DC2626', fontFamily: 'var(--font-red-hat-display)', marginTop: '4px', fontWeight: '500' }}>
+                                    {errors.referrerPlatformOther}
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
                         {/* Payment Notice */}
                         {ticketPrice > 0 && (
-                          <div className="mb-6 p-3 rounded-lg bg-amber-50 border border-amber-200">
-                            <p style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#92400E', fontWeight: '600' }}>
-                              💳 Secure payment of ₹{ticketPrice} via Razorpay
+                          <div className="mb-4 text-center">
+                            <p style={{ fontFamily: 'var(--font-red-hat-display)', fontSize: 'clamp(13px, 3vw, 14px)', color: '#6B7280', fontWeight: '500' }}>
+                              💳 Secure payment of <span style={{ color: '#155DFC', fontWeight: '700', fontSize: 'clamp(14px, 3.5vw, 16px)' }}>₹{ticketPrice}</span> via Razorpay
                             </p>
                           </div>
                         )}
@@ -698,7 +873,8 @@ const CTASection: React.FC<{
             document.body
           )}
       </div>
-    </section>
+      </section>
+    </>
   );
 };
 

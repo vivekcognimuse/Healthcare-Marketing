@@ -77,7 +77,7 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
                 {first.excerpt && <p className="typography-p2 text-gray-700 line-clamp-3 2xl:line-clamp-4 flex-1">{first.excerpt}</p>}
               </div>
               <div className="flex-shrink-0 pb-2.5 2xl:pb-0">
-                <Link href={`/knowledge-hub/articles/${first.id}`} className="btn-secondary px-4 py-2">
+                <Link href={`/knowledge-hub/articles/${first.id}`} className="btn-secondary px-4 py-2 rounded-full">
                   Read article
                 </Link>
               </div>
@@ -115,7 +115,7 @@ export default function ArticlesGrid({ articles, showFirstRow = true }: Articles
                   </h4>
                   {article.excerpt && <p className="typography-p2 text-gray-700 mb-4 line-clamp-2 flex-1">{article.excerpt}</p>}
                   <div className="mt-auto">
-                    <Link href={`/knowledge-hub/articles/${article.id}`} className="btn-secondary px-4 py-2">
+                    <Link href={`/knowledge-hub/articles/${article.id}`} className="btn-secondary px-4 py-2 rounded-full">
                       Read article
                     </Link>
                   </div>
