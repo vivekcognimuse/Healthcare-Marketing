@@ -54,7 +54,7 @@ export default function Footer() {
                     BOOK YOUR DISCOVERY CALL
                     <Image
                       src="/icons/musemarketinglogo.svg"
-                      alt="Muse Marketing Logo"
+                      alt="Creative Labs Logo"
                       width={24}
                       height={24}
                       className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 flex-shrink-0"
@@ -150,7 +150,7 @@ export default function Footer() {
           <div className="container px-4 sm:px-6">
             <Image
               src="/Images webp/Logo.webp"
-              alt="Muse Marketing"
+              alt="Creative Labs"
               width={1200}
               height={400}
               unoptimized

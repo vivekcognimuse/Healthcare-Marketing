@@ -47,7 +47,7 @@ export default function WhatsAppIcon() {
         href="https://wa.me/8861078009"
         target="_blank"
         rel="noopener noreferrer"
-        className="hover:opacity-80 transition-opacity block hover:scale-110 transition-transform"
+        className="hover:opacity-80 block hover:scale-110 transition-all"
         aria-label="WhatsApp"
       >
         <Image

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anonymous_Pro } from "next/font/google";
 import "./globals.css";
 import EventHeader from "../components/EventHeader";
+import WhatsAppIcon from "../components/WhatsAppIcon";
 
 const anonymousPro = Anonymous_Pro({
   subsets: ["latin"],
@@ -86,6 +87,7 @@ export default function RootLayout({
       <body className={`${anonymousPro.variable} font-sans antialiased`} suppressHydrationWarning>
         <EventHeader />
         {children}
+        <WhatsAppIcon />
       </body>
     </html>
   );

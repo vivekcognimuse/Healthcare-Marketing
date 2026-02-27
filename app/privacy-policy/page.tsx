@@ -7,13 +7,13 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "Privacy Policy for Muse Marketing - Expert Marketing for Healthcare Professionals. Learn how we collect, use, and protect your personal information in compliance with privacy regulations.",
+  description: "Privacy Policy for Creative Labs - Expert Marketing for Healthcare Professionals. Learn how we collect, use, and protect your personal information in compliance with privacy regulations.",
   alternates: {
     canonical: "https://musemarketing.web.app/privacy-policy",
   },
   openGraph: {
-    title: "Privacy Policy - Muse Marketing",
-    description: "Privacy Policy for Muse Marketing - Expert Marketing for Healthcare Professionals",
+    title: "Privacy Policy - Creative Labs",
+    description: "Privacy Policy for Creative Labs - Expert Marketing for Healthcare Professionals",
     url: "https://musemarketing.web.app/privacy-policy",
     type: "website",
   },
@@ -55,7 +55,7 @@ export default function PrivacyPolicy() {
               <section className="mb-8">
                 <h2 className="typography-h2 text-black mb-4">1. Introduction</h2>
                 <p className="typography-p2 text-black/70 mb-4">
-                  At Muse Marketing, we are committed to protecting your privacy. This Privacy Policy explains how we 
+                  At Creative Labs, we are committed to protecting your privacy. This Privacy Policy explains how we 
                   collect, use, disclose, and safeguard your information when you use our services or visit our website.
                 </p>
               </section>

@@ -96,7 +96,7 @@ const CTASection: React.FC<{
             {/* Left side - Image */}
             <div className="md:w-1/2 p-4">
               <img 
-                src="/assets/events/Register-cta.png" 
+                src="/assets/events/Register-cta.webp" 
                 alt="Register" 
                 className="w-full h-full object-cover rounded-2xl"
               />
@@ -853,7 +853,7 @@ const CTASection: React.FC<{
                           fontWeight: '700',
                           padding: '10px 24px', 
                           border: 'none',
-                          borderRadius: '6px',
+                          borderRadius: '9999px',
                           background: 'linear-gradient(135deg, #00277E, #0D3796, #155DFC)',
                           color: 'white',
                           cursor: 'pointer',

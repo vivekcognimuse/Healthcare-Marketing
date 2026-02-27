@@ -7,7 +7,6 @@ import PackagesSection from "@/components/PackagesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import EventsFooter from "@/components/event-horizon/EventsFooter";
 import ScrollToTop from "@/components/ScrollToTop";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function Home() {
   const structuredData = {
@@ -106,7 +105,6 @@ export default function Home() {
         <PackagesSection />
         <TestimonialsSection />
         <EventsFooter />
-        <WhatsAppIcon />
       </main>
     </>
   );

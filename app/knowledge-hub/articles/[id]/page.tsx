@@ -60,7 +60,7 @@ export default async function ArticlePage(props: any) {
         <div className="grid grid-cols-1 lg:grid-cols-[auto_minmax(0,900px)] gap-8">
           {/* Left gutter: TOC (right-aligned inside gutter) */}
           <aside className="hidden lg:flex lg:justify-end">
-            <div className="w-56 sticky top-28 pr-6">
+            <div className="w-64 sticky top-28 pr-6">
               <ArticleTOC contentId="article-content" />
             </div>
           </aside>
@@ -106,9 +106,16 @@ export default async function ArticlePage(props: any) {
         <div className="mt-12">
           <h3 className="typography-h3 font-semibold text-gray-900 mb-4">Other Articles</h3>
           <ArticlesGrid 
-            articles={articlesData.filter((a) => a.id !== article.id)} 
-            showFirstRow={false}
+            articles={articlesData.filter((a) => a.id !== article.id).slice(0, 2)} 
           />
+          <div className="mt-8 text-right">
+            <Link 
+              href="/knowledge-hub/articles"
+              className="inline-block btn-secondary px-6 py-3 rounded-full text-base font-medium hover:scale-105 transition-transform"
+            >
+              View more articles
+            </Link>
+          </div>
         </div>
       </div>
     </main>

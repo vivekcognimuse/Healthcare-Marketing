@@ -21,7 +21,7 @@ export default function VoicesPage() {
     <main>
       {/* Hero */}
       <section className="w-full bg-[#03050B]">
-        <div className="w-full h-[90vh] md:h-[80vh] relative overflow-hidden">
+        <div className="w-full h-auto md:h-[80vh] relative overflow-hidden">
           <div id="meet-dr-shovan" className="max-w-6xl mx-auto px-6 py-6 h-full flex flex-col justify-between relative">
             {/* Image at the top with side and top padding; image sits inside the black div */}
             <div className="pt-2 relative z-0">

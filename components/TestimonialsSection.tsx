@@ -9,7 +9,7 @@ const testimonials = [
     name: "Ananya R.,",
     role: "Occupational Therapist",
     image: "/testimonials/ananya.png",
-    quote: "Working with Muse Marketing has transformed our online presence. We've seen a significant increase in patient inquiries and our brand now truly reflects our values.",
+    quote: "Working with Creative Labs has transformed our online presence. We've seen a significant increase in patient inquiries and our brand now truly reflects our values.",
     rating: 5,
   },
   {

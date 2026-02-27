@@ -278,7 +278,7 @@ export default function Header() {
     >
       {/* Main Header Capsule */}
       <header ref={headerRef}
-        className="w-full lg:w-auto"
+        className="w-full lg:w-auto lg:min-w-max"
         style={{
           background: '#FFFFFF',
           borderRadius: '100px',
@@ -286,19 +286,19 @@ export default function Header() {
         }}
       >
         <nav className="px-6 lg:px-8 py-2.5 lg:py-[22px]">
-          <div className="flex items-center w-full relative gap-6 lg:gap-8">
+          <div className="flex items-center relative gap-4 lg:gap-6">
             {/* Logo */}
             <Link href="/" className="flex items-center z-10 flex-shrink-0">
               <span
                 className="typography-h3 font-bold transition-colors duration-300 text-black"
                 style={{ textShadow: "none", filter: "none" }}
               >
-                CogniMuse
+                Creative Labs
               </span>
             </Link>
 
             {/* Desktop Navigation - Middle section (lg: 1024px+) */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-4 flex-nowrap">
               {navItems.map((item) => (
                 <div
                   key={item.id}
@@ -408,7 +408,7 @@ export default function Header() {
             }}
             className="lg:hidden fixed inset-0 z-[110] shadow-2xl overflow-y-auto"
             style={{
-              background: 'linear-gradient(180deg, #001B57 0%, #155DFC 40%, rgba(255, 255, 255, 0.95) 100%)',
+              background: '#FCF4E1',
               boxShadow: "-4px 0 24px rgba(0, 0, 0, 0.15)",
             }}
             onClick={(e) => e.stopPropagation()}
@@ -421,12 +421,12 @@ export default function Header() {
                   className="flex items-center" 
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  <span className="typography-h3 font-bold text-white">Cognimuse</span>
+                  <span className="typography-h3 font-bold text-black">Creative Labs</span>
                 </Link>
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 flex items-center justify-center bg-black/80 hover:bg-black rounded-lg transition-colors duration-200"
+                  className="w-10 h-10 flex items-center justify-center bg-black hover:bg-black/80 rounded-full transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                   aria-label="Close menu"
                   type="button"
@@ -454,7 +454,7 @@ export default function Header() {
                 transition={{ delay: 0.1, duration: 0.4 }}
                 className="px-6 pb-6"
               >
-                <p className="typography-p2 text-white/90 leading-relaxed">
+                <p className="typography-p2 text-black/70 leading-relaxed">
                   CogniMuse Marketing, dedicated to driving progress for healthcare professionals through trusted marketing techniques.
                 </p>
               </motion.div>
@@ -476,10 +476,10 @@ export default function Header() {
                       <Link
                         href={resolveHref(item.href)}
                         onClick={() => setIsMenuOpen(false)}
-                        className={`group relative flex items-center px-4 py-4 rounded-xl transition-all duration-300 ${
+                        className={`group relative flex items-center px-4 py-4 rounded-full transition-all duration-300 ${
                           isNavItemActive(item) 
-                            ? "text-black bg-white/90 shadow-sm" 
-                            : "text-white/90 hover:text-white hover:bg-white/15 active:bg-white/20"
+                            ? "text-white bg-primary shadow-sm" 
+                            : "text-black hover:text-white hover:bg-primary/80 active:bg-primary"
                         }`}
                         style={{ textShadow: "none", filter: "none" }}
                       >
@@ -496,8 +496,8 @@ export default function Header() {
                                 key={c.id}
                                 href={c.href}
                                 onClick={() => setIsMenuOpen(false)}
-                                className={`typography-p2 px-4 py-2.5 rounded-lg transition-all duration-300 ${
-                                  isChildActive ? "text-black bg-white/90 shadow-sm" : "text-white/80 hover:text-white hover:bg-white/15 active:bg-white/20"
+                                className={`typography-p2 px-4 py-2.5 rounded-full transition-all duration-300 ${
+                                  isChildActive ? "text-white bg-primary shadow-sm" : "text-black/70 hover:text-white hover:bg-primary/70 active:bg-primary/80"
                                 }`}
                                 style={{ textShadow: "none", filter: "none" }}
                               >
@@ -521,7 +521,7 @@ export default function Header() {
                   duration: 0.4,
                   ease: [0.22, 1, 0.36, 1]
                 }}
-                className="px-6 py-6 border-t border-white/20"
+                className="px-6 py-6 border-t border-black/10"
               >
                 {/* CTA Button */}
                 <a 
@@ -534,7 +534,7 @@ export default function Header() {
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="bg-white text-primary typography-btn1 px-6 py-4 w-full text-center rounded-2xl font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+                    className="bg-white text-primary typography-btn1 px-6 py-4 w-full text-center rounded-full font-semibold shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
                   >
                     Get a quote
                   </motion.div>

@@ -23,7 +23,7 @@ export default function Gallery({ images }: Props) {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
         {images.map((src, idx) => (
           <button
             key={src}
@@ -31,17 +31,17 @@ export default function Gallery({ images }: Props) {
               setIndex(idx);
               setOpen(true);
             }}
-            className="md:col-span-1 overflow-hidden rounded group relative flex items-center justify-center bg-gray-100"
+            className="md:col-span-1 overflow-hidden rounded-2xl group relative aspect-square bg-gray-100"
             aria-label={`Open image ${idx + 1}`}
           >
             <div
-              className="absolute inset-0 bg-center bg-cover filter blur-sm scale-105 z-0 rounded"
+              className="absolute inset-0 bg-center bg-cover filter blur-sm scale-105 z-0"
               style={{ backgroundImage: `url(${src})` }}
             />
             <img
               src={src}
               alt={`gallery-${idx}`}
-              className={`relative z-10 max-h-full w-auto ${idx === 1 ? "object-top" : ""} transform transition-transform duration-300 group-hover:scale-105`}
+              className={`relative z-10 w-full h-full object-cover ${idx === 1 ? "object-top" : "object-center"} transform transition-transform duration-300 group-hover:scale-105`}
             />
           </button>
         ))}
@@ -66,7 +66,7 @@ export default function Gallery({ images }: Props) {
 
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-white bg-black/50 p-2 rounded hover:bg-black/70"
+              className="absolute top-4 right-4 text-white bg-black/50 p-2 rounded-full hover:bg-black/70"
               aria-label="Close"
             >
               ✕

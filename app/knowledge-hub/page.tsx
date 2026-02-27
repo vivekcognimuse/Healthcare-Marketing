@@ -89,14 +89,18 @@ export default function KnowledgeHubPage() {
             const buttonText = isArticle ? 'Read article' : 'View episode';
             
             return (
-              <div key={item.id} className="border rounded-lg overflow-hidden flex flex-col">
+              <div 
+                key={item.id} 
+                className="bg-white rounded-2xl overflow-hidden flex flex-col"
+                style={{ boxShadow: '0px 4px 10px 0px #00000026' }}
+              >
                 <Link href={linkPath} className="block">
                   <div className="w-full h-64 overflow-hidden bg-gray-100 relative">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={item.image} alt={item.title} className="w-full h-full object-cover object-center" />
                   </div>
                 </Link>
-                <div className="p-6 flex flex-col flex-1">
+                <div className="p-6 lg:p-8 flex flex-col flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     {item.tag && (
                       <div className={`typography-footnote inline-block px-3 py-1 rounded-lg bg-gray-200 text-gray-500 `}>
@@ -129,7 +133,7 @@ export default function KnowledgeHubPage() {
               <button
                 key={pageNum}
                 onClick={() => handlePageChange(pageNum)}
-                className={`w-10 h-10 rounded-md typography-footnote font-semibold transition-colors ${
+                className={`w-10 h-10 rounded-full typography-footnote font-semibold transition-colors ${
                   currentPage === pageNum
                     ? 'bg-[#155DFC] text-white'
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300'

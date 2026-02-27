@@ -7,13 +7,13 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "Terms of Service for Muse Marketing - Expert Marketing for Healthcare Professionals. Learn about our service terms, client responsibilities, payment terms, and compliance requirements.",
+  description: "Terms of Service for Creative Labs - Expert Marketing for Healthcare Professionals. Learn about our service terms, client responsibilities, payment terms, and compliance requirements.",
   alternates: {
     canonical: "https://musemarketing.web.app/terms-of-service",
   },
   openGraph: {
-    title: "Terms of Service - Muse Marketing",
-    description: "Terms of Service for Muse Marketing - Expert Marketing for Healthcare Professionals",
+    title: "Terms of Service - Creative Labs",
+    description: "Terms of Service for Creative Labs - Expert Marketing for Healthcare Professionals",
     url: "https://musemarketing.web.app/terms-of-service",
     type: "website",
   },
@@ -55,7 +55,7 @@ export default function TermsOfService() {
               <section className="mb-8">
                 <h2 className="typography-h2 text-black mb-4">1. Agreement to Terms</h2>
                 <p className="typography-p2 text-black/70 mb-4">
-                  By accessing and using the services of Muse Marketing, you agree to be bound by these Terms of Service. 
+                  By accessing and using the services of Creative Labs, you agree to be bound by these Terms of Service. 
                   If you do not agree to these terms, please do not use our services.
                 </p>
               </section>
@@ -63,7 +63,7 @@ export default function TermsOfService() {
               <section className="mb-8">
                 <h2 className="typography-h2 text-black mb-4">2. Services</h2>
                 <p className="typography-p2 text-black/70 mb-4">
-                  Muse Marketing provides digital marketing services specifically tailored for healthcare professionals, 
+                  Creative Labs provides digital marketing services specifically tailored for healthcare professionals, 
                   including but not limited to:
                 </p>
                 <ul className="list-disc list-inside typography-p2 text-black/70 mb-4 space-y-2">
@@ -190,7 +190,7 @@ export default function TermsOfService() {
               <section className="mb-8">
                 <h2 className="typography-h2 text-black mb-4">7. Intellectual Property</h2>
                 <p className="typography-p2 text-black/70 mb-4">
-                  All content, designs, and materials created by Muse Marketing remain our intellectual property until 
+                  All content, designs, and materials created by Creative Labs remain our intellectual property until 
                   full payment is received. Upon full payment, you will receive usage rights as specified in your agreement.
                 </p>
               </section>
@@ -199,7 +199,7 @@ export default function TermsOfService() {
                 <h2 className="typography-h2 text-black mb-4">8. Compliance</h2>
                 <p className="typography-p2 text-black/70 mb-4">
                   All marketing materials and strategies must comply with healthcare advertising regulations, including 
-                  HIPAA guidelines where applicable. Muse Marketing will work with you to ensure compliance, but 
+                  HIPAA guidelines where applicable. Creative Labs will work with you to ensure compliance, but 
                   ultimate responsibility lies with the healthcare provider.
                 </p>
                 <p className="typography-p2 text-black/70 mb-4">
@@ -215,7 +215,7 @@ export default function TermsOfService() {
               <section className="mb-8">
                 <h2 className="typography-h2 text-black mb-4">9. Limitation of Liability</h2>
                 <p className="typography-p2 text-black/70 mb-4">
-                  Muse Marketing shall not be liable for any indirect, incidental, or consequential damages arising 
+                  Creative Labs shall not be liable for any indirect, incidental, or consequential damages arising 
                   from the use of our services. Our liability is limited to the amount paid for the specific service in question.
                 </p>
                 <p className="typography-p2 text-black/70 mb-4">
@@ -266,7 +266,7 @@ export default function TermsOfService() {
               <section className="mb-8">
                 <h2 className="typography-h2 text-black mb-4">12. Changes to Terms</h2>
                 <p className="typography-p2 text-black/70 mb-4">
-                  Muse Marketing reserves the right to modify these terms at any time. Continued use of our services 
+                  Creative Labs reserves the right to modify these terms at any time. Continued use of our services 
                   after changes constitutes acceptance of the new terms. We will notify users of significant changes 
                   via email or website notice.
                 </p>
