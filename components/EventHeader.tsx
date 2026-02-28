@@ -230,7 +230,7 @@ export default function Header() {
         { href: "/knowledge-hub/episode", label: "Episodes", id: "outreach-episodes" },
         { href: "/knowledge-hub/articles", label: "Articles", id: "outreach-articles" },
         { href: "/knowledge-hub/voices", label: "Voices", id: "outreach-voices" },
-        // { href: "/events", label: "Events", id: "events" },
+        { href: "/events", label: "Events", id: "events" },
        
       ],
     },
