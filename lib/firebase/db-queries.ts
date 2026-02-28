@@ -137,7 +137,7 @@ export interface BookingData {
   phone: string;
   place: string;
   profession: string;
-  age: number;
+  age?: number;
   answers?: { questionId: string; answer: string }[];
   paymentDetails: {
     status: "pending" | "success" | "failed";

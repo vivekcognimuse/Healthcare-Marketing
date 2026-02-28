@@ -23,12 +23,12 @@ function ShimmerSkeleton() {
   );
 }
 
-export default function EventCard({ event }: { event: Event }) {
+export default function EventCard({ event, basePath = "events" }: { event: Event; basePath?: string }) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <Link
-      href={`/events/${event.id}`}
+      href={`/${basePath}/${event.id}`}
       aria-label={`Open event: ${event.title}`}
       className="block w-full rounded-2xl overflow-hidden transform transition-transform duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >

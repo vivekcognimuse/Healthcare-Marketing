@@ -330,7 +330,7 @@ export default function TestimonialsSection() {
                     </div>
 
                     {/* Desktop Layout: Image Left, Quote Right */}
-                    <div className="hidden md:block flex flex-col flex-1">
+                    <div className="hidden md:flex flex-col flex-1">
                       <motion.div 
                         className="flex gap-4 mb-4 pb-4 border-b border-gray-200 flex-1"
                         initial={{ opacity: 0 }}
