@@ -103,7 +103,7 @@ export default function EventCard({ event, basePath = "events" }: { event: Event
                   </div>
                   <div>
                     <div className="text-sm md:text-base font-semibold text-white leading-snug">
-                      11:00 AM - 12:30 PM IST
+                      4:00 PM - 6:00 PM IST
                     </div>
                     <div className="text-xs md:text-sm text-gray-400 mt-0.5">Sunday</div>
                   </div>

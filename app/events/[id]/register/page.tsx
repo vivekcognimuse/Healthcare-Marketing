@@ -6,24 +6,26 @@ import SinglePageRegistration from "@/components/event-horizon/SinglePageRegistr
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-export default function WebinarRegisterPage() {
+export default function EventRegisterPage() {
   const params = useParams() as Record<string, string> | null;
   const id = (params?.id as string) ?? '';
   const event = events.find((e) => e.id === id);
 
   if (!event) {
-    return <div className="p-12 text-center">Webinar not found</div>;
+    return <div className="p-12 text-center">Event not found</div>;
   }
 
   const seatsLeft = (event.seatLimit ?? event.capacity) - event.attendees;
 
   return (
     <main className="min-h-screen bg-[#FCF4E1]" style={{ paddingTop: "var(--header-height)" }}>
-      <div className="w-full px-4 sm:px-6 lg:px-8 py-12">
-        <Link href={`/webinar/${event.id}`} className="inline-flex items-center gap-2 text-[#155DFC] hover:text-[#0F3B7C] font-semibold mb-8 transition">
-          <ArrowLeft className="w-4 h-4" />
-          Back to Details
-        </Link>
+      <div className="max-w-2xl mx-auto py-6 sm:py-8 w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-left mb-6">
+          <Link href={`/events/${event.id}`} className="inline-flex items-center gap-2 text-[#155DFC] hover:text-[#0F3B7C] font-semibold transition">
+            <ArrowLeft className="w-4 h-4" />
+            Back to Details
+          </Link>
+        </div>
         <SinglePageRegistration
           eventId={event.id}
           eventTitle={event.title}

@@ -3,28 +3,28 @@ import EventsFooter from "@/components/event-horizon/EventsFooter";
 import EventCard from "@/components/EventCard";
 import { events } from "@/data/events";
 
-export default function WebinarsIndex() {
+export default function EventsIndex() {
   return (
     <div className="min-h-screen " style={{ paddingTop: "var(--header-height)" }}>
 
 
-      {/* Hero + Webinars */}
+      {/* Hero + Events */}
       <section className="">
         <div className="container">
           <div className="py-12 pt-8">
-            <h1 className="typography-h1 !font-normal text-black">Webinars with Industry Leaders</h1>
+            <h1 className="typography-h1 !font-normal text-black">Workshops That Inspire Growth</h1>
             <p
               className="typography-h3 !font-medium mt-2"
             >
-              Live interactive sessions with business owners and industry experts to showcase real-world strategies.
+              Expert-led seminars designed to sharpen your skills and expand your perspective.
             </p>
           </div>
 
-          <h2 className="typography-h3 font-bold mb-4">Upcoming Webinars</h2>
+          <h2 className="typography-h3 font-bold mb-4">Upcoming Events</h2>
 
           {events.length > 0 && (
             <div className="mb-8">
-              <EventCard event={events[0]} basePath="webinar" />
+              <EventCard event={events[0]} />
             </div>
           )}
 
@@ -37,3 +37,4 @@ export default function WebinarsIndex() {
     </div>
   );
 }
+

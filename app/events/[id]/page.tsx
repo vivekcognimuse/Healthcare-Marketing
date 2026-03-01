@@ -1,8 +1,7 @@
-'use client';
+﻿'use client';
 
 import EventsFooter from "@/components/event-horizon/EventsFooter";
-import SinglePageRegistration from "@/components/event-horizon/SinglePageRegistration";
-import { CalendarDays, Clock, Video, Users, CheckCircle2, Star, Share2, Copy, Award } from "lucide-react";
+import { CalendarDays, Clock, Video, Users, CheckCircle2, Share2, Copy } from "lucide-react";
 import { events } from "@/data/events";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -41,466 +40,216 @@ export default function EventPage() {
     }
   };
 
-  const scrollToRegistration = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <main className="min-h-screen  pt-16 md:pt-20">
-      {/* Clean Header Section - No Hero Image, Luma Style */}
-      <section className=" border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6">
-          <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
-            <div className="flex-1 w-full">
-              <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-[#EF7438] to-[#EF7438]/80 text-white text-xs font-bold rounded-full uppercase tracking-wide shadow-sm">
-                  <Video className="w-3.5 h-3.5" />
-                  {event.tagline || "LIVE WEBINAR"}
-                </span>
-                
-              </div>
-              <h1 className="typography-h1 !font-normal text-gray-900 leading-tight mb-3">
-                {event.title}
-              </h1>
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
-                <div className="flex items-center gap-1.5">
-                  <CalendarDays className="w-4 h-4 text-[#155DFC] flex-shrink-0" />
-                  <span className="font-medium">{event.date}</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-[#155DFC] flex-shrink-0" />
-                  <span className="font-medium">{event.time}</span>
-                </div>
-              
-              </div>
-            </div>
-            <div className="flex gap-2 sm:gap-3">
-              <button
-                onClick={() => setShowShareModal(true)}
-                className="self-start sm:self-auto flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-white border-2 border-gray-300 hover:border-[#155DFC] text-gray-700 hover:text-[#155DFC] rounded-xl font-medium text-sm transition-all shadow-sm hover:shadow-md touch-manipulation"
-              >
-                <Share2 className="w-4 h-4" />
-                <span className="hidden sm:inline">Share</span>
-              </button>
-              {event.whatsappLink && (
-                <a
-                  href={event.whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="self-start sm:self-auto flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-white border-2 border-gray-300 hover:border-[#25D366] text-gray-700 hover:text-[#25D366] rounded-xl font-medium text-sm transition-all shadow-sm hover:shadow-md touch-manipulation"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                  </svg>
-                  <span className="hidden sm:inline">Join Group</span>
-                </a>
-              )}
-            </div>
-          </div>
+    <main className="min-h-screen bg-[#FCF4E1] pt-16 md:pt-20">
+      {/* PAGE HEADER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="text-center">
+          <h1 className="typography-h1 !font-normal ">
+            {event.title}
+          </h1>
+       
         </div>
       </section>
 
-      {/* MAIN CONTENT - LUMA STYLE: LEFT SIDEBAR + RIGHT REGISTRATION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 pb-24 lg:pb-6">
-        <div className="grid lg:grid-cols-[360px_1fr] gap-5 lg:gap-6">
-          {/* LEFT COLUMN - Event Details Sidebar - Hidden on mobile, registration comes first */}
-          <div className="hidden lg:block space-y-4 order-2 lg:order-1">
-            {/* Event Details Card - Premium Design */}
-            <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 overflow-hidden">
-              {/* Event Image Thumbnail */}
-              {event.imageUrl && (
-                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#155DFC]/10 to-[#EF7438]/10">
-                  <img
-                    src={event.imageUrl}
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                </div>
-              )}
+      {/* HERO SECTION - Premium Clean Layout */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-10">
+        {/* Share Button - Top Right */}
+        <div className="flex justify-end ">
+          <button
+            onClick={() => setShowShareModal(true)}
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border-2 border-gray-300 hover:border-[#155DFC] text-gray-700 hover:text-[#155DFC] rounded-xl font-medium text-sm transition-all shadow-sm hover:shadow-md touch-manipulation"
+          >
+            <Share2 className="w-4 h-4" />
+            <span>Share Event</span>
+          </button>
+        </div>
+
+        {/* Main Grid: Left Hero Card + Right Content */}
+        <div className="grid lg:grid-cols-[420px_1fr] gap-8 lg:gap-12">
+          {/* LEFT COLUMN - STICKY HERO CARD */}
+          <div className="lg:sticky lg:top-24 h-fit order-2 lg:order-1">
+            <div className="relative">
+              {/* Decorative gradient background */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-[#155DFC] via-[#EF7438] to-[#155DFC] rounded-3xl blur opacity-20"></div>
               
-              <div className="p-6 space-y-6">
-                <div>
-                  <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
-                    Event Details
+              {/* Hero Card */}
+              <div className="relative bg-gradient-to-br from-[#0F3B7C] to-[#1B5FD4] rounded-2xl shadow-2xl overflow-hidden">
+                {/* Card Header */}
+                <div className="p-6 space-y-4">
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-sm text-white text-xs font-bold rounded-full uppercase tracking-wide">
+                      <Video className="w-3.5 h-3.5" />
+                      {event.tagline || "LIVE EVENT"}
+                    </span>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                    {event.title}
                   </h2>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-gradient-to-br from-[#155DFC]/5 to-transparent hover:from-[#155DFC]/10 transition-colors">
-                      <div className="w-10 h-10 rounded-lg bg-[#155DFC]/10 flex items-center justify-center flex-shrink-0">
-                        <CalendarDays className="w-5 h-5 text-[#155DFC]" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-600 font-medium uppercase tracking-wide mb-0.5">Date</p>
-                        <p className="text-sm font-bold text-gray-900">{event.date}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-gradient-to-br from-[#EF7438]/5 to-transparent hover:from-[#EF7438]/10 transition-colors">
-                      <div className="w-10 h-10 rounded-lg bg-[#EF7438]/10 flex items-center justify-center flex-shrink-0">
-                        <Clock className="w-5 h-5 text-[#EF7438]" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-600 font-medium uppercase tracking-wide mb-0.5">Time</p>
-                        <p className="text-sm font-bold text-gray-900">{event.time}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-gradient-to-br from-[#155DFC]/5 to-transparent hover:from-[#155DFC]/10 transition-colors">
-                      <div className="w-10 h-10 rounded-lg bg-[#155DFC]/10 flex items-center justify-center flex-shrink-0">
-                        <Video className="w-5 h-5 text-[#155DFC]" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-600 font-medium uppercase tracking-wide mb-0.5">Platform</p>
-                        <p className="text-sm font-bold text-gray-900">{event.Platform}</p>
-                      </div>
-                    </div>
-
-                    <div className={`flex items-start gap-3 p-3 rounded-xl ${seatsLeft <= 10 ? 'bg-gradient-to-br from-[#DC2626]/10 to-transparent' : 'bg-gradient-to-br from-[#155DFC]/5 to-transparent'} transition-colors`}>
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${seatsLeft <= 10 ? 'bg-[#DC2626]/10' : 'bg-[#155DFC]/10'}`}>
-                        <Users className={`w-5 h-5 ${seatsLeft <= 10 ? 'text-[#DC2626]' : 'text-[#155DFC]'}`} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-600 font-medium uppercase tracking-wide mb-0.5">Limited to</p>
-                        <p className={`text-sm font-bold ${seatsLeft <= 10 ? 'text-[#DC2626]' : 'text-gray-900'}`}>
-                          {event.seatLimit ?? event.capacity} seats
-                        </p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
-                <div className="pt-5 border-t border-gray-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-600 font-medium">Event Price</span>
-                    <div className="text-right">
-                      <p className="text-3xl font-bold bg-gradient-to-r from-[#EF7438] to-[#EF7438]/80 bg-clip-text text-transparent">
-                        {event.ticketPrice && event.ticketPrice > 0 ? `₹${event.ticketPrice}` : 'FREE'}
-                      </p>
-                      {event.ticketPrice && event.ticketPrice > 0 && (
-                        <p className="text-xs text-gray-500">One-time payment</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* About Event */}
-            <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 p-6 space-y-4">
-              <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
-                About This Event
-              </h3>
-              <p className="text-sm text-gray-700 leading-relaxed">{event.description}</p>
-            </div>
-
-            {/* What You'll Take away - Compact */}
-            {event.benefits && event.benefits.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                  <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
-                  What You'll Take Away
-                </h3>
-                <ul className="space-y-3">
-                  {event.benefits.slice(0, 5).map((benefit, index) => (
-                    <li key={index} className="flex items-start gap-3 text-sm text-gray-700 group">
-                      <div className="w-5 h-5 rounded-full bg-[#155DFC]/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#155DFC]/20 transition-colors">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#155DFC]" />
-                      </div>
-                      <span className="flex-1">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* Speaker - Compact */}
-            {event.speaker && (
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                  <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
-                  Your Instructor
-                </h3>
-                <div className="flex items-start gap-4">
-                  <div className="relative">
-                    <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-[#EF7438]/20 flex-shrink-0 shadow-md">
-                      <img
-                        src={event.speaker.photoSrc || "/assets/events/profile.png"}
-                        alt={event.speaker.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#155DFC] rounded-full border-2 border-white flex items-center justify-center">
-                      <CheckCircle2 className="w-3 h-3 text-white" />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-gray-900 text-sm">{event.speaker.name}</h4>
-                    <p className="text-xs text-[#EF7438] font-semibold mb-2">{event.speaker.role}</p>
-                    <p className="text-xs text-gray-600 leading-relaxed line-clamp-3">{event.speaker.bio}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Agenda - Compact */}
-            {event.agenda && event.agenda.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                  <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
-                  Agenda
-                </h3>
-                <div className="space-y-3">
-                  {event.agenda.map((item, index) => (
-                    <div key={index} className="flex gap-3 group">
-                      <span className="text-xs font-bold text-[#155DFC] bg-[#155DFC]/10 px-2.5 py-1 rounded-lg flex-shrink-0 h-fit group-hover:bg-[#155DFC]/20 transition-colors">
-                        {item.time}
-                      </span>
-                      <div className="flex-1">
-                        <p className="text-sm font-semibold text-gray-900">{item.title}</p>
-                        {item.desc && <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">{item.desc}</p>}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* RIGHT COLUMN - REGISTRATION FORM - THE STAR OF THE SHOW */}
-          <div className="lg:col-span-1 order-1 lg:order-2">
-            <div className="lg:sticky lg:top-8">
-              <div className="relative">
-                {/* Decorative gradient background */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#155DFC] via-[#EF7438] to-[#155DFC] rounded-2xl blur opacity-20"></div>
-                
-                {/* Main registration card */}
-                <div className="relative bg-white rounded-xl lg:rounded-2xl shadow-2xl border-2 border-gray-100 overflow-hidden">
-                  {/* Premium header with gradient */}
-                  <div className="bg-gradient-to-r from-[#155DFC] to-[#155DFC]/90 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 border-b border-[#155DFC]/20">
-                    <div className="flex items-center justify-between mb-2">
-                      <h2 className="text-xl sm:text-2xl font-bold text-white">Register Now</h2>
-                      {seatsLeft <= 10 && (
-                        <span className="px-2.5 sm:px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full animate-pulse">
-                          {seatsLeft} left
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-white/90 text-xs sm:text-sm">
-                      Secure your spot
-                    </p>
-                  </div>
-
-                  {/* Registration form */}
-                  <div className="p-4 sm:p-6 lg:p-8">
-                    <SinglePageRegistration
-                      eventId={event.id}
-                      eventTitle={event.title}
-                      eventDate={event.date}
-                      eventTime={event.time}
-                      platform={event.Platform}
-                      ticketPrice={event.ticketPrice}
-                      currency={event.currency}
-                      imageUrl={event.imageUrl}
-                      seatsLeft={seatsLeft}
-                      totalSeats={event.seatLimit ?? event.capacity}
-                      meetLink={event.meetLink}
-                      whatsappLink={event.whatsappLink}
+                {/* Event Image */}
+                {event.imageUrl && (
+                  <div className="relative h-48 overflow-hidden bg-gradient-to-br from-white/10 to-white/5">
+                    <img
+                      src={event.imageUrl}
+                      alt={event.title}
+                      className="w-full h-full object-cover"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F3B7C]/55 via-[#0F3B7C]/20 to-transparent"></div>
                   </div>
+                )}
+
+                {/* Card Content */}
+                <div className="p-6 space-y-6">
+                  {/* Date & Time */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                      <CalendarDays className="w-5 h-5 text-white flex-shrink-0" />
+                      <div>
+                        <p className="text-white/70 text-xs font-medium uppercase tracking-wide mb-0.5">Date & Time</p>
+                        <p className="text-white font-bold text-sm">{event.date}</p>
+                        <p className="text-white font-bold text-sm">{event.time}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                      <Video className="w-5 h-5 text-white flex-shrink-0" />
+                      <div>
+                        <p className="text-white/70 text-xs font-medium uppercase tracking-wide mb-0.5">Platform</p>
+                        <p className="text-white font-bold text-sm">{event.Platform}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Instructor - Compact */}
+                  {event.speaker && (
+                    <div className="space-y-3 pt-3 border-t border-white/20">
+                      <p className="text-white/70 text-xs font-medium uppercase tracking-wide">Instructor</p>
+                      <div className="flex items-start gap-3">
+                        <div className="relative flex-shrink-0">
+                          <div className="w-14 h-14 rounded-lg overflow-hidden border-2 border-white/30 shadow-sm">
+                            <img
+                              src={event.speaker.photoSrc || "/assets/events/profile.png"}
+                              alt={event.speaker.name}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>    
+                          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#EF7438] rounded-full border-2 border-[#0F3B7C] flex items-center justify-center">
+                            <CheckCircle2 className="w-3 h-3 text-white" />
+                          </div>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-bold text-white text-sm">{event.speaker.name}</h4>
+                          <p className="text-white/80 text-xs">{event.speaker.role}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Price Section */}
+                  <div className="pt-3 border-t border-white/20 space-y-3">
+                    <p className="text-white/70 text-xs font-medium uppercase tracking-wide">Price</p>
+                    <div className="flex items-baseline justify-between">
+                      <p className="text-4xl font-bold text-white">
+                        {event.ticketPrice && event.ticketPrice > 0 ? `₹${event.ticketPrice}` : 'FREE'}
+                      </p>
+                   
+                    </div>
+                  </div>
+
+                  {/* Seats Left Alert - Compact */}
+                  {seatsLeft <= 10 && (
+                    <div className="p-3 rounded-lg bg-[#EF7438]/20 border border-[#EF7438]/30">
+                      <p className="text-[#EF7438] text-xs font-bold">Only {seatsLeft} seats left!</p>
+                    </div>
+                  )}
+
+                  {/* CTA Button */}
+                  <Link
+                    href={`/events/${event.id}/register`}
+                    className="block w-full"
+                  >
+                    <button className="w-full bg-gradient-to-r from-[#EF7438] to-[#FF6B35] hover:from-[#FF6B35] hover:to-[#EF7438] text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl active:scale-95 touch-manipulation text-lg">
+                      Register Now
+                      <span className="ml-2">→</span>
+                    </button>
+                  </Link>
+
+                  {/* WhatsApp Link */}
+                  {event.whatsappLink && (
+                    <a
+                      href={event.whatsappLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full"
+                    >
+                      <button className="w-full bg-white/10 hover:bg-white/20 border border-white/30 text-white font-medium text-sm leading-none py-3 px-6 rounded-xl transition-all touch-manipulation flex items-center justify-center gap-2">
+                        <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                        </svg>
+                        Join WhatsApp Community
+                      </button>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Event Details for Mobile - Show after form */}
-          <div className="lg:hidden space-y-5 order-3">
-            {/* Event Details Card - Premium Design */}
-            <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 overflow-hidden">
-              {/* Event Image Thumbnail */}
-              {event.imageUrl && (
-                <div className="relative h-40 sm:h-48 overflow-hidden bg-gradient-to-br from-[#155DFC]/10 to-[#EF7438]/10">
-                  <img
-                    src={event.imageUrl}
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-                </div>
-              )}
-              
-              <div className="p-5 sm:p-6 space-y-5 sm:space-y-6">
-                <div>
-                  <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
-                    Event Details
-                  </h2>
-                  
-                  <div className="space-y-3 sm:space-y-4">
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-gradient-to-br from-[#155DFC]/5 to-transparent hover:from-[#155DFC]/10 transition-colors">
-                      <div className="w-10 h-10 rounded-lg bg-[#155DFC]/10 flex items-center justify-center flex-shrink-0">
-                        <CalendarDays className="w-5 h-5 text-[#155DFC]" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-600 font-medium uppercase tracking-wide mb-0.5">Date</p>
-                        <p className="text-sm font-bold text-gray-900">{event.date}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-gradient-to-br from-[#EF7438]/5 to-transparent hover:from-[#EF7438]/10 transition-colors">
-                      <div className="w-10 h-10 rounded-lg bg-[#EF7438]/10 flex items-center justify-center flex-shrink-0">
-                        <Clock className="w-5 h-5 text-[#EF7438]" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-600 font-medium uppercase tracking-wide mb-0.5">Time</p>
-                        <p className="text-sm font-bold text-gray-900">{event.time}</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 rounded-xl bg-gradient-to-br from-[#155DFC]/5 to-transparent hover:from-[#155DFC]/10 transition-colors">
-                      <div className="w-10 h-10 rounded-lg bg-[#155DFC]/10 flex items-center justify-center flex-shrink-0">
-                        <Video className="w-5 h-5 text-[#155DFC]" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-600 font-medium uppercase tracking-wide mb-0.5">Platform</p>
-                        <p className="text-sm font-bold text-gray-900">{event.Platform}</p>
-                      </div>
-                    </div>
-
-                    <div className={`flex items-start gap-3 p-3 rounded-xl ${seatsLeft <= 10 ? 'bg-gradient-to-br from-[#DC2626]/10 to-transparent' : 'bg-gradient-to-br from-[#155DFC]/5 to-transparent'} transition-colors`}>
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${seatsLeft <= 10 ? 'bg-[#DC2626]/10' : 'bg-[#155DFC]/10'}`}>
-                        <Users className={`w-5 h-5 ${seatsLeft <= 10 ? 'text-[#DC2626]' : 'text-[#155DFC]'}`} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-600 font-medium uppercase tracking-wide mb-0.5">Limited to</p>
-                        <p className={`text-sm font-bold ${seatsLeft <= 10 ? 'text-[#DC2626]' : 'text-gray-900'}`}>
-                          {event.seatLimit ?? event.capacity} seats
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-5 border-t border-gray-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-600 font-medium">Event Price</span>
-                    <div className="text-right">
-                      <p className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#EF7438] to-[#EF7438]/80 bg-clip-text text-transparent">
-                        {event.ticketPrice && event.ticketPrice > 0 ? `₹${event.ticketPrice}` : 'FREE'}
-                      </p>
-                      {event.ticketPrice && event.ticketPrice > 0 && (
-                        <p className="text-xs text-gray-500">One-time payment</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* About Event */}
-            <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 p-5 sm:p-6 space-y-4">
-              <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
+          {/* RIGHT COLUMN - CONTENT */}
+          <div className="space-y-8 order-1 lg:order-2">
+            {/* About Section */}
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                <div className="w-1 h-6 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
                 About This Event
-              </h3>
-              <p className="text-sm text-gray-700 leading-relaxed">{event.description}</p>
+              </h2>
+              <p className="text-gray-700 leading-relaxed text-lg">{event.description}</p>
             </div>
 
-            {/* What You'll Learn - Compact */}
+            {/* Benefits Section */}
             {event.benefits && event.benefits.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 p-5 sm:p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                  <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
-                  What You'll Learn
-                </h3>
-                <ul className="space-y-3">
-                  {event.benefits.slice(0, 5).map((benefit, index) => (
-                    <li key={index} className="flex items-start gap-3 text-sm text-gray-700 group">
-                      <div className="w-5 h-5 rounded-full bg-[#155DFC]/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-[#155DFC]/20 transition-colors">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#155DFC]" />
-                      </div>
-                      <span className="flex-1">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* Speaker - Compact */}
-            {event.speaker && (
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 p-5 sm:p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                  <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
-                  Your Instructor
-                </h3>
-                <div className="flex items-start gap-4">
-                  <div className="relative">
-                    <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-[#EF7438]/20 flex-shrink-0 shadow-md">
-                      <img
-                        src={event.speaker.photoSrc || "/assets/events/profile.png"}
-                        alt={event.speaker.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-[#155DFC] rounded-full border-2 border-white flex items-center justify-center">
-                      <CheckCircle2 className="w-3 h-3 text-white" />
-                    </div>
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-bold text-gray-900 text-sm">{event.speaker.name}</h4>
-                    <p className="text-xs text-[#EF7438] font-semibold mb-2">{event.speaker.role}</p>
-                    <p className="text-xs text-gray-600 leading-relaxed line-clamp-3">{event.speaker.bio}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Agenda - Compact */}
-            {event.agenda && event.agenda.length > 0 && (
-              <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100 p-5 sm:p-6 space-y-4">
-                <h3 className="text-base font-bold text-gray-900 flex items-center gap-2">
-                  <div className="w-1 h-5 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
-                  Agenda
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                  <div className="w-1 h-6 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
+                  What You'll Get
                 </h3>
                 <div className="space-y-3">
+                  {event.benefits.slice(0, 6).map((benefit, index) => (
+                    <div key={index} className="flex items-start gap-4 p-4 rounded-xl bg-white hover:shadow-md transition-shadow border border-gray-100">
+                      <div className="w-6 h-6 rounded-full bg-[#155DFC] flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <CheckCircle2 className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-gray-700 font-medium">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Agenda Section */}
+            {event.agenda && event.agenda.length > 0 && (
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                  <div className="w-1 h-6 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
+                  Agenda
+                </h3>
+                <div className="space-y-3 bg-white rounded-xl p-6 border border-gray-100">
                   {event.agenda.map((item, index) => (
-                    <div key={index} className="flex gap-3 group">
-                      <span className="text-xs font-bold text-[#155DFC] bg-[#155DFC]/10 px-2.5 py-1 rounded-lg flex-shrink-0 h-fit group-hover:bg-[#155DFC]/20 transition-colors">
+                    <div key={index} className="flex gap-4 pb-4 last:pb-0 last:border-0 border-b border-gray-100">
+                      <span className="text-sm font-bold text-[#155DFC] bg-[#155DFC]/10 px-3 py-1 rounded-lg flex-shrink-0 h-fit">
                         {item.time}
                       </span>
                       <div className="flex-1">
-                        <p className="text-sm font-semibold text-gray-900">{item.title}</p>
-                        {item.desc && <p className="text-xs text-gray-600 mt-0.5 leading-relaxed">{item.desc}</p>}
+                        <p className="font-semibold text-gray-900">{item.title}</p>
+                        {item.desc && <p className="text-sm text-gray-600 mt-1">{item.desc}</p>}
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* More Events CTA Section */}
-      <section className="py-8 sm:py-12 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-6">
-            <div className="flex-1">
-              <p className="text-base sm:text-lg text-gray-700 font-medium">
-                You may be interested in...
-              </p>
-            </div>
-            <div className="flex-shrink-0">
-                <Link
-                href="/events"
-                className="inline-flex items-center gap-2 text-[#155DFC] hover:text-[#155DFC]/80 font-semibold text-sm sm:text-base transition-colors"
-                >
-                View all events
-                <span className="text-lg">→</span>
-                </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -551,7 +300,7 @@ export default function EventPage() {
               >
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#1DA1F2]/10 group-hover:bg-[#1DA1F2]/20 flex items-center justify-center transition-colors">
                   <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="#1DA1F2" viewBox="0 0 24 24">
-                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417a9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
                   </svg>
                 </div>
                 <span className="text-xs sm:text-sm font-semibold text-gray-700 group-hover:text-[#1DA1F2] transition-colors">Twitter</span>
@@ -575,27 +324,6 @@ export default function EventPage() {
           </div>
         </div>
       )}
-
-      {/* Mobile Sticky Bottom Bar - Premium */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-200 shadow-2xl z-50 safe-area-inset-bottom">
-        <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4">
-          <div className="flex items-center justify-between gap-3 sm:gap-4">
-            <div className="flex-shrink-0 min-w-0">
-              <p className="text-xs text-gray-600 font-medium mb-0.5 truncate">Event Price</p>
-              <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#EF7438] to-[#EF7438]/80 bg-clip-text text-transparent">
-                {event.ticketPrice && event.ticketPrice > 0 ? `₹${event.ticketPrice}` : 'FREE'}
-              </p>
-            </div>
-            <button
-              onClick={scrollToRegistration}
-              className="flex-1 max-w-[200px] sm:max-w-xs bg-gradient-to-r from-[#155DFC] to-[#155DFC]/90 hover:from-[#155DFC]/90 hover:to-[#155DFC] text-white font-bold py-3 sm:py-4 px-4 sm:px-6 rounded-xl transition-all shadow-lg hover:shadow-xl active:scale-95 touch-manipulation text-sm sm:text-base"
-            >
-              {seatsLeft <= 10 && <span className="text-xs block mb-0.5">🔥 {seatsLeft} left!</span>}
-              Register Now
-            </button>
-          </div>
-        </div>
-      </div>
 
       <EventsFooter />
     </main>
