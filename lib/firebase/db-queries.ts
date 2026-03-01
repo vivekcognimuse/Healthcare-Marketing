@@ -137,6 +137,13 @@ export interface BookingData {
   phone: string;
   place: string;
   profession: string;
+  specialization?: string;
+  course?: string;
+  year?: string;
+  otherProfession?: string;
+  referrer?: string;
+  platformSeen?: string;
+  otherPlatform?: string;
   age?: number;
   answers?: { questionId: string; answer: string }[];
   paymentDetails: {
@@ -210,12 +217,25 @@ export const getAllBookings = async () => {
 
 export const updateBookingPayment = async (
   bookingId: string,
-  paymentDetails: BookingData["paymentDetails"]
+  paymentDetails: Partial<BookingData["paymentDetails"]>
 ) => {
   try {
     const docRef = doc(db, "bookings", bookingId);
+    
+    // Get existing payment details to preserve amount and currency
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      throw new Error("Booking not found");
+    }
+    
+    const existingData = docSnap.data() as BookingData;
+    const mergedPaymentDetails = {
+      ...existingData.paymentDetails,
+      ...paymentDetails,
+    };
+    
     await updateDoc(docRef, {
-      paymentDetails,
+      paymentDetails: mergedPaymentDetails,
       paymentTimestamp: new Date().toISOString(),
     });
     return { success: true };

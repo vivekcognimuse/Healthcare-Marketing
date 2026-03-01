@@ -239,36 +239,43 @@ export default function SinglePageRegistration({
         description: eventTitle,
         order_id: orderData.orderId,
         handler: async function (response: any) {
-          try {
-            const verifyResponse = await fetch('/api/payments/verify', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-                bookingId,
-                eventId
-              })
-            });
+          // Show success modal immediately for instant user feedback
+          setRegistrationComplete(true);
 
-            if (!verifyResponse.ok) throw new Error('Payment verification failed');
+          // Handle verification and database update in background
+          (async () => {
+            try {
+              const verifyResponse = await fetch('/api/payments/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                  bookingId,
+                  eventId
+                })
+              });
 
-            // Show success modal immediately after verification
-            setRegistrationComplete(true);
+              if (!verifyResponse.ok) {
+                console.error('Payment verification failed');
+                // Don't alert here as user already sees success - log for admin review
+                return;
+              }
 
-            // Update database in background (don't await)
-            updateBookingPayment(bookingId, {
-              status: 'success',
-              razorpayOrderId: response.razorpay_order_id,
-              razorpayPaymentId: response.razorpay_payment_id
-            }).catch(error => {
-              console.error('Failed to update booking payment in background:', error);
-            });
-          } catch (error) {
-            console.error('Payment verification error:', error);
-            alert('Payment verification failed. Please contact support.');
-          }
+              // Update database with payment details
+              await updateBookingPayment(bookingId, {
+                status: 'success',
+                amount: amountInPaise / 100,
+                currency: currency,
+                razorpayOrderId: response.razorpay_order_id,
+                razorpayPaymentId: response.razorpay_payment_id
+              });
+            } catch (error) {
+              console.error('Background payment processing error:', error);
+              // Error is logged but user already sees success
+            }
+          })();
         },
         prefill: {
           name: formData.name,
@@ -309,6 +316,13 @@ export default function SinglePageRegistration({
         phone: formData.phone,
         place: formData.location,
         profession: formData.profession,
+        ...(formData.specialization && { specialization: formData.specialization }),
+        ...(formData.course && { course: formData.course }),
+        ...(formData.year && { year: formData.year }),
+        ...(formData.otherProfession && { otherProfession: formData.otherProfession }),
+        ...(formData.referrer && { referrer: formData.referrer }),
+        ...(formData.platformSeen && { platformSeen: formData.platformSeen }),
+        ...(formData.otherPlatform && { otherPlatform: formData.otherPlatform }),
         paymentDetails: {
           status: (ticketPrice > 0 ? 'pending' : 'success') as 'pending' | 'success' | 'failed',
           amount: ticketPrice || 0,
