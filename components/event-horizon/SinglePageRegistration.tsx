@@ -396,7 +396,7 @@ END:VCALENDAR`;
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-[#1E1E1E] mb-2">You're Registered!</h2>
           <p className="text-sm sm:text-base text-gray-600">
-            Check your email for confirmation and event details.
+            We'll notify you on WhatsApp before the event starts.
           </p>
         </div>
 
@@ -432,11 +432,6 @@ END:VCALENDAR`;
           </div>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
-          <p className="text-xs text-blue-800 font-medium">
-            <span className="font-bold">💬 Notification:</span> We'll notify you on WhatsApp before the event starts.
-          </p>
-        </div>
 
         <div className="space-y-2">
           <button

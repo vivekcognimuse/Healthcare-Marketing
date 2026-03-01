@@ -39,16 +39,16 @@ export const events: Event[] = [
     tags: ["Occupational Therapy", "Communication", "Professional Development"],
     imageUrl: "/assets/CogniMuse.webp",
     cardImageUrl: "/assets/events/explain-ot-card.webp",
-    ticketPrice: 250,
+    ticketPrice: 1,
     currency: "INR",
     meetLink: "https://meet.google.com/zdf-dxqs-uwd",
     whatsappLink: "https://chat.whatsapp.com/DclOT4IDRKl50nQjI9Jyv7?mode=gi_t",
     speaker: {
       name: "Dr. Shovan Saha",
-      role: "Educationalist | Clinician | Researcher | Entrepreneur",
-      affiliation: "Additional Professor, Manipal College of Health Professions",
+      role: "Additional Professor, Occupational Therapy",
+      affiliation: "Manipal College of Health Professions",
       bio:
-        "Dr. Shovan Saha is a pioneering figure in Occupational Therapy with 25+ years of experience. He has dedicated his career to bridging the gap between complex medical rehabilitation and practical daily living. Known for his innovative low-cost assistive devices and his 'healing touch' approach, Dr. Saha combines science with empathy. He is the founder of the Sunday & Shovan Academic Series, dedicated to empowering OT professionals.",
+        "Dr. Shovan Saha is a highly respected leader in the world of Occupational Therapy with over 25 years of experience. As an Associate Professor at Manipal Academy of Higher Education, he has spent his career balancing teaching with hands-on patient care. Dr. Saha is known for his 'healing touch' and his ability to create simple, low cost tools that help people return to their daily roles.",
       photoSrc: "/assets/events/profile.png",
     },
     takeaways: [

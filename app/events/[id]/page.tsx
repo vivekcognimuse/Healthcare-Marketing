@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import EventsFooter from "@/components/event-horizon/EventsFooter";
-import { CalendarDays, Clock, Video, Users, CheckCircle2, Share2, Copy } from "lucide-react";
+import { CalendarDays, Clock, Video, Users, CheckCircle2, Share2, Copy, Tag } from "lucide-react";
 import { events } from "@/data/events";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -54,8 +54,14 @@ export default function EventPage() {
 
       {/* HERO SECTION - Premium Clean Layout */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-10">
-        {/* Share Button - Top Right */}
-        <div className="flex justify-end ">
+        {/* Share Button + Register CTA - Top Right */}
+        <div className="flex justify-end gap-3 mb-6">
+          <Link
+            href={`/events/${event.id}/register`}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#EF7438] to-[#FF6B35] hover:from-[#FF6B35] hover:to-[#EF7438] text-white px-4 py-2.5 rounded-full font-medium text-sm transition-all shadow-md hover:shadow-lg touch-manipulation"
+          >
+            Register Now
+          </Link>
           <button
             onClick={() => setShowShareModal(true)}
             className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border-2 border-gray-300 hover:border-[#155DFC] text-gray-700 hover:text-[#155DFC] rounded-xl font-medium text-sm transition-all shadow-sm hover:shadow-md touch-manipulation"
@@ -113,11 +119,23 @@ export default function EventPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-white/10 backdrop-blur-sm">
-                      <Video className="w-5 h-5 text-white flex-shrink-0" />
-                      <div>
-                        <p className="text-white/70 text-xs font-medium uppercase tracking-wide mb-0.5">Platform</p>
-                        <p className="text-white font-bold text-sm">{event.Platform}</p>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                        <Video className="w-5 h-5 text-white flex-shrink-0" />
+                        <div>
+                          <p className="text-white/70 text-xs font-medium uppercase tracking-wide mb-0.5">Platform</p>
+                          <p className="text-white font-bold text-sm">{event.Platform}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3 p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                        <Tag className="w-5 h-5 text-white flex-shrink-0" />
+                        <div>
+                          <p className="text-white/70 text-xs font-medium uppercase tracking-wide mb-0.5">Price</p>
+                          <p className="text-white font-bold text-sm">
+                            {event.ticketPrice && event.ticketPrice > 0 ? `₹${event.ticketPrice}` : 'FREE'}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -142,21 +160,11 @@ export default function EventPage() {
                         <div className="flex-1 min-w-0">
                           <h4 className="font-bold text-white text-sm">{event.speaker.name}</h4>
                           <p className="text-white/80 text-xs">{event.speaker.role}</p>
+                          <p className="text-white/80 text-xs">{event.speaker.affiliation}</p>
                         </div>
                       </div>
                     </div>
                   )}
-
-                  {/* Price Section */}
-                  <div className="pt-3 border-t border-white/20 space-y-3">
-                    <p className="text-white/70 text-xs font-medium uppercase tracking-wide">Price</p>
-                    <div className="flex items-baseline justify-between">
-                      <p className="text-4xl font-bold text-white">
-                        {event.ticketPrice && event.ticketPrice > 0 ? `₹${event.ticketPrice}` : 'FREE'}
-                      </p>
-                   
-                    </div>
-                  </div>
 
                   {/* Seats Left Alert - Compact */}
                   {seatsLeft <= 10 && (
@@ -250,6 +258,47 @@ export default function EventPage() {
                 </div>
               </div>
             )}
+
+            {/* Speaker Section */}
+            {event.speaker && (
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                  <div className="w-1 h-6 bg-gradient-to-b from-[#155DFC] to-[#EF7438] rounded-full"></div>
+                  About The Speaker
+                </h3>
+                <div className="bg-white rounded-xl p-6 border border-gray-100">
+                  <div className="space-y-6">
+                    {/* Speaker Image and Basic Info */}
+                    <div className="flex gap-6 items-start">
+                      <div className="relative flex-shrink-0">
+                        <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden border-3 border-[#155DFC]/20 shadow-lg">
+                          <img
+                            src={event.speaker.photoSrc || "/assets/events/profile.png"}
+                            alt={event.speaker.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                     
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-xl sm:text-2xl text-gray-900 mb-1">{event.speaker.name}</h4>
+                        <p className="text-base font-normal  mb-2">{event.speaker.role}</p>
+                        {event.speaker.affiliation && (
+                          <p className="text-sm text-gray-600">{event.speaker.affiliation}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Speaker Bio */}
+                    {event.speaker.bio && (
+                      <div className="pt-4 border-t border-gray-100">
+                        <p className="text-gray-700 leading-relaxed text-base">{event.speaker.bio}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -317,7 +366,7 @@ export default function EventPage() {
             </div>
             <button
               onClick={() => setShowShareModal(false)}
-              className="mt-6 sm:mt-8 w-full bg-gradient-to-r from-gray-100 to-gray-50 hover:from-gray-200 hover:to-gray-100 text-gray-700 font-semibold py-3 sm:py-3.5 rounded-xl transition-all hover:shadow-md touch-manipulation"
+              className="mt-6 sm:mt-8 w-full bg-gradient-to-r from-gray-100 to-gray-50 hover:from-gray-200 hover:to-gray-100 text-gray-700 font-semibold py-3 sm:py-3.5 rounded-full transition-all hover:shadow-md touch-manipulation"
             >
               Close
             </button>
