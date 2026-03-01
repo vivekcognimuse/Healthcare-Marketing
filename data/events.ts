@@ -39,7 +39,7 @@ export const events: Event[] = [
     tags: ["Occupational Therapy", "Communication", "Professional Development"],
     imageUrl: "/assets/CogniMuse.webp",
     cardImageUrl: "/assets/events/explain-ot-card.webp",
-    ticketPrice: 1,
+    ticketPrice: 249,
     currency: "INR",
     meetLink: "https://meet.google.com/zdf-dxqs-uwd",
     whatsappLink: "https://chat.whatsapp.com/DclOT4IDRKl50nQjI9Jyv7?mode=gi_t",
